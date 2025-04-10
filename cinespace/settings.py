@@ -20,7 +20,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', '-Nn<{P|;3dz&U_)Jh##9%l=SsO[[}Bjo.Ir}|?}#`x
 DEBUG = ENVIRONMENT == 'development'
 
 # Hosts permitidos
-ALLOWED_HOSTS = ['*'] if DEBUG else ['seudominio.com']  # ajuste para o domínio do Render se quiser
+ALLOWED_HOSTS = ['*'] if DEBUG else [os.environ.get('RENDER_EXTERNAL_HOSTNAME', 'cinespace-f4v3.onrender.com')]
 
 # Aplicativos instalados
 INSTALLED_APPS = [
@@ -171,8 +171,7 @@ LOGGING = {
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-import os
-
+# Executar superusuário automaticamente no deploy se ativado
 if os.environ.get('RUN_CREATE_SUPERUSER') == 'True':
     try:
         exec(open(os.path.join(BASE_DIR, 'create_superuser.py')).read())

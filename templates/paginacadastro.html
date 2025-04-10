@@ -1,0 +1,201 @@
+        <!DOCTYPE html>
+        <html lang="pt-BR">
+
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Cadastro - CineSpace</title>
+            {% load static %}
+            <link rel="stylesheet" href="{% static 'css/cadastro/loginecadastro.css' %}">
+            <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+            <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+        </head>
+
+        <body>
+            <div class="bannerfundo">
+                <img src="{% static 'imagens/fundos/bannercadastro.png' %}" alt="Imagem de Fundo">
+            </div>
+            <header>
+                <div class="back-button">
+                    <a href="{% url 'index' %}" class="botao-voltar">Voltar</a>
+                </div>
+            </header>
+            <div class="overlay"></div> <!-- Camada para escurecer o banner -->
+            <div class="login-container etapa1">
+                <h2>CINESPACE</h2>
+                <p>Crie sua conta para aproveitar o melhor site de streaming</p>
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li class="{{ message.tags }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <form method="post" action="{% url 'paginacadastro' %}" class="login-form">
+                    {% csrf_token %}
+                    <input type="text" placeholder="Digite seu Nome de Usuário" name="nome_usuario" required>
+                    <input type="email" placeholder="Digite seu Email" name="email" required>
+                    
+                    <div class="password-container">
+                        <input type="password" placeholder="Crie uma Senha" name="password1" id="password1" required>
+                        <i class="fas fa-eye" id="togglePassword1"></i>
+                    </div>
+                    
+                    <div class="password-container">
+                        <input type="password" placeholder="Repita a Senha" name="password2" id="password2" required>
+                        <i class="fas fa-eye" id="togglePassword2"></i>
+                    </div>
+                    
+                    <div id="password-feedback" class="password-feedback"></div> <!-- Mensagem dinâmica -->
+                    <button type="submit" class="botao-entrar">Próximo</button>
+                </form>
+                <p class="signup-text">Já tem uma conta? <a href="{% url 'paginalogin' %}">Entrar</a></p>
+            </div>
+                
+                <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const togglePassword1 = document.querySelector('#togglePassword1');
+        const togglePassword2 = document.querySelector('#togglePassword2');
+        const password1 = document.querySelector('#password1');
+        const password2 = document.querySelector('#password2');
+
+        function togglePasswordVisibility(input, icon) {
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        togglePassword1.addEventListener('click', function() {
+            togglePasswordVisibility(password1, togglePassword1);
+        });
+
+        togglePassword2.addEventListener('click', function() {
+            togglePasswordVisibility(password2, togglePassword2);
+        });
+    });
+</script>
+                <script>
+                    document.getElementById('password1').addEventListener('input', function () {
+                        const password = this.value;
+                        const feedback = document.getElementById('password-feedback');
+                
+                        // Limpa a mensagem se o campo estiver vazio
+                        if (password.length === 0) {
+                            feedback.textContent = '';
+                            feedback.classList.remove('valid');
+                            return; // Sai da função
+                        }
+                
+                        // Verifica os requisitos da senha
+                        const requirements = {
+                            length: password.length >= 8,
+                            uppercase: /[A-Z]/.test(password),
+                            lowercase: /[a-z]/.test(password),
+                            number: /[0-9]/.test(password),
+                            special: /[!@#$%^&*(),.?":{}|<>]/.test(password),
+                        };
+                
+                        // Verifica o que falta na senha
+                        let missing = [];
+                        if (!requirements.length) missing.push("pelo menos 8 caracteres");
+                        if (!requirements.uppercase) missing.push("uma letra maiúscula");
+                        if (!requirements.lowercase) missing.push("uma letra minúscula");
+                        if (!requirements.number) missing.push("um número");
+                        if (!requirements.special) missing.push("um caractere especial");
+                
+                        // Exibe a mensagem dinâmica
+                        if (missing.length > 0) {
+                            feedback.textContent = `Falta: ${missing.join(', ')}.`;
+                            feedback.classList.remove('valid');
+                        } else {
+                            feedback.textContent = 'Senha válida!';
+                            feedback.classList.add('valid');
+                        }
+                    });
+                
+                    // Verificação de senhas e requisitos
+                    document.querySelector('.login-form').addEventListener('submit', function (event) {
+                        const senha1 = document.querySelector('input[name="password1"]').value;
+                        const senha2 = document.querySelector('input[name="password2"]').value;
+                
+                        // Verifica se as senhas coincidem
+                        if (senha1 !== senha2) {
+                            event.preventDefault();
+                            const feedback = document.getElementById('password-feedback');
+                            feedback.textContent = 'As senhas não coincidem.';
+                            feedback.classList.remove('valid');
+                            return;
+                        }
+                
+                        // Verifica os requisitos da senha
+                        const requirements = {
+                            length: senha1.length >= 8,
+                            uppercase: /[A-Z]/.test(senha1),
+                            lowercase: /[a-z]/.test(senha1),
+                            number: /[0-9]/.test(senha1),
+                            special: /[!@#$%^&*(),.?":{}|<>]/.test(senha1),
+                        };
+                
+                        // Verifica o que falta na senha
+                        let missing = [];
+                        if (!requirements.length) missing.push("pelo menos 8 caracteres");
+                        if (!requirements.uppercase) missing.push("uma letra maiúscula");
+                        if (!requirements.lowercase) missing.push("uma letra minúscula");
+                        if (!requirements.number) missing.push("um número");
+                        if (!requirements.special) missing.push("um caractere especial");
+                
+                        // Se faltar algum requisito, bloqueia o envio
+                        if (missing.length > 0) {
+                            event.preventDefault();
+                            const feedback = document.getElementById('password-feedback');
+                            feedback.textContent = `Falta: ${missing.join(', ')}.`;
+                            feedback.classList.remove('valid');
+                        }
+                    });
+                
+                    // Verificação de email via AJAX
+                    document.querySelector('input[name="email"]').addEventListener('blur', function () {
+                        const email = this.value;
+                        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                
+                        if (!email) {
+                            return; // Sai da função se o email estiver vazio
+                        }
+                
+                        fetch('{% url "verificar_email" %}', {
+                            method: 'POST',
+                            body: JSON.stringify({ email: email }),
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': csrfToken,
+                            },
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Erro na requisição.');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (!data.valid) {
+                                const feedback = document.getElementById('password-feedback');
+                                feedback.textContent = data.message; // Exibe a mensagem de erro no mesmo local
+                                feedback.classList.remove('valid');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Erro ao verificar o email:', error);
+                        });
+                    });
+                </script>
+            <script src="{% static 'javascripts/bloquearmouse.js' %}"></script>
+        </body>
+
+        </html>

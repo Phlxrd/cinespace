@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escolher Plano - CineSpace</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/cadastro/etapa2.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="bannerfundo">
+        <img src="{% static 'imagens/fundos/banneretapa2.png' %}" alt="Imagem de Fundo">
+    </div>
+    <header>
+        <div class="back-button">
+            <a href="{% url 'paginacadastro' %}" class="botao-voltar">Voltar</a>
+        </div>
+    </header>
+    <div class="overlay"></div>
+
+    <div class="login-container etapa2">
+        <h2>Escolha o melhor plano para você</h2>
+        <p>PASSO 2 DE 3</p>
+        <form method="post" action="{% url 'etapa2_cadastro' %}" class="login-form">
+            {% csrf_token %}
+            <input type="hidden" name="nome_usuario" value="{{ nome_usuario }}">
+            <input type="hidden" name="email" value="{{ email }}">
+            <input type="hidden" name="password1" value="{{ password1 }}">
+            <input type="hidden" name="tipo_plano" id="tipo-plano" value="mensal">
+
+            <div class="plano-selector">
+                <button type="button" class="selected" onclick="selecionarPlano('mensal')">Mensal</button>
+                <button type="button" onclick="selecionarPlano('anual')">Anual</button>
+            </div>
+
+            <div class="planos-container">
+                <!-- Plano Lunar -->
+                <label>
+                    <input type="radio" name="plano" value="lunar" required>
+                    <div class="plano-card">
+                        <h3>Lunar</h3>
+                        <div class="price">
+                            <span id="lunar-price">R$ 20</span><small>/mês</small>
+                            <div id="lunar-parcelas" class="parcelas" style="display: none;">12x de R$ 15</div>
+                        </div>
+                        <ul>
+                            <li> Experiência em FullHD (1080p)</li>
+                            <li> Acesso em 2 Dispositivos Simultâneos</li>
+                            <li> Sem anúncios</li>
+                            <li> Cancelamento fácil</li>
+                            <li> Downloads Limitados para assistir offline</li>
+                            <li> Criar até 3 Perfis</li>
+                            <li> Space Music com Anuncios</li>
+                        </ul>
+                    </div>
+                </label>
+
+                <!-- Plano Supernova -->
+                <label>
+                    <input type="radio" name="plano" value="supernova" required>
+                    <div class="plano-card destaque">
+                        <h3>Supernova</h3>
+                        <div class="price">
+                            <span id="supernova-price">R$ 35</span><small>/mês</small>
+                            <div id="supernova-parcelas" class="parcelas" style="display: none;">12x de R$ 26,25</div>
+                        </div>
+                        <ul>
+                            <li> Experiência em 4K (2160p)</li>
+                            <li> Acesso em 4 Dispositivos Simultâneos</li>
+                            <li> Space Music</li>
+                            <li> Cine Space SPORT</li>
+                            <li> Criar até 4 Perfis</li>
+                            <li> Filmes e séries exclusivos</li>
+                            <li> Downloads ilimitados para assistir offline</li>
+                        </ul>
+                    </div>
+                </label>
+
+                <!-- Plano Multiverso -->
+                <label>
+                    <input type="radio" name="plano" value="multiverso" required>
+                    <div class="plano-card">
+                        <h3>Multiverso</h3>
+                        <div class="price">
+                            <span id="multiverso-price">R$ 50</span><small>/mês</small>
+                            <div id="multiverso-parcelas" class="parcelas" style="display: none;">12x de R$ 37,50</div>
+                        </div>
+                        <ul>
+                            <li> Experiência em 4K (2160p)</li>
+                            <li> Acesso em 6 Dispositivos Simultâneos</li>
+                            <li> Space Music</li>
+                            <li> Cine Space SPORT</li>
+                            <li> Cancelamento fácil</li>
+                            <li> Controle parental</li>
+                            <li> Área kids exclusiva</li>
+                        </ul>
+                    </div>
+                </label>
+            </div>
+            <button type="submit" class="botao-entrar">Próximo</button>
+        </form>
+    </div>
+
+    <script>
+        function selecionarPlano(tipo) {
+            const buttons = document.querySelectorAll('.plano-selector button');
+            buttons.forEach(button => {
+                button.classList.remove('selected');
+            });
+
+            const selectedButton = document.querySelector(`.plano-selector button[onclick="selecionarPlano('${tipo}')"]`);
+            selectedButton.classList.add('selected');
+
+            // Atualiza o campo oculto com o tipo de plano selecionado
+            document.getElementById('tipo-plano').value = tipo;
+
+            // Preços mensais
+            const precoLunarMensal = 20;
+            const precoSupernovaMensal = 35;
+            const precoMultiversoMensal = 50;
+
+            // Atualiza os preços com base na seleção
+            if (tipo === 'mensal') {
+                document.getElementById('lunar-price').textContent = `R$ ${precoLunarMensal}`;
+                document.getElementById('supernova-price').textContent = `R$ ${precoSupernovaMensal}`;
+                document.getElementById('multiverso-price').textContent = `R$ ${precoMultiversoMensal}`;
+
+                // Oculta as parcelas
+                document.querySelectorAll('.parcelas').forEach(parcela => {
+                    parcela.style.display = 'none';
+                });
+            } else if (tipo === 'anual') {
+                // Aplica 25% de desconto nos preços anuais
+                const precoLunarAnual = (precoLunarMensal * 0.75).toFixed(2);
+                const precoSupernovaAnual = (precoSupernovaMensal * 0.75).toFixed(2);
+                const precoMultiversoAnual = (precoMultiversoMensal * 0.75).toFixed(2);
+
+                document.getElementById('lunar-price').textContent = `R$ ${precoLunarAnual}`;
+                document.getElementById('supernova-price').textContent = `R$ ${precoSupernovaAnual}`;
+                document.getElementById('multiverso-price').textContent = `R$ ${precoMultiversoAnual}`;
+
+                // Exibe as parcelas
+                document.getElementById('lunar-parcelas').style.display = 'block';
+                document.getElementById('supernova-parcelas').style.display = 'block';
+                document.getElementById('multiverso-parcelas').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

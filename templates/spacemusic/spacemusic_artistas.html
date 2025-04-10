@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Encontre os melhores trailers de filmes, séries, animes e doramas. Explore lançamentos e produções famosas com uma experiência visual incrível.">
+    <meta property="og:title" content="Cinetrailers">
+    <meta property="og:description"
+        content="Encontre os melhores trailers de filmes, séries, animes e doramas. Explore lançamentos e produções famosas com uma experiência visual incrível.">
+
+    <title>Spacemusic - Artistas</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/spacemusic_artista.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="icon" href="{% static 'imagens/logo-spcemusic.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'imagens/logo-spcemusic.png' %}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=ABeeZee&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header>
+        <div class="site-logo">
+            <a href="{% url 'space_music' %}" class="logo-text">SPACEMUSIC</a>
+        </div>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Buscar músicas...">
+            <button id="search-button">
+                <img src="{% static 'imagens/vectores/lupavec.png' %}" alt="Buscar">
+            </button>
+        </div>
+
+        <div class="menu-usuario">
+            <img src="{% static 'imagens/spacemusic/menuperfil/setaprabaixo.png' %}" alt="Seta" class="usuario-seta">
+            <img id="profileImage" src="{% static 'imagens/default/profile.jpg' %}" alt="Perfil" class="perfil-image">
+            <div class="usuario-info">
+                <div id="profileName" class="usuario-nome">Nome do Perfil</div>
+                <div id="profilePlan" class="usuario-plano">Supernova</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Ícone de fechar -->
+            <div class="close-sidebar">
+                <img src="{% static 'imagens/spacemusic/menulateral/fechar-menu.png' %}" alt="Fechar"
+                    class="close-icon">
+            </div>
+
+            <!-- Itens do Menu -->
+            <div class="menu-items">
+                <!-- Ícone de abrir -->
+                <div class="open-sidebar">
+                    <img src="{% static 'imagens/spacemusic/menulateral/abrir-menu.png' %}" alt="Abrir"
+                        class="open-icon">
+                </div>
+
+                <!-- Categoria: Navegação -->
+                <div class="menu-category">
+                    <!-- Link para a página inicial -->
+                    <a href="{% url 'space_music' %}">
+                        <div class="menu-item">
+                            <img src="{% static 'imagens/spacemusic/menulateral/home-cinza.png' %}" alt="Início"
+                                class="menu-icon">
+                            <span class="menu-text">Início</span>
+                        </div>
+                    </a>
+
+                    <!-- Link para a página de artistas -->
+                    <a href="{% url 'spacemusic_artistas' %}">
+                        <div class="menu-item">
+                            <img src="{% static 'imagens/spacemusic/menulateral/artistas-azul.png' %}" alt="Artistas"
+                                class="menu-icon">
+                            <span class="menu-text">Artistas</span>
+                        </div>
+                    </a>
+
+                    <!-- Link para a página de álbuns -->
+                    <a href="{% url 'spacemusic_album' %}">
+                        <div class="menu-item">
+                            <img src="{% static 'imagens/spacemusic/menulateral/albuns-icon.png' %}" alt="Álbuns"
+                                class="menu-icon">
+                            <span class="menu-text">Álbuns</span>
+                        </div>
+                    </a>
+
+                    <!-- Link para a página de podcasts (se houver) -->
+                    <a href="#">
+                        <div class="menu-item">
+                            <img src="{% static 'imagens/spacemusic/menulateral/podcasts-icon.png' %}" alt="Podcasts"
+                                class="menu-icon">
+                            <span class="menu-text">Podcasts</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Categoria: Biblioteca -->
+                <div class="menu-category">
+                    <div class="category-title">Biblioteca</div>
+                    <div class="menu-item">
+                        <img src="{% static 'imagens/spacemusic/menulateral/add-recentes-icon.png' %}"
+                            alt="Add Recentes" class="menu-icon">
+                        <span class="menu-text">Add Recentes</span>
+                    </div>
+                    <div class="menu-item">
+                        <img src="{% static 'imagens/spacemusic/menulateral/favoritos-icon.png' %}" alt="Favoritos"
+                            class="menu-icon">
+                        <span class="menu-text">Favoritos</span>
+                    </div>
+                    <div class="menu-item">
+                        <img src="{% static 'imagens/spacemusic/menulateral/arquivos-locais-icon.png' %}"
+                            alt="Arquivos Locais" class="menu-icon">
+                        <span class="menu-text">Arquivos Locais</span>
+                    </div>
+                </div>
+
+                <!-- Categoria: Playlist -->
+                <div class="menu-category">
+                    <div class="category-title">Playlist</div>
+                    <div class="menu-item">
+                        <img src="{% static 'imagens/spacemusic/menulateral/playlist-icon.png' %}" alt="Lo-fi Music"
+                            class="menu-icon">
+                        <span class="menu-text">Lo-fi Music</span>
+                    </div>
+                    <div class="menu-item">
+                        <img src="{% static 'imagens/spacemusic/menulateral/playlist-icon.png' %}" alt="Internacionais"
+                            class="menu-icon">
+                        <span class="menu-text">Internacionais</span>
+                    </div>
+                    <div class="menu-item">
+                        <img src="{% static 'imagens/spacemusic/menulateral/playlist-icon.png' %}" alt="Funks"
+                            class="menu-icon">
+                        <span class="menu-text">Funks</span>
+                    </div>
+                    <div class="menu-item">
+                        <img src="{% static 'imagens/spacemusic/menulateral/playlist-icon.png' %}" alt="Traps"
+                            class="menu-icon">
+                        <span class="menu-text">Traps</span>
+                    </div>
+                    <div class="menu-item">
+                        <img src="{% static 'imagens/spacemusic/menulateral/playlist-icon.png' %}" alt="Traps"
+                            class="menu-icon">
+                        <span class="menu-text">Pop</span>
+                    </div>
+                    <div class="menu-item">
+                        <img src="{% static 'imagens/spacemusic/menulateral/playlist-icon.png' %}" alt="Traps"
+                            class="menu-icon">
+                        <span class="menu-text">Sertanejo</span>
+                    </div>
+                    <div class="menu-item">
+                        <img src="{% static 'imagens/spacemusic/menulateral/playlist-icon.png' %}" alt="Traps"
+                            class="menu-icon">
+                        <span class="menu-text">Classicas</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Barra de Rolagem -->
+            <div class="scrollbar"></div>
+        </div>
+
+            <!-- Seção Central -->
+            <div class="main-content">
+                <h1 style="color: white;">Artistas</h1> <!--  Este H1, se você quiser -->
+
+            <!-- Lista de Artistas -->
+            <div class="artista-grid" id="artista-grid">
+                <!-- Os artistas serão carregados aqui via JavaScript -->
+            </div>
+        </div>
+        <audio id="audio-player" controls style="display: none;"></audio>
+
+     <!-- Segunda Sidebar (Direita) -->
+     <div class="right-sidebar">
+        <!-- Título e Link "Ver mais" -->
+        <div class="sidebar-header">
+            <div class="sidebar-title">Descubra novos artist..</div>
+            <a href="{% url 'spacemusic_artistas' %}" class="see-more">Ver mais</a>
+        </div>
+
+        <!-- Imagem de Destaque -->
+        <div class="featured-artist">
+            <img src="https://i.guim.co.uk/img/media/2bbb941e971a80780e75c1ab9c5023a8e6a12361/0_93_3326_1996/master/3326.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=17b9bf94d69763c5e701ba9e76e8f585"
+                alt="Artista Destaque" class="artist-image">
+            <div class="artist-name">Yeat</div>
+        </div>
+
+        <!-- Carrossel de Bolinhas -->
+        <div class="carousel-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+
+        <div class="category-header">
+            <div class="category2-title">Tocadas Recentemente</div>
+        </div>
+        <div class="recently-played">
+            <!-- Lista de Músicas (Scrollável) -->
+            <div class="song-list" id="recently-played-list">
+                <!-- As músicas serão adicionadas dinamicamente via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <div class="music-player">
+        <div class="player-container">
+            <!-- Parte da Esquerda: Capa, Nome, Artista e Coração -->
+             <div class="song-info">
+                <img src="" alt="Capa da Música" class="song-cover">
+                <div class="song-details">
+                    <div class="song-title"></div>
+                    <div class="song-artist"></div>
+                </div>
+                <div class="song-actions">
+                    <img src="{% static 'imagens/spacemusic/playermusica/coracao-musica.png' %}" alt="Curtir" class="heart-icon">
+                </div>
+            </div>
+
+            <!-- Parte do Meio: Controles e Barra de Progresso -->
+            <div class="player-controls">
+                <!-- Controles do Player -->
+                <div class="control-buttons">
+                    <img src="{% static 'imagens/spacemusic/playermusica/aleatorio-musica.png' %}" alt="Aleatório"
+                        class="aleatorio">
+                    <img src="{% static 'imagens/spacemusic/playermusica/setaesquerda-musica.png' %}" alt="Anterior"
+                        class="anterior">
+                    <div class="play-pause-container">
+                        <img src="{% static 'imagens/spacemusic/playermusica/play-music.png' %}" alt="Play"
+                            class="play-icon">
+                        <img src="{% static 'imagens/spacemusic/playermusica/pause-music.png' %}" alt="Pause"
+                            class="pause-icon" style="display: none;">
+                    </div>
+                    <img src="{% static 'imagens/spacemusic/playermusica/setadireita-musica.png' %}" alt="Próxima"
+                        class="proxima">
+                    <img src="{% static 'imagens/spacemusic/playermusica/looping-musica.png' %}" alt="Repetir"
+                        class="looping">
+                </div>
+
+                <!-- Barra de Progresso -->
+                <div class="progress-bar">
+                    <div class="progress-background"></div>
+                    <div class="progress"></div>
+                    <div class="progress-thumb"></div>
+                </div>
+                <div class="time-display">
+                    <span class="current-time">0:00</span>
+                    <span class="total-time">0:00</span>
+                </div>
+            </div>
+
+            <!-- Parte da Direita: Volume e Favoritos -->
+            <div class="right-controls">
+                <!-- Controle de Volume -->
+                <div class="volume-control">
+                    <img src="{% static 'imagens/spacemusic/playermusica/volumeligado-musica.png' %}" alt="Volume"
+                        class="volume-icon">
+                    <div class="volume-slider-container">
+                        <div class="volume-slider-background"></div>
+                        <div class="volume-slider-progress"></div>
+                        <div class="volume-slider-thumb"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <script src="{% static 'javascripts/playermusic.js' %}"></script>
+    <script src="{% static 'javascripts/lupa.js' %}"></script>
+    <script src="{% static 'javascripts/header.js' %}"></script>
+</body>
+
+</html>

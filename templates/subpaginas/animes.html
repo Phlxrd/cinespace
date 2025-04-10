@@ -1,0 +1,3183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Encontre os melhores trailers de filmes, séries, animes e doramas. Explore lançamentos e produções famosas com uma experiência visual incrível.">
+    <meta property="og:title" content="Cinetrailers">
+    <meta property="og:description"
+        content="Encontre os melhores trailers de filmes, séries, animes e doramas. Explore lançamentos e produções famosas com uma experiência visual incrível.">
+
+    <title>Cinespace - Animes</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/cinetrailers31.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="icon" href="{% static 'imagens/favicon cinetrailers.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'imagens/favicon cinetrailers.png' %}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=ABeeZee&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- Indicador de carregamento -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+    <div class="bannerfundo">
+        <img src="{% static 'imagens/fundos/fundospace.png' %}" alt="Imagem de Fundo">
+    </div>
+
+   <header>
+                    <div class="site-logo">
+                        <a href="{% url 'index' %}" class="logo-text">CINESPACE</a>
+                    </div>
+                   
+                    <nav class="nav-menu">
+                        <ul>
+                            <li><a href="{% url 'filmes' %}">FILMES</a></li>
+                            <li><a href="{% url 'series' %}">SERIES</a></li>
+                            <li><a href="{% url 'animes' %}">ANIMES</a></li>
+                            <li><a href="{% url 'esportes' %}">SPACE ESPORTES</a></li>
+                            <li><a href="{% url 'space_music' %}">SPACE MUSIC</a></li>
+                        </ul>
+                    </nav>
+                
+                    <div class="header-icons">
+                        <a href="{% url 'resultados' %}">
+                            <div id="search-icon" class="search-icon">
+                                <img src="{% static 'imagens/vectores/lupavec.png' %}" alt="Pesquisar">
+                            </div>
+                        </a>
+                       
+
+                            <div id="I.A-icon" class="alert-icon">
+                                <img src="{% static 'imagens/vectores/spacebot-vec.png' %}" alt="Favoritos">
+                            </div>
+
+
+                        <div class="profile-header">
+                            <img id="profileImage" src="{% static 'imagens/default/profile.jpg' %}" alt="Perfil" class="perfil-image">
+                            <img id="arrowIcon" src="{% static 'imagens/vectores/setaprabaixovec.png' %}" alt="Abrir menu" class="arrow-icon">
+                            <div class="menu-perfil">
+                                <!-- Link para a página inicial (Home) -->
+                                <a href="{% url 'cinetrailers' %}" class="menu-item">
+                                    <img src="{% static 'imagens/vectores/homevec.png' %}" alt="Home">
+                                    <span class="menu-text">Home</span>
+                                </a>
+                        
+                              <!-- Link para a página de configurações -->
+                                <a href="{% url 'conta' %}" class="menu-item">
+                                    <img src="{% static 'imagens/vectores/configvec.png' %}" alt="Configurações">
+                                    <span class="menu-text">Configurações</span>
+                                </a>
+                        
+                                <!-- Link para a página de escolher usuário (Trocar Perfil) -->
+                                <a href="{% url 'escolherusuario' %}" class="menu-item">
+                                    <img src="{% static 'imagens/vectores/perfilvec.png' %}" alt="Trocar-Perfil">
+                                    <span class="menu-text">Trocar Perfil</span>
+                                </a>
+                        
+                                <!-- Link para a página de gerenciar perfis (Editar) -->
+                                <a href="{% url 'gerenciar_perfis' %}" class="menu-item">
+                                    <img src="{% static 'imagens/vectores/lapisvec.png' %}" alt="EditarPerfil">
+                                    <span class="menu-text">Editar Perfil</span>
+                                </a>
+                        
+                                <!-- Link para a página de ajuda -->
+                                <a href="{% url 'ajuda' %}" class="menu-item">
+                                    <img src="{% static 'imagens/vectores/ajudavec.png' %}" alt="Ajuda">
+                                    <span class="menu-text">Ajuda</span>
+                                </a>
+                        
+                                <!-- Link para logout -->
+                                <a href="{% url 'logout' %}" class="menu-item">
+                                    <img src="{% static 'imagens/vectores/sairvec.png' %}" alt="Sair">
+                                    <span class="menu-text">Sair</span>
+                                </a>
+                            </div>
+                        </div>
+                </header>
+
+    <!-- Janela do Chat Bot -->
+    <div id="chat-window" class="chat-window">
+        <div class="chat-header">
+            <button class="new-chat-btn">Novo Chat</button>
+            <button id="close-chat">X</button>
+        </div>
+        <div class="chat-content">
+            <!-- Textos acima dos blocos -->
+            <div class="chat-texts">
+                <h1>SPACE BOT</h1>
+                <p class="subtitle">seja bem vindo ao space bot</p>
+            </div>
+
+            <!-- Área do Chat -->
+            <div class="chat-container">
+                <div class="chat-messages" id="chat-messages">
+                    <div class="loading-indicator" id="loading-indicator" style="display: none;">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Barra de Mensagens -->
+            <div class="message-bar-container">
+                <div class="message-bar">
+                    <textarea placeholder="Envie sua mensagem" class="message-input" id="userInput"></textarea>
+                    <div class="send-button" id="sendButton">
+                        <img id="sendIcon" src="{% static 'imagens/spacebot/vectores/enviarvec.png' %}" alt="Ícone Enviar" class="icon">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mensagem abaixo da barra de mensagens -->
+            <div class="footer-message">
+                <p>
+                    Esta é apenas uma janela do SPACEBOT. Se quiser ter uma experiência melhor, acesse o <a href="{% url 'spacebot' %}" target="_blank" class="spacebot-link">SPACEBOT</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+
+    </script>
+
+    <script src="{% static 'javascripts/lupa.js' %}"></script>
+    <script src="{% static 'javascripts/header.js' %}"></script>
+
+
+    <div class="video-container">
+        <video id="trailerVideo" autoplay muted>
+            Seu navegador não suporta vídeos.
+        </video>
+    
+        <!-- Botões de Gênero -->
+        <div class="genre-buttons-video">
+            <button class="genre-btn-video">Anime</button>
+            <button class="genre-btn-video">Ação</button>
+            <button class="genre-btn-video">Aventura</button>
+        </div>
+    
+        <!-- Título e Subtítulo -->
+        <h2 class="movie-title-video">BORUTO: NARUTO NEXT GENERATIONS</h2>
+        <p class="movie-subtitle-video">A nova geração de ninjas enfrenta desafios para proteger a Aldeia da Folha e o legado de seus pais.</p>
+    
+        <!-- Informações do Anime -->
+        <div class="movie-info-video">
+            <span class="movie-year-video">2017</span>
+            <span class="separator-video">|</span>
+            <span class="movie-duration-video">Várias temporadas</span>
+            <span class="separator-video">|</span>
+            <img src="{% static 'imagens/vectores/idade12.png' %}" alt="Classificação 12 anos"
+                class="classificacao-idade-video">
+            <span class="separator-video">|</span>
+            <div class="estrelas-video">
+                <img src="{% static 'imagens/vectores/starvec.png' %}" alt="Estrela" class="star">
+                <img src="{% static 'imagens/vectores/starvec.png' %}" alt="Estrela" class="star">
+                <img src="{% static 'imagens/vectores/starvec.png' %}" alt="Estrela" class="star">
+                <img src="{% static 'imagens/vectores/starvec.png' %}" alt="Estrela" class="star">
+                <img src="{% static 'imagens/vectores/starvec.png' %}" alt="Estrela" class="star">
+            </div>
+        </div>
+    
+        <!-- Linha de Separação -->
+        <div class="separator-line-video"></div>
+    
+        <!-- Descrição do Anime -->
+        <div class="movie-description-video">
+            <p>"Boruto: Naruto Next Generations" segue as aventuras de Boruto Uzumaki, filho de Naruto Uzumaki, o Sétimo Hokage. Junto com seus amigos, Boruto enfrenta novos inimigos e desafios enquanto tenta criar seu próprio caminho como ninja, honrando o legado de seu pai e protegendo a Aldeia da Folha.</p>
+        </div>
+    
+        <!-- Botões de Ação -->
+        <div class="movie-actions-video">
+            <button class="assistir-btn-video">
+                <img src="{% static 'imagens/vectores/playvec.png' %}" alt="Assistir" class="play-icon-video"> Assistir
+            </button>
+            <button class="minha-lista-btn-video">
+                <img src="{% static 'imagens/vectores/mais.png' %}" alt="Minha Lista" class="plus-icon-video"> Minha lista
+            </button>
+        </div>
+    </div>
+
+    <!-- Indicadores de vídeo -->
+    <div id="nav-indicators" class="nav-indicators">
+        <div class="indicator progress" data-video="{% static 'Videoscine/trailer-anime.mp4' %}" data-movie="venom">
+            <div class="fill"></div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Botão do foguetinho -->
+    <div id="rocket-button" class="hidden">
+        <img src="{% static 'imagens/vectores/foguete.png' %}" alt="Foguete" class="rocket-icon">
+        <div class="fire"></div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const rocketButton = document.getElementById('rocket-button');
+
+            // Mostra o botão quando o usuário rola a página
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 1700) {
+                    rocketButton.classList.add('visible');
+                } else {
+                    rocketButton.classList.remove('visible');
+                }
+            });
+
+            // Animação de subida ao clicar no botão
+            rocketButton.addEventListener('click', function () {
+                rocketButton.classList.add('launch');
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                    rocketButton.classList.remove('launch');
+                }, 1000); // Tempo da animação
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const profileHeader = document.querySelector(".profile-header");
+            const profileDropdown = document.getElementById("profile-dropdown");
+
+            // Mostra o menu ao passar o mouse na área de perfil
+            profileHeader.addEventListener("mouseenter", function () {
+                profileDropdown.classList.remove("hidden");
+            });
+
+            // Oculta o menu ao sair da área de perfil
+            profileHeader.addEventListener("mouseleave", function () {
+                profileDropdown.classList.add("hidden");
+            });
+        });
+    </script>
+
+
+
+    <section>
+        <h1 class="carousel-title">Lançamentos Recentes</h1>
+        <div class="carousel-container carrossel-um">
+            <div class="carousel-overlay left-overlay"></div>
+            <div class="carousel-overlay right-overlay"></div>
+            <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda"
+                class="carousel-1 left-arrow">
+            <div class="carousel carrossel-um">
+                <div class="carousel-item carrossel-um">
+                    <a href="{% url 'assistir_series_base' %}">
+                        <img class="carrossel-um"
+                            src="https://i.pinimg.com/736x/29/24/52/292452b1510b9ececb1236608b776eb3.jpg"
+                            alt="Vingadores: Ultimato">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Dragon Ball Daima</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2024</span>
+                        <span class="movie-rating">⭐ 4.8</span>
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="{% url 'assistir_filmes_base' %}">
+                        <img class="carrossel-um"
+                            src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTe7LAkHn_c4NUs4_aYD0_Vkeb_DwQdRLevFutvGz47GMJTNZ5C"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Blue Box</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2024</span>
+                        <span class="movie-rating">⭐ 4.2</span>
+
+                    </div>
+                </div>
+
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://static.animecorner.me/2024/03/1710521884-25497.jpg" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Dandadan</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2024</span>
+                        <span class="movie-rating">⭐ 4.0</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://thathashtagshow.com/wp-content/uploads/2022/12/8a60eb138b19099929a51bfad207193c1671117852_main.jpg" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Kaiju N.° 8</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2024</span>
+                        <span class="movie-rating">⭐ 3.6</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQuLhpQKwRJ1XWIbAy8VXAqwk5vDeKojrS2k8F4RpCtOaCrQT9q" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Solo Leveling</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2024</span>
+                        <span class="movie-rating">⭐ 4.1</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://www.fredzone.org/wp-content/uploads/2023/04/Sand-land-anime-visuel-2.jpeg" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Sand Land</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2024</span>
+                        <span class="movie-rating">⭐ 4.7</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um" src="https://cdn.anime-planet.com/manga/primary/orb-on-the-movements-of-the-earth-1.webp?t=1706406595"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Orb: On the Movements of the Earth</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2024</span>
+                        <span class="movie-rating">⭐ 3.1</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um" src="https://upload.wikimedia.org/wikipedia/en/c/c8/Sakamoto_Days_manga_volume_1.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Sakamoto Days</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2025</span>
+                        <span class="movie-rating">⭐ 5.0</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://br.web.img3.acsta.net/pictures/19/09/18/13/46/0198270.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Kimetsu no Yaiba</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2024</span>
+                        <span class="movie-rating">⭐ 5.0</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://upload.wikimedia.org/wikipedia/en/d/da/WonderfulPCP.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Wonderful Precure!</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2024</span>
+                        <span class="movie-rating">⭐ 4.4</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BMGE3ODRlYjctNDhjMC00NGE2LTg2MzktZDcxMjljZDVmZmIyXkEyXkFqcGc@._V1_.jpg" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">MF Ghost</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2023</span>
+                        <span class="movie-rating">⭐ 2.0</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=480,height=720/catalog/crunchyroll/e14b0ca99c865bda94c0a49147609609.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Natsume Yuujinchou 4</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2024</span>
+                        <span class="movie-rating">⭐ 4.1</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvQho8vnyfBmLCTP7PFBpV-hTDJMvVbXsuUoz42JN9Dw83zHnr"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Honey Lemon Soda</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2025</span>
+                        <span class="movie-rating">⭐ 2.5</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://external-preview.redd.it/G82zrK99jeZHlcehSo0_Is-fKTVuaKbJwXBesPqGVwQ.jpg?auto=webp&s=ea5c4a20dc9d1d1a55435ad62a0fdeb9098f7cd6" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Lazarus</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2025</span>
+                        <span class="movie-rating">⭐ 3.4</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_h6ggq26mp96lrfg1cbds47t81r/-S897-FWEBP"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Atelier of Witch Hat </h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2025</span>
+                        <span class="movie-rating">⭐ 4.2</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://a.storyblok.com/f/178900/722x1022/eb9e5bdffe/blue_exorcist_the_blue_night_saga_key_art.jpg/m/filters:quality(95)format(webp)"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Blue Exorcist</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2025</span>
+                        <span class="movie-rating">⭐ 4.1</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BMzY3NzI4M2MtMDQyYS00OTBhLTkxOWMtYjg0MDI2Nzc2OTI0XkEyXkFqcGc@._V1_.jpg" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Blue Miburo</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2024</span>
+                        <span class="movie-rating">⭐ 5.0</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDQSYQdBa2XNTItv20nX0IjHYbM8e2xjqzHw&s" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">ZENSHU</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2025</span>
+                        <span class="movie-rating">⭐ 4.7</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://down-br.img.susercontent.com/file/br-11134207-7r98o-lvjk7uoayqhs44"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Detective Conan</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2025</span>
+                        <span class="movie-rating">⭐ 2.1</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://upload.wikimedia.org/wikipedia/en/6/69/UniteUp%21_key_visual.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">UniteUp!</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2023</span>
+                        <span class="movie-rating">⭐ 4.4</span>
+
+                    </div>
+                </div>
+
+            </div>
+            <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita"
+                class="carousel-1 right-arrow">
+        </div>
+    </section>
+
+
+
+
+
+    <section>
+        <h1 class="carousel-title">Animes em Alta</h1>
+        <div class="carousel-container carrossel-um">
+            <div class="carousel-overlay left-overlay"></div>
+            <div class="carousel-overlay right-overlay"></div>
+            <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda"
+                class="carousel-1 left-arrow">
+            <div class="carousel carrossel-um">
+                <div class="carousel-item carrossel-um">
+                    <a href="/series/Vampiresdiares.html">
+                        <img class="carrossel-um"
+                            src="https://br.web.img3.acsta.net/pictures/16/02/03/17/11/571106.jpg" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">One Piece</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">1999</span>
+                        <span class="movie-rating">⭐ 5.6</span>
+
+                    </div>
+                </div>
+
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade2.com">
+                        <img class="carrossel-um"
+                            src="https://nextconqueror.wordpress.com/wp-content/uploads/2015/04/naruto-shippuden-saga-do-pain.jpg?w=1000"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Naruto Shippuden</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2007</span>
+                        <span class="movie-rating">⭐ 5.5</span>
+
+                    </div>
+                </div>
+
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQuLhpQKwRJ1XWIbAy8VXAqwk5vDeKojrS2k8F4RpCtOaCrQT9q"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Solo Leveling</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2024</span>
+                        <span class="movie-rating">⭐ 4.9</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um" src="https://upload.wikimedia.org/wikipedia/pt/4/49/Chainsaw_Man_-_Capa_-_Volume_1.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Chainsaw Man</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2022</span>
+                        <span class="movie-rating">⭐ 5.1</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BNjE4YjRlNDgtODUwYi00NzEyLWFkMWItMDI4MzljODMyNWNkXkEyXkFqcGc@._V1_.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Monstros: A Maldição do Dragão</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2024</span>
+                        <span class="movie-rating">⭐ 3.1</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://infinitasvidas.wordpress.com/wp-content/uploads/2021/03/poster-jujutsu-kaisen.png"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Jujutsu Kaisen</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2024</span>
+                        <span class="movie-rating">⭐ 4.7</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://upload.wikimedia.org/wikipedia/en/1/1f/Ninja_Kamui_BD.png"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Ninja Kamui</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2024</span>
+                        <span class="movie-rating">⭐ 3.9</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_am6p7s85eh2thatutssegto50n/-S897-FWEBP"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Wind Breaker</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2024</span>
+                        <span class="movie-rating">⭐ 3.4</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQSzniG_w5z-fCqDKspyN2MBD6KI1pYo0XfPNFn93yDkKLXYeYc"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Frieren e a Jornada para o Além</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2023</span>
+                        <span class="movie-rating">⭐ 2.7</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BMDMyNTYwZjQtYTllMi00ZGVlLTg4NzUtZWE5MDMxZjUzZjc3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">A Sign of Affection</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2024</span>
+                        <span class="movie-rating">⭐ 4.0</span>
+
+                    </div>
+                </div>
+
+            </div>
+            <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita"
+                class="carousel-1 right-arrow">
+        </div>
+    </section>
+
+    <section>
+        <h1 class="carousel-title">Grandes Sucessos</h1>
+        <div class="carousel-container carrossel-um">
+            <div class="carousel-overlay left-overlay"></div>
+            <div class="carousel-overlay right-overlay"></div>
+            <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda"
+                class="carousel-1 left-arrow">
+            <div class="carousel carrossel-um">
+                <div class="carousel-item carrossel-um">
+                    <a href="/series/Vampiresdiares.html">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/I/81D0Y6+qV9L._AC_UF894,1000_QL80_.jpg" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Dragon Ball Z</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">1989</span>
+                        <span class="movie-rating">⭐ 5.0</span>
+
+                    </div>
+                </div>
+
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade2.com">
+                        <img class="carrossel-um"
+                            src="https://static.wikia.nocookie.net/dublagem/images/1/1e/Naruto_Shipp%C5%ABden.png/revision/latest?cb=20240821033110&path-prefix=pt-br" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Naruto Shippuden</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2007</span>
+                        <span class="movie-rating">⭐ 5.0</span>
+
+                    </div>
+                </div>
+
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://br.web.img3.acsta.net/pictures/14/05/28/20/47/033239.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Death Note</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2006</span>
+                        <span class="movie-rating">⭐ 4.4</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um" src="https://m.media-amazon.com/images/M/MV5BNzVjOWEwYjEtNDJhOC00YjUyLThjMWItMDQwZGY1ODM4YzI3XkEyXkFqcGc@._V1_.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Attack on Titan</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2013</span>
+                        <span class="movie-rating">⭐ 4.1</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um" src="https://static.wikia.nocookie.net/dublagem/images/e/ea/Bleach.png/revision/latest/scale-to-width-down/1200?cb=20220209215300&path-prefix=pt-br"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Bleach</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2004</span>
+                        <span class="movie-rating">⭐ 5.0</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BNDczZWMyMjEtZDI0ZS00YThjLWE2MjEtNTIxNmVmZDhkNDg5XkEyXkFqcGc@._V1_.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Fullmetal Alchemist: Brotherhood</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2009</span>
+                        <span class="movie-rating">⭐ 4.7</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQByGWUb1j4s7OQ7KHIXWoU755_SUZgSF2M5NHvBpiNFLprn7Y7" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Demon Slayer - Kimetsu no Yaiba</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2019</span>
+                        <span class="movie-rating">⭐ 5.0</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/I/91mDkNcAz4L._AC_UF1000,1000_QL80_.jpg" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Tokyo Revengers</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2017</span>
+                        <span class="movie-rating">⭐ 3.2</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/I/81gs7bNAyvL.jpg" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Oshi no Ko</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2020</span>
+                        <span class="movie-rating">⭐ 3.5</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqe1XWc4mJ6Dz_PhtgdkRsSepFlB4CNVHL7FSQUlbljEuwfvRN" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Horimiya</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2021</span>
+                        <span class="movie-rating">⭐ 3.6</span>
+
+                    </div>
+                </div>
+
+            </div>
+            <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita"
+                class="carousel-1 right-arrow">
+        </div>
+    </section>
+
+
+
+    <section>
+        <h1 class="carousel-title">Animes Premiados</h1>
+        <div class="carousel-container carrossel-um">
+            <div class="carousel-overlay left-overlay"></div>
+            <div class="carousel-overlay right-overlay"></div>
+            <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda"
+                class="carousel-1 left-arrow">
+            <div class="carousel carrossel-um">
+                <div class="carousel-item carrossel-um">
+                    <a href="/series/Vampiresdiares.html">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/I/81zeqn6hofL._AC_UF1000,1000_QL80_.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Kimi no na wa</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2016</span>
+                        <span class="movie-rating">⭐ 4.2</span>
+
+                    </div>
+                </div>
+
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade2.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BNTEyNmEwOWUtYzkyOC00ZTQ4LTllZmUtMjk0Y2YwOGUzYjRiXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">A Viagem de Chihiro</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2001</span>
+                        <span class="movie-rating">⭐ 2.7</span>
+
+                    </div>
+                </div>
+
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BNzVjOWEwYjEtNDJhOC00YjUyLThjMWItMDQwZGY1ODM4YzI3XkEyXkFqcGc@._V1_.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Attack on Titan</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2009</span>
+                        <span class="movie-rating">⭐ 4.1</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/I/71r8Wf5h0+L._AC_UF1000,1000_QL80_.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Kimetsu no Yaiba</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2019</span>
+                        <span class="movie-rating">⭐ 3.1</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/I/815rJRMLqqL.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">My Hero Academia</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2016</span>
+                        <span class="movie-rating">⭐ 2.7</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://i.pinimg.com/564x/26/4e/c9/264ec9d43fb4c2c4fbc0a976b42cb05a.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Fullmetal Alchemist: Brotherhood</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2009</span>
+                        <span class="movie-rating">⭐ 3.5</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BZjI1YjZiMDUtZTI3MC00YTA5LWIzMmMtZmQ0NTZiYWM4NTYwXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Steins;Gate</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2011</span>
+                        <span class="movie-rating">⭐ 1.7</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://br.web.img2.acsta.net/pictures/18/12/07/12/40/4530128.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Neon Genesis Evangelion</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">1995</span>
+                        <span class="movie-rating">⭐ 2.2</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrlsEt4rP3phNtf7IEVNWjm237nVguzcl-hA&s"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Death Note: Notas da Morte</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2006</span>
+                        <span class="movie-rating">⭐ 4.1</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/I/91N8saM4HdL.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Made in Abyss</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2013</span>
+                        <span class="movie-rating">⭐ 1.9</span>
+
+                    </div>
+                </div>
+
+            </div>
+            <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita"
+                class="carousel-1 right-arrow">
+        </div>
+    </section>
+
+    
+    <section>
+        <h1 class="top10-carousel-title">TOP 10 SEMANAL</h1>
+        <div class="top10-carousel-container">
+            <div class="top10-carousel-overlay left-overlay"></div>
+            <div class="top10-carousel-overlay right-overlay"></div>
+            <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda"
+                class="top10-carousel-arrow left-arrow" onclick="scrollCarousel('left')">
+            <div class="top10-carousel">
+                <!-- Item 1 -->
+                <div class="top10-carousel-item">
+                    <img class="numero-fundo numero-1" src="{% static 'imagens/top10/1.png' %}" alt="Número 1">
+                    <div class="imagem-container imagem-1">
+                        <a href="/filmes/batman-begins.html">
+                            <img class="top10-carousel-img"
+                                src="https://br.web.img3.acsta.net/pictures/20/09/14/10/31/4875617.jpg"
+                                alt="Batman Begins">
+                            <button class="play-button">▶</button>
+                        </a>
+                        <h4 class="movie-title">Jujutsu Kaisen</h4>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="top10-carousel-item">
+                    <img class="numero-fundo numero-2" src="{% static 'imagens/top10/2.png' %}" alt="Número 2">
+                    <div class="imagem-container imagem-2">
+                        <a href="/filmes/capitao-america.html">
+                            <img class="top10-carousel-img"
+                                src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQByGWUb1j4s7OQ7KHIXWoU755_SUZgSF2M5NHvBpiNFLprn7Y7"
+                                alt="Capitão América">
+                            <button class="play-button">▶</button>
+                        </a>
+                        <h4 class="movie-title">Kimetsu no Yaiba</h4>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="top10-carousel-item">
+                    <img class="numero-fundo numero-3" src="{% static 'imagens/top10/3.png' %}" alt="Número 3">
+                    <div class="imagem-container imagem-3">
+                        <a href="/filmes/outro-filme.html">
+                            <img class="top10-carousel-img"
+                                src="https://jumpg-assets.tokyo-cdn.com/secure/title/100037/title_thumbnail_portrait_list/312145.jpg?hash=7xViY-tfvvtYqgKJ2vjMCA&expires=2145884400"
+                                alt="Outro Filme">
+                            <button class="play-button">▶</button>
+                        </a>
+                        <h4 class="movie-title">Chainsaw Man</h4>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="top10-carousel-item">
+                    <img class="numero-fundo numero-4" src="{% static 'imagens/top10/4.png' %}" alt="Número 4">
+                    <div class="imagem-container imagem-4">
+                        <a href="/filmes/vingadores-ultimato.html">
+                            <img class="top10-carousel-img"
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2-s0BZX2GoQyjPvsuRCBIuzxzKUM_MNDZjSwNDwpmriOXucuZbOpp03nwTc9zynXmGcU&usqp=CAU"
+                                alt="Vingadores: Ultimato">
+                            <button class="play-button">▶</button>
+                        </a>
+                        <h4 class="movie-title">Tokyo Revengers</h4>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="top10-carousel-item">
+                    <img class="numero-fundo numero-5" src="{% static 'imagens/top10/5.png' %}" alt="Número 5">
+                    <div class="imagem-container imagem-5">
+                        <a href="/filmes/interestelar.html">
+                            <img class="top10-carousel-img"
+                                src="https://m.media-amazon.com/images/M/MV5BYzRiYTcwM2YtMTE1OC00MGFkLTlmZjctMjI0YjQ5MWY1MTAwXkEyXkFqcGc@._V1_.jpg"
+                                alt="Interestelar">
+                            <button class="play-button">▶</button>
+                        </a>
+                        <h4 class="movie-title">One Piece</h4>
+                    </div>
+                </div>
+
+                <!-- Item 6 -->
+                <div class="top10-carousel-item">
+                    <img class="numero-fundo numero-6" src="{% static 'imagens/top10/6.png' %}" alt="Número 6">
+                    <div class="imagem-container imagem-6">
+                        <a href="/filmes/o-rei-leao.html">
+                            <img class="top10-carousel-img"
+                                src="https://m.media-amazon.com/images/M/MV5BNzgxMzI3NzgtYzE2Zi00MzlmLThlNWEtNWVmZWEyZjNkZWYyXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+                                alt="O Rei Leão">
+                            <button class="play-button">▶</button>
+                        </a>
+                        <h4 class="movie-title">My Hero Academia</h4>
+                    </div>
+                </div>
+
+                <!-- Item 7 -->
+                <div class="top10-carousel-item">
+                    <img class="numero-fundo numero-7" src="{% static 'imagens/top10/7.png' %}" alt="Número 7">
+                    <div class="imagem-container imagem-7">
+                        <a href="/filmes/joker.html">
+                            <img class="top10-carousel-img"
+                                src="https://images.justwatch.com/poster/305385232/s332/temporada-1" alt="Joker">
+                            <button class="play-button">▶</button>
+                        </a>
+                        <h4 class="movie-title">Ranking of Kings</h4>
+                    </div>
+                </div>
+
+                <!-- Item 8 -->
+                <div class="top10-carousel-item">
+                    <img class="numero-fundo numero-8" src="{% static 'imagens/top10/8.png' %}" alt="Número 8">
+                    <div class="imagem-container imagem-8">
+                        <a href="/filmes/parasita.html">
+                            <img class="top10-carousel-img"
+                                src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcStrjdUj-PcRqdxxeqRF34vQglD4C9GoJMNZCfAPMQzArZdIFKg"
+                                alt="Parasita">
+                            <button class="play-button">▶</button>
+                        </a>
+                        <h4 class="movie-title">Re:ZERO -Starting Life in Another World</h4>
+                    </div>
+                </div>
+
+                <!-- Item 9 -->
+                <div class="top10-carousel-item">
+                    <img class="numero-fundo numero-9" src="{% static 'imagens/top10/9.png' %}" alt="Número 9">
+                    <div class="imagem-container imagem-9">
+                        <a href="/filmes/duna.html">
+                            <img class="top10-carousel-img"
+                                src="https://br.web.img2.acsta.net/pictures/22/04/18/22/43/1487268.jpg"
+                                alt="Duna">
+                            <button class="play-button">▶</button>
+                        </a>
+                        <h4 class="movie-title">Spy × Family</h4>
+                    </div>
+                </div>
+
+                <!-- Item 10 -->
+                <div class="top10-carousel-item">
+                    <img class="numero-fundo numero-10" src="{% static 'imagens/top10/10.png' %}" alt="Número 10">
+                    <div class="imagem-container imagem-10">
+                        <a href="/filmes/top-gun-maverick.html">
+                            <img class="top10-carousel-img"
+                                src="https://m.media-amazon.com/images/M/MV5BYWZiYTQ3NTMtOTBjZC00MGUzLTljOTktOGYyZDgyYTA5ODhiXkEyXkFqcGc@._V1_.jpg"
+                                alt="Top Gun: Maverick">
+                            <button class="play-button">▶</button>
+                        </a>
+                        <h4 class="movie-title">Attack on Titan</h4>
+                    </div>
+                </div>
+            </div>
+            <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita"
+                class="top10-carousel-arrow right-arrow" onclick="scrollCarousel('right')">
+        </div>
+    </section>
+
+
+
+
+
+
+
+    <section>
+        <h1 class="carousel-title">Terror</h1>
+        <div class="carousel-container carrossel-um">
+            <div class="carousel-overlay left-overlay"></div>
+            <div class="carousel-overlay right-overlay"></div>
+            <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda"
+                class="carousel-1 left-arrow">
+            <div class="carousel carrossel-um">
+                <div class="carousel-item carrossel-um">
+                    <a href="/series/Vampiresdiares.html">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BZGM2MjM0OTEtYTUwYy00NjBjLWI4NGQtZjM4NGYzMTE1ZmI4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Another</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2012</span>
+                        <span class="movie-rating">⭐ 1.0</span>
+
+                    </div>
+                </div>
+
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade2.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BZDBkMjNkNTEtZTEyMi00MWVkLThhMmYtZjIwYTZhZjhmOTgwXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Higurashi When They Cry</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2008</span>
+                        <span class="movie-rating">⭐ 3.2</span>
+
+                    </div>
+                </div>
+
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BZWI2NzZhMTItOTM3OS00NjcyLThmN2EtZGZjMjlhYWMwODMzXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Tokyo Ghoul</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2011</span>
+                        <span class="movie-rating">⭐ 5.0</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BODM1OGEzZDMtNTkyMy00YWFiLTg2YTEtNzA4ODdmNTA3NTBlXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Shiki</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2010</span>
+                        <span class="movie-rating">⭐ 1.4</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://fr.web.img4.acsta.net/pictures/20/02/26/09/12/3483516.jpg" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">The Promised Neverland</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2019</span>
+                        <span class="movie-rating">⭐ 2.1</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BNGJlZDJmZjYtOGNiZS00MzBkLTk2OWMtNDZiMDMyNjg0NzEzXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Yamishibai: Japanese Ghost Stories</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2013</span>
+                        <span class="movie-rating">⭐ 4.1</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTHCxt7v8bZxvvNihhBD6pAtR_qs-8fqri5lIPTSuVS5k1I44ju"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Kizumonogatari III: Reiketsu-hen</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2017</span>
+                        <span class="movie-rating">⭐ 3.4</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BZWI0OTc4MGUtYTQ4ZS00MzBmLTg5NjktNzFmMzNkNzgzMzQzXkEyXkFqcGc@._V1_.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Paranoia Agent</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2004</span>
+                        <span class="movie-rating">⭐ 1.3</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://static.wikia.nocookie.net/animeverso/images/1/1f/Jigoku_Shojo_season_2.png/revision/latest?cb=20240112173902&path-prefix=pt-br"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Jigoku Shōjo</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2005</span>
+                        <span class="movie-rating">⭐ 2.2</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRQjjlrMEtukfWhb9SFQQjuv4OsJxcdi_XG-qr7rpClpSdWuASy"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Corpse Party: Tortured Souls</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2013</span>
+                        <span class="movie-rating">⭐ 4.4</span>
+
+                    </div>
+                </div>
+
+            </div>
+            <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita"
+                class="carousel-1 right-arrow">
+        </div>
+    </section>
+
+    <section>
+
+        <h1 class="carousel-title">Romance
+        </h1>
+        <div class="carousel-container carrossel-um">
+            <div class="carousel-overlay left-overlay"></div>
+            <div class="carousel-overlay right-overlay"></div>
+            <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda"
+                class="carousel-1 left-arrow">
+            <div class="carousel carrossel-um">
+                <div class="carousel-item carrossel-um">
+                    <a href="/series/Vampiresdiares.html">
+                        <img class="carrossel-um"
+                            src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSwEh84JFhYUjFeuX9fqJefeslQkd2JEqU8EjishCi-vV7THUGp"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Your Lie in April</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2014</span>
+                        <span class="movie-rating">⭐ 3.7</span>
+
+                    </div>
+                </div>
+
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade2.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BNjEyZmRmMGYtNGY1Zi00MTFiLWE0ZTMtNzUzMWJmMTgzNWE5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Toradora!</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2008</span>
+                        <span class="movie-rating">⭐ 2.0</span>
+
+                    </div>
+                </div>
+
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BMWJiNDQzNGEtNTA3Zi00NjM2LWE2NTAtOTU0NzA4ZmJiMjhmXkEyXkFqcGc@._V1_.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Clannad</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2007</span>
+                        <span class="movie-rating">⭐ 1.3</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BYzIxYmRiYTQtODI3Zi00ODdkLWIwOTMtNWZiNjAwZjNlYjY5XkEyXkFqcGc@._V1_.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Fruits Basket</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2019</span>
+                        <span class="movie-rating">⭐ 4.7</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BMDliNGUxNTEtOTE1Zi00M2U3LWE0ODktNWQxMDRhMDZiNDAyXkEyXkFqcGc@._V1_.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Kimi ni Todoke</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2005</span>
+                        <span class="movie-rating">⭐ 1.6</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BNGVhZGExOTktMzU0OC00N2IzLThlZmQtZGIxZWI3ZTUzZThlXkEyXkFqcGc@._V1_.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Lovely★Complex</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2007</span>
+                        <span class="movie-rating">⭐ 3.3</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BZmRjNDNlMDMtNDZlMS00NzE4LTk0OGMtYjQyMWY3YWFmY2I5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">OreGairu</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2013</span>
+                        <span class="movie-rating">⭐ 1.2</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcThi-DubZOi85WFd9kyRDqUFnKL4aEOKs5CpfIlAGfQ3D98nfB7"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Nodame Cantabile</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2007</span>
+                        <span class="movie-rating">⭐ 3.1</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://i.pinimg.com/736x/e2/fa/59/e2fa59cf95e5c4e74ee6f0d1ed4dab45.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">ReLIFE</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2016</span>
+                        <span class="movie-rating">⭐ 3.7</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjUBFrejRj3SqCUVxQ-cTfMISaduQ7cPwRxEwkp81HYB1-tphh"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Say "I Love You"</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2012</span>
+                        <span class="movie-rating">⭐ 2.1</span>
+
+                    </div>
+                </div>
+
+            </div>
+            <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita"
+                class="carousel-1 right-arrow">
+        </div>
+    </section>
+
+
+    <section>
+        <h1 class="carousel-title">Animes Clássicos
+        </h1>
+        <div class="carousel-container carrossel-um">
+            <div class="carousel-overlay left-overlay"></div>
+            <div class="carousel-overlay right-overlay"></div>
+            <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda"
+                class="carousel-1 left-arrow">
+            <div class="carousel carrossel-um">
+                <div class="carousel-item carrossel-um">
+                    <a href="/series/Vampiresdiares.html">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BMGQ0ZWE4NDYtYWY0Mi00MjE0LWI1MzctZDA1NGExYzE3N2FiXkEyXkFqcGc@._V1_.jpg" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Dragon Ball</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">1986</span>
+                        <span class="movie-rating">⭐ 4.6</span>
+
+                    </div>
+                </div>
+
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade2.com">
+                        <img class="carrossel-um"
+                            src="https://br.web.img3.acsta.net/pictures/16/04/11/16/56/089875.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Naruto</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2007</span>
+                        <span class="movie-rating">⭐ 5.0</span>
+
+                    </div>
+                </div>
+
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyWXDoz6n68dAjiTPwSZFkFTNA9RBHeQAh-g&s" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Sailor Moon</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">1991</span>
+                        <span class="movie-rating">⭐ 4.0</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BYzJiZmI3ODgtNzZjOS00MGM3LWE4NmYtODk5MzVjNmVhN2UwXkEyXkFqcGc@._V1_.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Astro Boy</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2003</span>
+                        <span class="movie-rating">⭐ 2.0</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://br.web.img3.acsta.net/medias/nmedia/18/87/36/26/19874715.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Akira</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">1988</span>
+                        <span class="movie-rating">⭐ 3.1</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://br.web.img3.acsta.net/c_310_420/pictures/18/12/07/12/40/4530128.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Neon Genesis Evangelion</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">1995</span>
+                        <span class="movie-rating">⭐ 1.7</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTg8290fvDS5WX6fVOizmnLldu_KM1O9fAnUfZRHcSb2aOiFPN0" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Yu Yu Hakusho</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2023</span>
+                        <span class="movie-rating">⭐ 2.9</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BMmIyYjI0YzUtOWRiZS00NDJhLThiZTktNDkyYzg4Yjg5YmJmXkEyXkFqcGc@._V1_.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Star Trek: The Original Series</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">1966</span>
+                        <span class="movie-rating">⭐ 3.9</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BMDcxZTVjOWUtOTJjYy00MmQzLWFiMDgtYmE5YWEwNzRkY2QwXkEyXkFqcGc@._V1_.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">The Mary Tyler Moore Show</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">1970</span>
+                        <span class="movie-rating">⭐ 2.6</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://upload.wikimedia.org/wikipedia/pt/e/e8/AllInTheFamily.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">All in the Family</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">1971</span>
+                        <span class="movie-rating">⭐ 4.1</span>
+
+                    </div>
+                </div>
+
+            </div>
+            <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita"
+                class="carousel-1 right-arrow">
+        </div>
+    </section>
+
+  
+    <section>
+        <h1 class="top10-carousel-title">TOP 10 DO MÊS</h1>
+        <div class="top10-carousel-container">
+            <div class="top10-carousel-overlay left-overlay"></div>
+            <div class="top10-carousel-overlay right-overlay"></div>
+            <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda"
+                class="top10-carousel-arrow left-arrow" onclick="scrollCarousel('left')">
+            <div class="top10-carousel">
+                <!-- Item 1 -->
+                <div class="top10-carousel-item">
+                    <img class="numero-fundo numero-1" src="{% static 'imagens/top10/1.png' %}" alt="Número 1">
+                    <div class="imagem-container imagem-1">
+                        <a href="/filmes/batman-begins.html">
+                            <img class="top10-carousel-img"
+                                src="https://m.media-amazon.com/images/M/MV5BYWZiYTQ3NTMtOTBjZC00MGUzLTljOTktOGYyZDgyYTA5ODhiXkEyXkFqcGc@._V1_.jpg"
+                                alt="Batman Begins">
+                            <button class="play-button">▶</button>
+                        </a>
+                        <h4 class="movie-title">Attack on Titan</h4>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="top10-carousel-item">
+                    <img class="numero-fundo numero-2" src="{% static 'imagens/top10/2.png' %}" alt="Número 2">
+                    <div class="imagem-container imagem-2">
+                        <a href="/filmes/capitao-america.html">
+                            <img class="top10-carousel-img"
+                                src="https://m.media-amazon.com/images/M/MV5BNDczZWMyMjEtZDI0ZS00YThjLWE2MjEtNTIxNmVmZDhkNDg5XkEyXkFqcGc@._V1_.jpg"
+                                alt="Capitão América">
+                            <button class="play-button">▶</button>
+                        </a>
+                        <h4 class="movie-title">Fullmetal Alchemist: Brotherhood</h4>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="top10-carousel-item">
+                    <img class="numero-fundo numero-3" src="{% static 'imagens/top10/3.png' %}" alt="Número 3">
+                    <div class="imagem-container imagem-3">
+                        <a href="/filmes/outro-filme.html">
+                            <img class="top10-carousel-img"
+                                src="https://m.media-amazon.com/images/M/MV5BNTk3MDA1ZjAtNTRhYS00YzNiLTgwOGEtYWRmYTQ3NjA0NTAwXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+                                alt="Outro Filme">
+                            <button class="play-button">▶</button>
+                        </a>
+                        <h4 class="movie-title">Naruto Shippuden</h4>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="top10-carousel-item">
+                    <img class="numero-fundo numero-4" src="{% static 'imagens/top10/4.png' %}" alt="Número 4">
+                    <div class="imagem-container imagem-4">
+                        <a href="/filmes/vingadores-ultimato.html">
+                            <img class="top10-carousel-img"
+                                src="https://static.wikia.nocookie.net/dublagem/images/8/8d/One_Piece.png/revision/latest?cb=20241118154924&path-prefix=pt-br"
+                                alt="Vingadores: Ultimato">
+                            <button class="play-button">▶</button>
+                        </a>
+                        <h4 class="movie-title">One Piece</h4>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="top10-carousel-item">
+                    <img class="numero-fundo numero-5" src="{% static 'imagens/top10/5.png' %}" alt="Número 5">
+                    <div class="imagem-container imagem-5">
+                        <a href="/filmes/interestelar.html">
+                            <img class="top10-carousel-img"
+                                src="https://m.media-amazon.com/images/M/MV5BYTgyZDhmMTEtZDFhNi00MTc4LTg3NjUtYWJlNGE5Mzk2NzMxXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+                                alt="Interestelar">
+                            <button class="play-button">▶</button>
+                        </a>
+                        <h4 class="movie-title">Death Note</h4>
+                    </div>
+                </div>
+
+                <!-- Item 6 -->
+                <div class="top10-carousel-item">
+                    <img class="numero-fundo numero-6" src="{% static 'imagens/top10/6.png' %}" alt="Número 6">
+                    <div class="imagem-container imagem-6">
+                        <a href="/filmes/o-rei-leao.html">
+                            <img class="top10-carousel-img"
+                                src="https://assets.gamearena.gg/wp-content/uploads/2024/07/07173056/My-Hero-Academia-Youre-Next-poster-USA-1-scaled-1.webp"
+                                alt="O Rei Leão">
+                            <button class="play-button">▶</button>
+                        </a>
+                        <h4 class="movie-title">My Hero Academia</h4>
+                    </div>
+                </div>
+
+                <!-- Item 7 -->
+                <div class="top10-carousel-item">
+                    <img class="numero-fundo numero-7" src="{% static 'imagens/top10/7.png' %}" alt="Número 7">
+                    <div class="imagem-container imagem-7">
+                        <a href="/filmes/joker.html">
+                            <img class="top10-carousel-img"
+                                src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQByGWUb1j4s7OQ7KHIXWoU755_SUZgSF2M5NHvBpiNFLprn7Y7" alt="Joker">
+                            <button class="play-button">▶</button>
+                        </a>
+                        <h4 class="movie-title">Kimetsu no Yaiba</h4>
+                    </div>
+                </div>
+
+                <!-- Item 8 -->
+                <div class="top10-carousel-item">
+                    <img class="numero-fundo numero-8" src="{% static 'imagens/top10/8.png' %}" alt="Número 8">
+                    <div class="imagem-container imagem-8">
+                        <a href="/filmes/parasita.html">
+                            <img class="top10-carousel-img"
+                                src="https://m.media-amazon.com/images/S/pv-target-images/334f00b53cf3ef848ea7048b25711bc98e8236ce1685a096990c80d0965835ea.png"
+                                alt="Parasita">
+                            <button class="play-button">▶</button>
+                        </a>
+                        <h4 class="movie-title">Dragon Ball Z</h4>
+                    </div>
+                </div>
+
+                <!-- Item 9 -->
+                <div class="top10-carousel-item">
+                    <img class="numero-fundo numero-9" src="{% static 'imagens/top10/9.png' %}" alt="Número 9">
+                    <div class="imagem-container imagem-9">
+                        <a href="/filmes/duna.html">
+                            <img class="top10-carousel-img"
+                                src="https://m.media-amazon.com/images/M/MV5BYzczNzdhYWItNmJhZi00NmMxLTk4ZWQtMzdhYjZmYzk3NWUyXkEyXkFqcGc@._V1_.jpg"
+                                alt="Duna">
+                            <button class="play-button">▶</button>
+                        </a>
+                        <h4 class="movie-title">Steins;Gate</h4>
+                    </div>
+                </div>
+
+                <!-- Item 10 -->
+                <div class="top10-carousel-item">
+                    <img class="numero-fundo numero-10" src="{% static 'imagens/top10/10.png' %}" alt="Número 10">
+                    <div class="imagem-container imagem-10">
+                        <a href="/filmes/top-gun-maverick.html">
+                            <img class="top10-carousel-img"
+                                src="https://m.media-amazon.com/images/M/MV5BMGRiOWQyOTAtZDQ0Ny00NGRiLWIyYTYtZWM1MjNjNzg0ZjE3XkEyXkFqcGc@._V1_.jpg"
+                                alt="Top Gun: Maverick">
+                            <button class="play-button">▶</button>
+                        </a>
+                        <h4 class="movie-title">Neon Genesis Evangelion</h4>
+                    </div>
+                </div>
+            </div>
+            <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita"
+                class="top10-carousel-arrow right-arrow" onclick="scrollCarousel('right')">
+        </div>
+    </section>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Seleciona todos os carrosséis da página
+            const carousels = document.querySelectorAll('.top10-carousel-container');
+
+            carousels.forEach((carousel) => {
+                const scrollAmount = 700; // Quantidade de rolagem (em pixels)
+                const leftArrow = carousel.querySelector('.top10-carousel-arrow.left-arrow');
+                const rightArrow = carousel.querySelector('.top10-carousel-arrow.right-arrow');
+                const innerCarousel = carousel.querySelector('.top10-carousel');
+
+                // Função para rolar para a esquerda
+                leftArrow.addEventListener('click', () => {
+                    innerCarousel.scrollBy({
+                        top: 0,
+                        left: -scrollAmount,
+                        behavior: 'smooth'
+                    });
+                });
+
+                // Função para rolar para a direita
+                rightArrow.addEventListener('click', () => {
+                    innerCarousel.scrollBy({
+                        top: 0,
+                        left: scrollAmount,
+                        behavior: 'smooth'
+                    });
+                });
+
+                // Mostrar setas ao passar o mouse sobre o carrossel
+                carousel.addEventListener('mouseenter', () => {
+                    leftArrow.style.display = 'block';
+                    rightArrow.style.display = 'block';
+                });
+
+                // Ocultar setas ao retirar o mouse do carrossel
+                carousel.addEventListener('mouseleave', () => {
+                    leftArrow.style.display = 'none';
+                    rightArrow.style.display = 'none';
+                });
+            });
+        });
+    </script>
+
+
+
+<section>
+    <h1 class="carousel-title">Ficção Científica e Fantasia
+    </h1>
+    <div class="carousel-container carrossel-um">
+        <div class="carousel-overlay left-overlay"></div>
+        <div class="carousel-overlay right-overlay"></div>
+        <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda"
+            class="carousel-1 left-arrow">
+        <div class="carousel carrossel-um">
+            <div class="carousel-item carrossel-um">
+                <a href="/series/Vampiresdiares.html">
+                    <img class="carrossel-um"
+                        src="https://m.media-amazon.com/images/M/MV5BYjc4ZWE5OGYtNjljYy00MTU5LWFlYTYtZTkwZjNjZWU4NWVhXkEyXkFqcGc@._V1_.jpg"
+                        alt="Kingsman">
+                    <!-- Apenas um botão de play -->
+                    <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                </a>
+                <h4 class="movie-title">O Fantasma do Futuro</h4>
+                <div class="movie-info">
+                    <span class="movie-year">1995</span>
+                    <span class="movie-rating">⭐ 3.9</span>
+
+                </div>
+            </div>
+
+            <div class="carousel-item carrossel-um">
+                <a href="https://link-para-novidade2.com">
+                    <img class="carrossel-um"
+                        src="https://m.media-amazon.com/images/M/MV5BZjI1YjZiMDUtZTI3MC00YTA5LWIzMmMtZmQ0NTZiYWM4NTYwXkEyXkFqcGc@._V1_.jpg" alt="Dunkirk">
+                    <!-- Apenas um botão de play -->
+                    <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                </a>
+                <h4 class="movie-title">Steins;Gate</h4>
+                <div class="movie-info">
+                    <span class="movie-year">2011</span>
+                    <span class="movie-rating">⭐ 2.0</span>
+
+                </div>
+            </div>
+
+            <div class="carousel-item carrossel-um">
+                <a href="https://link-para-novidade3.com">
+                    <img class="carrossel-um"
+                        src="https://m.media-amazon.com/images/M/MV5BNjQ1OTNkZGYtODVlMC00NWI0LWJiYjItMzM4M2U4NjY0ZTYwXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="">
+                    <!-- Apenas um botão de play -->
+                    <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                </a>
+                <h4 class="movie-title">Psycho-Pass</h4>
+                <div class="movie-info">
+                    <span class="movie-year">2012</span>
+                    <span class="movie-rating">⭐ 4.2</span>
+
+                </div>
+            </div>
+            <div class="carousel-item carrossel-um">
+                <a href="https://link-para-novidade3.com">
+                    <img class="carrossel-um"
+                        src="https://br.web.img3.acsta.net/c_310_420/pictures/18/12/07/12/40/4530128.jpg"
+                        alt="">
+                    <!-- Apenas um botão de play -->
+                    <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                </a>
+                <h4 class="movie-title">Neon Genesis Evangelion</h4>
+                <div class="movie-info">
+                    <span class="movie-year">1995</span>
+                    <span class="movie-rating">⭐ 3.2</span>
+
+                </div>
+            </div>
+            <div class="carousel-item carrossel-um">
+                <a href="https://link-para-novidade3.com">
+                    <img class="carrossel-um"
+                        src="https://m.media-amazon.com/images/I/81hML-8dnQL._AC_UF1000,1000_QL80_.jpg"
+                        alt="">
+                    <!-- Apenas um botão de play -->
+                    <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                </a>
+                <h4 class="movie-title">Planetes</h4>
+                <div class="movie-info">
+                    <span class="movie-year">2003</span>
+                    <span class="movie-rating">⭐ 3.3</span>
+
+                </div>
+            </div>
+            <div class="carousel-item carrossel-um">
+                <a href="https://link-para-novidade3.com">
+                    <img class="carrossel-um"
+                        src="https://m.media-amazon.com/images/M/MV5BYmZmOGM3MjAtYWI3My00N2QyLWJmNTctNTE5MTU2ZjcxYzNiXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+                        alt="">
+                    <!-- Apenas um botão de play -->
+                    <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                </a>
+                <h4 class="movie-title">Ergo Proxy</h4>
+                <div class="movie-info">
+                    <span class="movie-year">2006</span>
+                    <span class="movie-rating">⭐ 4.1</span>
+
+                </div>
+            </div>
+            <div class="carousel-item carrossel-um">
+                <a href="https://link-para-novidade3.com">
+                    <img class="carrossel-um"
+                        src="https://m.media-amazon.com/images/M/MV5BNjFlOGE4YTItOGI2Yi00YTU5LThhNDctYjFkZjcyNWE4YmMwXkEyXkFqcGc@._V1_.jpg"
+                        alt="">
+                    <!-- Apenas um botão de play -->
+                    <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                </a>
+                <h4 class="movie-title">Armitage III</h4>
+                <div class="movie-info">
+                    <span class="movie-year">1995</span>
+                    <span class="movie-rating">⭐ 2.8</span>
+
+                </div>
+            </div>
+            <div class="carousel-item carrossel-um">
+                <a href="https://link-para-novidade3.com">
+                    <img class="carrossel-um"
+                        src="https://m.media-amazon.com/images/M/MV5BNDczZWMyMjEtZDI0ZS00YThjLWE2MjEtNTIxNmVmZDhkNDg5XkEyXkFqcGc@._V1_.jpg"
+                        alt="">
+                    <!-- Apenas um botão de play -->
+                    <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                </a>
+                <h4 class="movie-title">Fullmetal Alchemist: Brotherhood</h4>
+                <div class="movie-info">
+                    <span class="movie-year">2009</span>
+                    <span class="movie-rating">⭐ 4.7</span>
+
+                </div>
+            </div>
+            <div class="carousel-item carrossel-um">
+                <a href="https://link-para-novidade3.com">
+                    <img class="carrossel-um"
+                        src="https://m.media-amazon.com/images/M/MV5BNzVjOWEwYjEtNDJhOC00YjUyLThjMWItMDQwZGY1ODM4YzI3XkEyXkFqcGc@._V1_.jpg" alt="">
+                    <!-- Apenas um botão de play -->
+                    <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                </a>
+                <h4 class="movie-title">Attack on Titan</h4>
+                <div class="movie-info">
+                    <span class="movie-year">2013</span>
+                    <span class="movie-rating">⭐ 5.0</span>
+
+                </div>
+            </div>
+            <div class="carousel-item carrossel-um">
+                <a href="https://link-para-novidade3.com">
+                    <img class="carrossel-um"
+                        src="https://m.media-amazon.com/images/M/MV5BZjM4ODA5YTktNjliMC00NzI5LTk3ZTctZWYyYWEyNTJhMmQzXkEyXkFqcGc@._V1_.jpg" alt="">
+                    <!-- Apenas um botão de play -->
+                    <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                </a>
+                <h4 class="movie-title">Made in Abyss</h4>
+                <div class="movie-info">
+                    <span class="movie-year">2017</span>
+                    <span class="movie-rating">⭐ 4.8</span>
+
+                </div>
+            </div>
+            <div class="carousel-item carrossel-um">
+                <a href="https://link-para-novidade3.com">
+                    <img class="carrossel-um"
+                        src="https://m.media-amazon.com/images/M/MV5BZjc4ZGZkNjMtZTRkYS00Mjk4LTgwMzAtMzg1MWZlZjcxNDRhXkEyXkFqcGc@._V1_.jpg" alt="">
+                    <!-- Apenas um botão de play -->
+                    <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                </a>
+                <h4 class="movie-title">The Rising Of The Shield Hero</h4>
+                <div class="movie-info">
+                    <span class="movie-year">2019</span>
+                    <span class="movie-rating">⭐ 3.1</span>
+
+                </div>
+            </div>
+
+        </div>
+        <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita"
+            class="carousel-1 right-arrow">
+    </div>
+</section>
+
+
+
+    <section>
+        <h1 class="carousel-title">Drama</h1>
+        <div class="carousel-container carrossel-um">
+            <div class="carousel-overlay left-overlay"></div>
+            <div class="carousel-overlay right-overlay"></div>
+            <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda"
+                class="carousel-1 left-arrow">
+            <div class="carousel carrossel-um">
+                <div class="carousel-item carrossel-um">
+                    <a href="/series/Vampiresdiares.html">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/I/81R8HeREVwL._AC_UF894,1000_QL80_.jpg"
+                            alt="Kingsman">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Clannad</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2008</span>
+                        <span class="movie-rating">⭐ 2.0</span>
+
+                    </div>
+                </div>
+
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade2.com">
+                        <img class="carrossel-um"
+                            src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSwEh84JFhYUjFeuX9fqJefeslQkd2JEqU8EjishCi-vV7THUGp"
+                            alt="Dunkirk">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Shigatsu wa Kimi no Uso</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2014</span>
+                        <span class="movie-rating">⭐ 3.9</span>
+
+                    </div>
+                </div>
+
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BMjc3ODU0ZTctNDgzYS00OWM2LTk0MGQtMzJiZmE1OTFjZTdkXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Anohana: The Flower We Saw That Day</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2011</span>
+                        <span class="movie-rating">⭐ 1.6</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BMDJmZGZmNjQtMzE4NS00ZGRmLWFiMTQtM2EzZDhhZGNkY2FmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">March comes in like a lion</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2016</span>
+                        <span class="movie-rating">⭐ 3.2</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://upload.wikimedia.org/wikipedia/pt/thumb/c/c6/Angel_Beats_poster.jpg/230px-Angel_Beats_poster.jpg" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Angel Beats!</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2010</span>
+                        <span class="movie-rating">⭐ 3.0</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BOGViMzRkYzctM2IyNi00OWFmLTliMDMtNjk1MmE0M2QyM2I1XkEyXkFqcGc@._V1_.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">ReLIFE</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2016</span>
+                        <span class="movie-rating">⭐ 2.3</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://static.wikia.nocookie.net/fandubpediabrasil/images/3/3e/Toradora.jpg/revision/latest?cb=20220117220207&path-prefix=pt-br"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Toradora!</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2008</span>
+                        <span class="movie-rating">⭐ 3.8</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BMWUwNDFiNjQtYjQ0MC00MTcxLWE0MGQtNTdkYTlhZGU2NDFmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Violet Evergarden</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2020</span>
+                        <span class="movie-rating">⭐ 4.3</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BMzY1ODM1YWQtNjhlOS00ZjIwLWJkMWMtMGU0YjE3MGM0NGY0XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Little Busters!</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2012</span>
+                        <span class="movie-rating">⭐ 2.9</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BYjRmOWJmMDgtYjBjMS00OTg1LWJmZTItZTY2MjJlODgxNmUwXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Nana</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2005</span>
+                        <span class="movie-rating">⭐ 2.5</span>
+
+                    </div>
+                </div>
+
+            </div>
+            <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita"
+                class="carousel-1 right-arrow">
+        </div>
+    </section>
+
+
+
+
+
+
+    <section>
+        <h1 class="carousel-title">Ação e Aventura</h1>
+        <div class="carousel-container carrossel-um">
+            <div class="carousel-overlay left-overlay"></div>
+            <div class="carousel-overlay right-overlay"></div>
+            <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda"
+                class="carousel-1 left-arrow">
+            <div class="carousel carrossel-um">
+                <div class="carousel-item carrossel-um">
+                    <a href="/series/Vampiresdiares.html">
+                        <img class="carrossel-um"
+                            src="https://th.bing.com/th/id/R.673b76c5fd985d5514b564f9ca644367?rik=VDcmPfPA2cF4cA&pid=ImgRaw&r=0"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Hunter x Hunter</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2024</span>
+                        <span class="movie-rating">⭐ 4.3</span>
+
+                    </div>
+                </div>
+
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade2.com">
+                        <img class="carrossel-um"
+                            src="https://www.jbchost.com.br/editorajbc/wp-content/uploads/2020/12/overlord-01-capa-p.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Overlord</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2007</span>
+                        <span class="movie-rating">⭐ 3.9</span>
+
+                    </div>
+                </div>
+
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://th.bing.com/th/id/OIP.o-wg5o2DES6n5QJXFBLCigHaLI?rs=1&pid=ImgDetMain" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Akame ga Kill!</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2022</span>
+                        <span class="movie-rating">⭐ 4.2</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://th.bing.com/th/id/R.17a56c0ec490ce8c64cfe9b7f9423df4?rik=3xVYjPf1ASlxDQ&pid=ImgRaw&r=0"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Os Setes Pecados Capitais</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2023</span>
+                        <span class="movie-rating">⭐ 5.8</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://th.bing.com/th/id/OIP.NfeOTb5Kstncqp9htDR4pQAAAA?rs=1&pid=ImgDetMain"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Naruto: Shippuden</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2024</span>
+                        <span class="movie-rating">⭐ 4.8</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://blogbbm.com/wp-content/uploads/2022/07/Mushishi-01-2.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Mushishi</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2023</span>
+                        <span class="movie-rating">⭐ 4.0</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://th.bing.com/th/id/OIP.jCwC8bj-Z0g-suiUxqnWOAHaKg?rs=1&pid=ImgDetMain" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Vinland Saga</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2023</span>
+                        <span class="movie-rating">⭐ 4.3</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://th.bing.com/th/id/OIP.RaGm_iLBVIb3D1lo0ZA4WgHaK5?rs=1&pid=ImgDetMain"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Pokémon</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">1997</span>
+                        <span class="movie-rating">⭐ 4.6</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p12079367_b_v8_an.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Noragami</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2014</span>
+                        <span class="movie-rating">⭐ 3.8</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://th.bing.com/th/id/OIP.tlSz-w1rabim77kb8F0zdgHaLH?rs=1&pid=ImgDetMain"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">InuYasha</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2024</span>
+                        <span class="movie-rating">⭐ 3.9</span>
+
+                    </div>
+                </div>
+
+            </div>
+            <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita"
+                class="carousel-1 right-arrow">
+        </div>
+    </section>
+
+
+
+    <section>
+        <h1 class="carousel-title">Os Mais Assistidos </h1>
+        <div class="carousel-container carrossel-um">
+            <div class="carousel-overlay left-overlay"></div>
+            <div class="carousel-overlay right-overlay"></div>
+            <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda"
+                class="carousel-1 left-arrow">
+            <div class="carousel carrossel-um">
+                <div class="carousel-item carrossel-um">
+                    <a href="/series/Vampiresdiares.html">
+                        <img class="carrossel-um"
+                            src="https://th.bing.com/th/id/OIP.o3xQk98XJ-kq7vAnZaHdzgHaK0?rs=1&pid=ImgDetMain" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Ataque dos Titãs </h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2019</span>
+                        <span class="movie-rating">⭐ 4.6</span>
+
+                    </div>
+                </div>
+
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade2.com">
+                        <img class="carrossel-um"
+                            src="https://th.bing.com/th/id/OIP.7BbSTH-4YNDHxebU7_iqzgAAAA?rs=1&pid=ImgDetMain"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title"> Black Clover</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2024</span>
+                        <span class="movie-rating">⭐ 4.8</span>
+
+                    </div>
+                </div>
+
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://i.pinimg.com/736x/b3/c9/66/b3c9661c12779d6a19bc39441e0ba1fd.jpg"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Dragon Ball Super</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2017</span>
+                        <span class="movie-rating">⭐ 4.4</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://th.bing.com/th/id/R.a20397c82cb08947e76f8b7ee6ce1fbe?rik=kJdWj8kepo%2fh7A&pid=ImgRaw&r=0" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Boruto Naruto Next Generation</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2020</span>
+                        <span class="movie-rating">⭐ 4.5</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://static.wikia.nocookie.net/dublagem/images/d/d9/Voc%C3%AA.jpg/revision/latest?cb=20230211015518&path-prefix=pt-br" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Você</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2018</span>
+                        <span class="movie-rating">⭐ 5.8</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://i0.wp.com/codigoespagueti.com/wp-content/uploads/2023/06/One-Piece-106-manga.jpg?resize=1280%2C2032&quality=80&ssl=1" alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">One Piece</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2005</span>
+                        <span class="movie-rating">⭐ 4.8</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um" src="https://static.wixstatic.com/media/1cf3ac_6ea6668ada5d48fe95b269a9177c2e3e~mv2.png/v1/fill/w_480,h_720,al_c,lg_1,q_85/1cf3ac_6ea6668ada5d48fe95b269a9177c2e3e~mv2.png"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Solo Leveling</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2025</span>
+                        <span class="movie-rating">⭐ 4.9</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://orig00.deviantart.net/8a4e/f/2013/192/b/a/naruto_shippuden________cover_______collab_by_carl1tos-d6czdnc.png"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Naruto Shippuden</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2023</span>
+                        <span class="movie-rating">⭐ 4.6</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://th.bing.com/th/id/OIP.QA5u5WWVUPJuvmUbEIeAVAHaKf?rs=1&pid=ImgDetMain"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Naruto</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2002</span>
+                        <span class="movie-rating">⭐ 4.9</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://th.bing.com/th/id/OIP.qnmZ2ikGV6tvdv__9dbcKgHaLJ?rs=1&pid=ImgDetMain"
+                            alt="">
+                        <!-- Apenas um botão de play -->
+                        <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                    </a>
+                    <h4 class="movie-title">Bleach</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2012</span>
+                        <span class="movie-rating">⭐ 4.3</span>
+
+                    </div>
+                </div>
+
+            </div>
+            <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita"
+                class="carousel-1 right-arrow">
+        </div>
+    </section>
+
+
+    <section class="cards-section">
+        <h1 class="section-title">Achados de hoje para você</h1>
+        <div class="cards-container">
+            <!-- Primeira linha de cards -->
+            <div class="card">
+                <a href="#">
+                    <img src="{% static 'imagens/cards/arrowcard.png' %}" alt="Arrow">
+                    <button class="play-button-card">▶</button>
+                </a>
+                <h4 class="movie-title">Arrow</h4>
+                <div class="movie-info">
+                    <span class="movie-year">2012</span>
+                    <span class="movie-rating">⭐ 4.7</span>
+                </div>
+            </div>
+            <div class="card">
+                <a href="#">
+                    <img src="{% static 'imagens/cards/cobrakaicard.png' %}" alt="Cobra Kai">
+                    <button class="play-button-card">▶</button>
+                </a>
+                <h4 class="movie-title">Cobra Kai</h4>
+                <div class="movie-info">
+                    <span class="movie-year">2018</span>
+                    <span class="movie-rating">⭐ 4.6</span>
+                </div>
+            </div>
+            <div class="card">
+                <a href="#">
+                    <img src="{% static 'imagens/cards/falcaoamericacard.png' %}" alt="Falcon and the Winter Soldier">
+                    <button class="play-button-card">▶</button>
+                </a>
+                <h4 class="movie-title">Falcon and the Winter Soldier</h4>
+                <div class="movie-info">
+                    <span class="movie-year">2021</span>
+                    <span class="movie-rating">⭐ 4.7</span>
+                </div>
+            </div>
+            <div class="card">
+                <a href="#">
+                    <img src="{% static 'imagens/cards/flashcard.png' %}" alt="The Flash">
+                    <button class="play-button-card">▶</button>
+                </a>
+                <h4 class="movie-title">The Flash</h4>
+                <div class="movie-info">
+                    <span class="movie-year">2014</span>
+                    <span class="movie-rating">⭐ 4.3</span>
+                </div>
+            </div>
+            <div class="card">
+                <a href="#">
+                    <img src="{% static 'imagens/cards/genvcard.png' %}" alt="Gen V">
+                    <button class="play-button-card">▶</button>
+                </a>
+                <h4 class="movie-title">Gen V</h4>
+                <div class="movie-info">
+                    <span class="movie-year">2023</span>
+                    <span class="movie-rating">⭐ 4.6</span>
+                </div>
+            </div>
+            <div class="card">
+                <a href="#">
+                    <img src="{% static 'imagens/cards/halocard.png' %}" alt="Hello">
+                    <button class="play-button-card">▶</button>
+                </a>
+                <h4 class="movie-title">Hello</h4>
+                <div class="movie-info">
+                    <span class="movie-year">2022</span>
+                    <span class="movie-rating">⭐ 4.5</span>
+                </div>
+            </div>
+            <!-- Segunda linha de cards -->
+            <div class="card">
+                <a href="#">
+                    <img src="{% static 'imagens/cards/houseofdragoncard.png' %}" alt="House of the Dragon">
+                    <button class="play-button-card">▶</button>
+                </a>
+                <h4 class="movie-title">House of the Dragon</h4>
+                <div class="movie-info">
+                    <span class="movie-year">2022</span>
+                    <span class="movie-rating">⭐ 4.8</span>
+                </div>
+            </div>
+            <div class="card">
+                <a href="#">
+                    <img src="{% static 'imagens/cards/knighcard.png' %}" alt="Knight Rider">
+                    <button class="play-button-card">▶</button>
+                </a>
+                <h4 class="movie-title">Knight Rider</h4>
+                <div class="movie-info">
+                    <span class="movie-year">2016</span>
+                    <span class="movie-rating">⭐ 4.2</span>
+                </div>
+            </div>
+            <div class="card">
+                <a href="#">
+                    <img src="{% static 'imagens/cards/o continental.png' %}" alt="The Continental Pro">
+                    <button class="play-button-card">▶</button>
+                </a>
+                <h4 class="movie-title">The Continental Pro</h4>
+                <div class="movie-info">
+                    <span class="movie-year">2023</span>
+                    <span class="movie-rating">⭐ 4.4</span>
+                </div>
+            </div>
+            <div class="card">
+                <a href="#">
+                    <img src="{% static 'imagens/cards/theboyscard.png' %}" alt="The Boys">
+                    <button class="play-button-card">▶</button>
+                </a>
+                <h4 class="movie-title">The Boys</h4>
+                <div class="movie-info">
+                    <span class="movie-year">2019</span>
+                    <span class="movie-rating">⭐ 4.8</span>
+                </div>
+            </div>
+            <div class="card">
+                <a href="#">
+                    <img src="{% static 'imagens/cards/thelastofuscard.png' %}" alt="The Last of Us">
+                    <button class="play-button-card">▶</button>
+                </a>
+                <h4 class="movie-title">The Last of Us</h4>
+                <div class="movie-info">
+                    <span class="movie-year">2023</span>
+                    <span class="movie-rating">⭐ 4.9</span>
+                </div>
+            </div>
+            <div class="card">
+                <a href="#">
+                    <img src="{% static 'imagens/cards/dardevilcard.png' %}" alt="Marvel's Dorsetovia">
+                    <button class="play-button-card">▶</button>
+                </a>
+                <h4 class="movie-title">Marvel's Dorsetovia</h4>
+                <div class="movie-info">
+                    <span class="movie-year">2015</span>
+                    <span class="movie-rating">⭐ 4.5</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+    <section class="atores-em-alta">
+        <h2>Atores em Alta</h2>
+        <hr class="divider">
+        <div class="em-alta-info">
+            <img src="{% static 'imagens/vectores/emalta.png' %}" alt="Em Alta" class="em-alta-icon">
+            <span class="em-alta-text">Em Alta</span>
+            <img src="{% static 'imagens/vectores/foguinho.png' %}" alt="Popular" class="foguinho-icon">
+            <span class="foguinho-text">Popular</span>
+        </div>
+        <section class="carousel-container carousel-container-atores">
+            <div class="carousel-container-atores">
+                <div class="carousel-overlay-atores left-overlay-atores"></div>
+                <div class="carousel-overlay-atores right-overlay-atores"></div>
+                <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda"
+                    class="carousel-atores left-arrow-atores">
+                <div class="carousel carrossel-atores">
+                    <!-- Item 1 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeuBrW_sElLZ9S0xHhcEk5QdvFA-LjelEozQ&s"
+                            alt="Ator 1">
+                        <h4 class="ator-name">Chris Evans</h4>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://br.web.img3.acsta.net/c_310_420/pictures/18/07/25/22/44/3624942.jpg"
+                            alt="Ator 2">
+                        <h4 class="ator-name">Denzel Washington</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://upload.wikimedia.org/wikipedia/commons/3/31/Emma_Stone_at_Maniac_UK_premiere_%28cropped%29.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Emma Stone</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://br.web.img2.acsta.net/pictures/16/05/17/17/28/208580.jpg" alt="Ator 3">
+                        <h4 class="ator-name">Ryan Gosling</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Margot_Robbie_Vogue_Barbie_2023_03.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Margot Robbie</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://upload.wikimedia.org/wikipedia/commons/3/3f/TechCrunch_Disrupt_2019_%2848834434641%29_%28cropped%29.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Will Smith</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://br.web.img3.acsta.net/c_310_420/pictures/18/06/29/00/35/0101925.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Robert Downey Jr.</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://upload.wikimedia.org/wikipedia/commons/7/7f/Emma_Watson_2013.jpg" alt="Ator 3">
+                        <h4 class="ator-name">Emma Watson</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://br.web.img2.acsta.net/c_310_420/medias/nmedia/18/92/61/22/20208787.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Leonardo DiCaprio</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://br.web.img2.acsta.net/pictures/19/03/19/17/23/0985270.jpg" alt="Ator 3">
+                        <h4 class="ator-name">Brad Pitt</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Angelina_Jolie-643531_%28cropped%29.jpg/800px-Angelina_Jolie-643531_%28cropped%29.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Angelina Jolie</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://br.web.img3.acsta.net/pictures/18/07/25/22/08/5179819.jpg" alt="Ator 3">
+                        <h4 class="ator-name">Tom Cruise</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://upload.wikimedia.org/wikipedia/commons/c/c4/Bruce_Willis_by_Gage_Skidmore_3.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Bruce Willis</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHelDKWw-s1fQ4vaCbo9Co96IvXM4Vm009fA&s"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Andrew Garfield</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzzGME_ao9C5iaCyx7uAVzBkj5ztIJYEcMFQ&s"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Chris Hemsworth</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Elizabeth_Olsen_at_the_2024_Toronto_International_Film_Festival_3_%28Cropped%29.jpg/640px-Elizabeth_Olsen_at_the_2024_Toronto_International_Film_Festival_3_%28Cropped%29.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Elizabeth Olsen</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://br.web.img3.acsta.net/c_310_420/pictures/17/06/20/16/57/103535.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Adam Sandler</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSrMRQVt6QwBkjgIPtGeZlaDs1UvMe_LElDg&s"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Robert De Niro</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://m.media-amazon.com/images/M/MV5BMTQ2MjMwNDA3Nl5BMl5BanBnXkFtZTcwMTA2NDY3NQ@@._V1_FMjpg_UX1000_.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Tom Hanks</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNaXBIEXeTUkXTB9jFknfoNTO44TdTmPryzw&s"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Johnny Depp</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://upload.wikimedia.org/wikipedia/commons/5/59/Robin_Williams_Happy_Feet_premiere.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Robin Williams</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://m.media-amazon.com/images/M/MV5BMTc0MDMyMzI2OF5BMl5BanBnXkFtZTcwMzM2OTk1MQ@@._V1_FMjpg_UX1000_.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Morgan Freeman</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://m.media-amazon.com/images/M/MV5BNDEzOTdhNDUtY2EyMy00YTNmLWE5MjItZmRjMmQzYTRlMGRkXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Keanu Reeves</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Nicole_Kidman-66059_%28cropped%29.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Nicole Kidman</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/MKr347638_Matt_Damon_%28Small_Things_Like_These%2C_Berlinale_2024%29.jpg/1200px-MKr347638_Matt_Damon_%28Small_Things_Like_These%2C_Berlinale_2024%29.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Matt Damon</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBYu4wf2d7qZpSoG2H-FclBiEFCpLGIt9P7A&s"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Emilia Clarke</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://br.web.img2.acsta.net/c_310_420/pictures/19/04/25/23/29/2407499.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Vin Diesel</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2VmmosNpqwr-lA-jV8AGs3EpeeHXOu2v1Fg&s"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Dwayne Johnson</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://br.web.img2.acsta.net/pictures/19/01/02/20/11/4475624.jpg" alt="Ator 3">
+                        <h4 class="ator-name">Russell Crowe</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Sharon_Stone_%2833374127422%29_%28cropped%29.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Sharon Stone</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_KRKMWXLD8MlzQhvKVQ6Q_Mz5lyq7gnpaEQ&s"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Eddie Murphy</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://upload.wikimedia.org/wikipedia/commons/8/8b/Jackie_Chan_July_2016.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Jackie Chan</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://static1.purepeople.com.br/articles/3/37/85/03/@/4346238-kristen-stewart-usou-sobrancelhas-marcad-580x580-3.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Kristen Stewart</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzVSqhcLyDyGtbtim0OvUgB1lJ1ibEQR77xg&s"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Ben Affleck</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Harrison_Ford_by_Gage_Skidmore_3.jpg/800px-Harrison_Ford_by_Gage_Skidmore_3.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Harrison Ford</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://m.media-amazon.com/images/M/MV5BM2JiYzA0ZGItNmFhYy00MjIyLWEwN2QtMzRmNDUyNjNiZjBiXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Mark Ruffalo</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://upload.wikimedia.org/wikipedia/commons/1/19/Kit_harrington_by_sachyn_mital_%28cropped%29.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Kit Harington</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/2024/02/Jeremy-Renner.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Jeremy Renner</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://upload.wikimedia.org/wikipedia/commons/6/60/Scarlett_Johansson_by_Gage_Skidmore_2_%28cropped%29.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Scarlett Johansson</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgZhZRFgE-gcAOcuZigqjKL-nTzHUwt7Wd0g&s"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Don Cheadle</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://m.media-amazon.com/images/M/MV5BNDY4MjI4YzEtMzgxYS00N2M5LWEwMmQtZjYwNGE0OThmYTQ0XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Brie Larson</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Tom_Holland_by_Gage_Skidmore.jpg/800px-Tom_Holland_by_Gage_Skidmore.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Tom Holland</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://m.media-amazon.com/images/M/MV5BY2I4MGI5ZmItZWNlNy00ZTZkLWJhMTgtMDhmYTRmNzUwNTI3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Chris Pratt</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/GwynethPaltrowByAndreaRaffin2011.jpg/640px-GwynethPaltrowByAndreaRaffin2011.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Gwyneth Paltrow</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://br.web.img2.acsta.net/pictures/19/04/16/18/31/2669769.jpg" alt="Ator 3">
+                        <h4 class="ator-name">Sebastian Stan</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://m.media-amazon.com/images/M/MV5BMTk3NTM1MjE2M15BMl5BanBnXkFtZTcwNzc5OTI2Mg@@._V1_FMjpg_UX1000_.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Anthony Mackie</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://m.media-amazon.com/images/M/MV5BMTQ1NTQwMTYxNl5BMl5BanBnXkFtZTYwMjA1MzY1._V1_FMjpg_UX1000_.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">Samuel L. Jackson</h4>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-atores">
+                        <img class="carrossel-atores"
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/George_Clooney_2016.jpg/250px-George_Clooney_2016.jpg"
+                            alt="Ator 3">
+                        <h4 class="ator-name">George Clooney</h4>
+                    </div>
+                </div>
+                <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita"
+                    class="carousel-atores right-arrow-atores">
+            </div>
+        </section>
+    </section>
+
+
+
+
+    <script>
+
+    </script>
+
+
+
+    <div class="ver-mais-container">
+        <button class="ver-mais-btn">
+            <img src="{% static 'imagens/vectores/vermais.png' %}" alt="Ver mais" class="ver-mais-icon">
+            Ver mais
+        </button>
+    </div>
+
+
+    <footer>
+        <h2>CINESPACE</h2>
+        <div class="footer-content">
+            <div>
+                <h4>INSTITUCIONAL</h4>
+                <p>Sobre nós</p>
+                <p>Termos de uso</p>
+                <p>Política de privacidade</p>
+            </div>
+            <div>
+                <h4>SUPORTE</h4>
+                <p>Ajuda</p>
+                <p>Contato</p>
+                <p>FAQ</p>
+            </div>
+            <div>
+                <h4>CONTEÚDO</h4>
+                <p>Filmes</p>
+                <p>Séries</p>
+                <p>Novidades</p>
+            </div>
+            <div>
+                <h4>PARCERIAS</h4>
+                <p>Produtoras</p>
+                <p>Anunciantes</p>
+                <p>Afiliados</p>
+            </div>
+            <div>
+                <h4>ASSINATURA</h4>
+                <p>Planos</p>
+                <p>Promoções</p>
+                <p>Cancelamento</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>English | Português | Español | Français | Italiano | Deutsch | 日本語 | 中文</p>
+            <p>&copy; 2025 Cinespace, LLC. Todos os direitos reservados. Todos os elementos pertencem aos seus respectivos proprietários.</p>
+        </div>
+    </footer>
+    
+
+
+    <script src="{% static 'javascripts/trocarvideos-animes.js' %}"></script>
+
+    <script src="{% static 'javascripts/continuarassistindo.js' %}"></script>
+    <script src="{% static 'javascripts/rolagem.js' %}"></script>
+    <script src="{% static 'javascripts/reproduzirvideo.js' %}"></script>
+    <script src="{% static 'javascripts/reproduçao.js' %}"></script>
+    <script src="{% static 'javascripts/menu.js' %}"></script>
+        <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/franc@6.1.0/dist/franc.min.js"></script>
+    <script src="{% static 'javascripts/chatbot.js' %}"></script>
+    <script src="{% static 'javascripts/lupa.js' %}"></script>
+    <script src="{% static 'javascripts/header.js' %}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineSpace</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/telainicial.css' %}">
+    <link rel="icon" href="{% static 'imagens/favicon cinetrailers.png' %}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=ABeeZee&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="bannerfundo">
+        <img src="{% static 'imagens/fundos/fundospace.png' %}" alt="Imagem de Fundo">
+    </div>
+    <!-- Header -->
+    <header class="header-transparent">
+        <div class="header-container">
+            <h1 class="site-title">
+                <a href="{% url 'index' %}">CINESPACE</a>
+            </h1>
+            <div class="header-buttons">
+                <a href="{% url 'paginalogin' %}" class="botao-entrar">Entrar</a>
+                <a href="{% url 'paginacadastro' %}" class="botao-criar-conta">ASSINE AGORA</a>
+            </div>
+        </div>
+    </header>
+
+<!-- Banner do Planeta -->
+<section class="planeta-container">
+    <img src="{% static 'imagens/banners/planeta.png' %}" alt="Planeta" class="planeta">
+    <div class="banner-overlay">
+        <h1>CINESPACE</h1>
+        <p class="banner-subtitle">O seu site de streaming, com um<br> catálogo variado de tudo!</p>
+        <p class="banner-tagline">Tudo de melhor você encontra aqui!</p>
+        <a href="{% url 'paginalogin' %}" class="botao-banner">Entrar</a>
+    </div>
+    <!-- Efeito na parte inferior do banner -->
+    <div class="banner-bottom-effect"></div>
+</section>
+
+
+
+   <!-- Resto do Conteúdo -->
+<section class="planos">
+    <h2 class="section-title">Nossos Principais Planos</h2>
+    <p class="section-subtitle">Uma verdadeira seleção para você escolher o melhor para você.</p>
+    <!-- Seletor de plano (Anual/Mensal) -->
+    <div class="plano-selector">
+        <button class="selected" onclick="selecionarPlano('mensal')">Mensal</button>
+        <button onclick="selecionarPlano('anual')">Anual</button>
+    </div>
+    
+    <!-- Container dos cards de planos -->
+  <!-- Container dos cards de planos -->
+<div class="planos-container">
+    <!-- Plano Lunar -->
+    <div class="plano-card lunar">
+        <img src="{% static 'imagens/planos/lunar.png' %}" alt="Lunar">
+        <div class="plano-info">
+            <div class="plano-header">
+                <h3>Lunar</h3>
+                <div class="price">
+                    <span id="lunar-price">R$ 25,00</span><small>/mês</small>
+                </div>
+            </div>
+            <ul>
+                <li><img src="{% static 'imagens/icons/verificado.png' %}" alt="Verificado"> Experiência em FullHD (1080p)</li>
+                <li><img src="{% static 'imagens/icons/verificado.png' %}" alt="Verificado"> 2 Telas simultâneas</li>
+                <li><img src="{% static 'imagens/icons/verificado.png' %}" alt="Verificado"> Com anúncios estratégicos</li>
+                <li><img src="{% static 'imagens/icons/verificado.png' %}" alt="Verificado"> Criação de até 3 Perfis</li>
+                <li><img src="{% static 'imagens/icons/verificado.png' %}" alt="Verificado"> Space music com Anuncios</li>
+            </ul>
+            <a href="{% url 'paginacadastro' %}" class="botao-plano">Escolher Plano</a>
+        </div>
+    </div>
+
+    <!-- Plano Supernova -->
+    <div class="plano-card supernova">
+        <img src="{% static 'imagens/planos/supernova.png' %}" alt="Supernova">
+        <div class="plano-info">
+            <div class="plano-header">
+                <h3>Super nova</h3>
+                <div class="price">
+                    <span id="supernova-price">R$ 35,00</span><small>/mês</small>
+                </div>
+                <div class="mais-usado">Mais usado</div>
+            </div>
+            <ul>
+                <li><img src="{% static 'imagens/icons/verificado.png' %}" alt="Verificado"> Experiência em FullHD (1080p)</li>
+                <li><img src="{% static 'imagens/icons/verificado.png' %}" alt="Verificado"> 4 Telas simultâneas</li>
+                <li><img src="{% static 'imagens/icons/verificado.png' %}" alt="Verificado"> Criação de até 4 Perfis</li>
+                <li><img src="{% static 'imagens/icons/verificado.png' %}" alt="Verificado"> Cine Space Music </li>
+                <li><img src="{% static 'imagens/icons/verificado.png' %}" alt="Verificado"> Cine Space Esportes  </li>
+                <li><img src="{% static 'imagens/icons/verificado.png' %}" alt="Verificado"> Space Bot AI Basic</li>
+            </ul>
+            <a href="{% url 'paginacadastro' %}" class="botao-plano">Escolher Plano</a>
+        </div>
+    </div>
+
+    <!-- Plano Multiverso -->
+    <div class="plano-card multiverso">
+        <img src="{% static 'imagens/planos/multiverso.png' %}" alt="Multiverso">
+        <div class="plano-info">
+            <div class="plano-header">
+                <h3>Multiverso</h3>
+                <div class="price">
+                    <span id="multiverso-price">R$ 47,00</span><small>/mês</small>
+                </div>
+            </div>
+            <ul>
+                <li><img src="{% static 'imagens/icons/verificado.png' %}" alt="Verificado"> Experiência em UltraHD (2048p)</li>
+                <li><img src="{% static 'imagens/icons/verificado.png' %}" alt="Verificado"> 6 Telas simultâneas</li>
+                <li><img src="{% static 'imagens/icons/verificado.png' %}" alt="Verificado"> Streaming Sem Anúncios</li>
+                <li><img src="{% static 'imagens/icons/verificado.png' %}" alt="Verificado"> Criação de até 6 Perfis</li>
+                <li><img src="{% static 'imagens/icons/verificado.png' %}" alt="Verificado"> Cine Space Music </li>
+                <li><img src="{% static 'imagens/icons/verificado.png' %}" alt="Verificado"> Cine Space Esportes </li>
+                <li><img src="{% static 'imagens/icons/verificado.png' %}" alt="Verificado"> Space Bot AI Plus</li>
+            </ul>
+            <a href="{% url 'paginacadastro' %}" class="botao-plano">Escolher Plano</a>
+        </div>
+    </div>
+</div>
+</section>
+
+<script>
+    function selecionarPlano(tipo) {
+const buttons = document.querySelectorAll('.plano-selector button');
+buttons.forEach(button => {
+   button.classList.remove('selected');
+});
+
+const selectedButton = document.querySelector(`.plano-selector button[onclick="selecionarPlano('${tipo}')"]`);
+selectedButton.classList.add('selected');
+
+// Preços mensais
+const precoLunarMensal = 20;
+const precoSupernovaMensal = 35;
+const precoMultiversoMensal = 50;
+
+// Atualiza os preços com base na seleção
+if (tipo === 'mensal') {
+   document.getElementById('lunar-price').textContent = `R$ ${precoLunarMensal}`;
+   document.getElementById('supernova-price').textContent = `R$ ${precoSupernovaMensal}`;
+   document.getElementById('multiverso-price').textContent = `R$ ${precoMultiversoMensal}`;
+
+   // Oculta as parcelas
+   document.querySelectorAll('.parcelas').forEach(parcela => {
+       parcela.style.display = 'none';
+   });
+} else if (tipo === 'anual') {
+   // Aplica 25% de desconto nos preços anuais
+   const precoLunarAnual = (precoLunarMensal * 0.75).toFixed(2);
+   const precoSupernovaAnual = (precoSupernovaMensal * 0.75).toFixed(2);
+   const precoMultiversoAnual = (precoMultiversoMensal * 0.75).toFixed(2);
+
+   document.getElementById('lunar-price').textContent = `R$ ${precoLunarAnual}`;
+   document.getElementById('supernova-price').textContent = `R$ ${precoSupernovaAnual}`;
+   document.getElementById('multiverso-price').textContent = `R$ ${precoMultiversoAnual}`;
+
+   // Exibe as parcelas
+   document.getElementById('lunar-parcelas').style.display = 'block';
+   document.getElementById('supernova-parcelas').style.display = 'block';
+   document.getElementById('multiverso-parcelas').style.display = 'block';
+}
+}
+   </script>
+
+        
+<div class="categorias-carrossel margin-bottom">
+    <h1 class="carrossel-titulo">UMA DIVERSIDADE PARA O SEU ENTRETENIMENTO </h1>
+    <div class="navegacao">
+        <button class="seta-esquerda">‹</button>
+        <div class="categorias-fixa">
+            <!-- As categorias serão inseridas aqui via JavaScript -->
+        </div>
+        <button class="seta-direita">›</button>
+    </div>
+    <div class="carrossel-imagens-container">
+        <div class="carrossel-imagens">
+            <!-- As imagens serão inseridas aqui via JavaScript -->
+        </div>
+    </div>
+    <div class="categorias-conteudo-footer">
+        <div class="footer-header">Tudo em um só lugar</div>
+        <div class="footer-subtitle">Cine + space o melhor do entretenimento</div>
+    </div>
+</div>
+        
+   
+        
+
+
+
+    <section class="como-funciona">
+    
+
+
+
+        <div class="sports-container">
+            <!-- Primeira imagem -->
+            <div class="sports-image">
+                <img src="{% static 'imagens/banners/cinespacesport.png' %}" alt="CineSpace Sport Image 1">
+            </div>
+        
+            <!-- Segunda imagem -->
+            <div class="sports-image">
+                <img src="{% static 'imagens/banners/cinespacemusic.png' %}" alt="CineSpace Sport Image 2">
+            </div>
+        
+            <!-- Terceira imagem -->
+            <div class="sports-image">
+                <img src="{% static 'imagens/banners/cinespacecinema.png' %}" alt="CineSpace Sport Image 3">
+            </div>
+        </div>
+
+    
+ <!-- Seção "Como o CineSpace funciona?" -->
+<section class="como-funciona">
+    <h1 class="titulo-principal">Só a Cine space tem!</h1>
+    <p class="subtitulo-principal">Todos nossos benefícios e diferenciais</p>
+
+    <!-- Container das colunas -->
+    <div class="colunas-container">
+        <!-- Primeira coluna -->
+        <div class="coluna">
+            <div class="item">
+                <div class="imagem-fundo" style="background-image: url('https://i.postimg.cc/YC4KmjHc/beautiful-planets-space.jpg');"></div>
+                <div class="texto-sobreposto">
+                    <h3 class="titulo-item">Flexibilidade total</h3>
+                    <p class="legenda-item">Você pode cancelar ou pausar sua assinatura a qualquer momento, sem complicações ou taxas escondidas.</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="imagem-fundo" style="background-image: url('https://wallpapers.com/images/hd/earth-from-outer-space-ootseguw30nqtrgn.jpg');"></div>
+                <div class="texto-sobreposto">
+                    <h3 class="titulo-item">Assista onde quiser</h3>
+                    <p class="legenda-item">Com qualidade que vai de HD a Ultra HD 4K, aproveite seus conteúdos favoritos em qualquer dispositivo.</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="imagem-fundo" style="background-image: url('https://i.postimg.cc/pV9rQQtr/45428.jpg');"></div>
+                <div class="texto-sobreposto">
+                    <h3 class="titulo-item">Catálogo exclusivo</h3>
+                    <p class="legenda-item">Acesso a filmes, séries e documentários exclusivos que você não encontra em outros serviços.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Segunda coluna -->
+        <div class="coluna">
+            <div class="item">
+                <div class="imagem-fundo" style="background-image: url('https://img.freepik.com/fotos-gratis/paisagem-cosmica-de-fundo-espacial_23-2151955856.jpg?semt=ais_hybrid');"></div>
+                <div class="texto-sobreposto">
+                    <h3 class="titulo-item">Faça sua assinatura</h3>
+                    <p class="legenda-item">Escolha um dos nossos planos e tenha acesso imediato ao nosso extenso catálogo.</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="imagem-fundo" style="background-image: url('https://wallpapers.com/images/high/saturn-shower-4k-lhla5tuo7amr8djz.webp');"></div>
+                <div class="texto-sobreposto">
+                    <h3 class="titulo-item">Sem anúncios</h3>
+                    <p class="legenda-item">Aproveite seus conteúdos favoritos sem interrupções de anúncios.</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="imagem-fundo" style="background-image: url('https://wallpapers.com/images/hd/imagens-de-4k-space-3840-x-2160-7rrnpzr1bstza4p3.jpg');"></div>
+                <div class="texto-sobreposto">
+                    <h3 class="titulo-item">Perfis personalizados</h3>
+                    <p class="legenda-item">Crie até 6 perfis personalizados para toda a família.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terceira coluna -->
+        <div class="coluna">
+            <div class="item">
+                <div class="imagem-fundo" style="background-image: url('https://cdn.pixabay.com/photo/2024/06/01/14/24/planets-8802397_1280.jpg');"></div>
+                <div class="texto-sobreposto">
+                    <h3 class="titulo-item">Downloads ilimitados</h3>
+                    <p class="legenda-item">Baixe seus conteúdos favoritos para assistir offline quando e onde quiser.</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="imagem-fundo" style="background-image: url('https://wallpapers.com/images/high/dark-purple-saturn-4k-57cpi57f89oko7nd.webp');"></div>
+                <div class="texto-sobreposto">
+                    <h3 class="titulo-item">Controle parental</h3>
+                    <p class="legenda-item">Proteja seus filhos com o controle parental e áreas kids exclusivas.</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="imagem-fundo" style="background-image: url('https://i.postimg.cc/zv91pRKR/250557.jpg');"></div>
+                <div class="texto-sobreposto">
+                    <h3 class="titulo-item">Space Bot AI</h3>
+                    <p class="legenda-item">Conte com o Space Bot AI para recomendações personalizadas.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+        
+     
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const items = document.querySelectorAll('.item');
+    
+    // Função para verificar se o elemento está visível na tela
+    function checkVisibility() {
+        const windowHeight = window.innerHeight;
+        const windowTopPosition = window.scrollY;
+        const windowBottomPosition = windowTopPosition + windowHeight;
+        
+        items.forEach((item, index) => {
+            const itemHeight = item.offsetHeight;
+            const itemTopPosition = item.offsetTop;
+            const itemBottomPosition = itemTopPosition + itemHeight;
+            
+            // Verifica se o item está visível na janela
+            if (
+                (itemBottomPosition >= windowTopPosition) &&
+                (itemTopPosition <= windowBottomPosition)
+            ) {
+                // Ativa a animação em grupos de 3 (por coluna)
+                setTimeout(() => {
+                    item.classList.add('visible');
+                }, (index % 3) * 200); // Pequeno delay entre itens da mesma coluna
+            }
+        });
+    }
+    
+    // Verifica a visibilidade ao carregar e ao rolar
+    window.addEventListener('scroll', checkVisibility);
+    window.addEventListener('resize', checkVisibility);
+    checkVisibility(); // Verifica inicialmente
+});
+</script>
+
+<section class="faq">
+    <h1 class="faq-title">Perguntas frequentes</h1>
+    <p class="faq-subtitle">Essas perguntas podem não estar na lista de perguntas frequentes de todos, mas estamos aqui para ajudar caso você esteja curioso.</p>
+    
+    <div class="faq-item">
+        <div class="faq-question">
+            <span class="faq-number">01</span>
+            <h3>Qual é o objetivo do CineSpace?</h3>
+            <img class="faq-icon" src="{% static 'imagens/icons/setinhaprabaixo.png' %}" alt="Seta para baixo">
+        </div>
+        <div class="faq-answer">
+            <p>O CineSpace é um site dedicado a exibir trailers de filmes, séries, animes e doramas, proporcionando uma forma legal de assistir a prévias dos conteúdos.</p>
+        </div>
+    </div>
+    
+    <div class="faq-item">
+        <div class="faq-question">
+            <span class="faq-number">02</span>
+            <h3>Como posso entrar em contato?</h3>
+            <img class="faq-icon" src="{% static 'imagens/icons/setinhaprabaixo.png' %}" alt="Seta para baixo">
+        </div>
+        <div class="faq-answer">
+            <p>Você pode entrar em contato conosco através da seção de contato em nosso site ou pelas redes sociais.</p>
+        </div>
+    </div>
+    
+    <div class="faq-item">
+        <div class="faq-question">
+            <span class="faq-number">03</span>
+            <h3>O CineSpace é gratuito?</h3>
+            <img class="faq-icon" src="{% static 'imagens/icons/setinhaprabaixo.png' %}" alt="Seta para baixo">
+        </div>
+        <div class="faq-answer">
+            <p>Sim, o CineSpace é um site gratuito que exibe trailers e informações sobre os conteúdos, sem custo para os usuários.</p>
+        </div>
+    </div>
+    
+    <div class="faq-item">
+        <div class="faq-question">
+            <span class="faq-number">04</span>
+            <h3>Quais tipos de conteúdo estão disponíveis?</h3>
+            <img class="faq-icon" src="{% static 'imagens/icons/setinhaprabaixo.png' %}" alt="Seta para baixo">
+        </div>
+        <div class="faq-answer">
+            <p>O CineSpace oferece trailers de filmes, séries, animes e doramas, permitindo que os usuários descubram uma variedade de conteúdos.</p>
+        </div>
+    </div>
+    
+    <div class="faq-item">
+        <div class="faq-question">
+            <span class="faq-number">05</span>
+            <h3>Posso cancelar minha assinatura?</h3>
+            <img class="faq-icon" src="{% static 'imagens/icons/setinhaprabaixo.png' %}" alt="Seta para baixo">
+        </div>
+        <div class="faq-answer">
+            <p>Sim, você pode cancelar sua assinatura a qualquer momento sem complicações.</p>
+        </div>
+    </div>
+    
+    <div class="faq-item">
+        <div class="faq-question">
+            <span class="faq-number">06</span>
+            <h3>O CineSpace tem aplicativo para celular?</h3>
+            <img class="faq-icon" src="{% static 'imagens/icons/setinhaprabaixo.png' %}" alt="Seta para baixo">
+        </div>
+        <div class="faq-answer">
+            <p>Atualmente, o CineSpace está disponível apenas como site, mas estamos trabalhando em um aplicativo para celular em breve.</p>
+        </div>
+    </div>
+    
+    <div class="faq-item">
+        <div class="faq-question">
+            <span class="faq-number">07</span>
+            <h3>Os trailers estão disponíveis em HD?</h3>
+            <img class="faq-icon" src="{% static 'imagens/icons/setinhaprabaixo.png' %}" alt="Seta para baixo">
+        </div>
+        <div class="faq-answer">
+            <p>Sim, todos os trailers no CineSpace estão disponíveis em alta qualidade (HD) para uma melhor experiência de visualização.</p>
+        </div>
+    </div>
+    
+    <div class="faq-item">
+        <div class="faq-question">
+            <span class="faq-number">08</span>
+            <h3>Posso sugerir novos conteúdos para o CineSpace?</h3>
+            <img class="faq-icon" src="{% static 'imagens/icons/setinhaprabaixo.png' %}" alt="Seta para baixo">
+        </div>
+        <div class="faq-answer">
+            <p>Claro! Adoramos receber sugestões dos usuários. Você pode enviar suas ideias através da seção de contato.</p>
+        </div>
+    </div>
+    
+    <div class="faq-item">
+        <div class="faq-question">
+            <span class="faq-number">09</span>
+            <h3>O CineSpace tem legendas em outros idiomas?</h3>
+            <img class="faq-icon" src="{% static 'imagens/icons/setinhaprabaixo.png' %}" alt="Seta para baixo">
+        </div>
+        <div class="faq-answer">
+            <p>Sim, muitos dos trailers no CineSpace possuem legendas em vários idiomas, incluindo português, inglês e espanhol.</p>
+        </div>
+    </div>
+    
+    <div class="faq-item">
+        <div class="faq-question">
+            <span class="faq-number">10</span>
+            <h3>Como posso receber atualizações sobre novos trailers?</h3>
+            <img class="faq-icon" src="{% static 'imagens/icons/setinhaprabaixo.png' %}" alt="Seta para baixo">
+        </div>
+        <div class="faq-answer">
+            <p>Você pode se inscrever em nossa newsletter ou seguir nossas redes sociais para receber as últimas atualizações sobre novos trailers e conteúdos.</p>
+        </div>
+    </div>
+</section>
+    
+    <!-- Adicione mais 5 perguntas e respostas seguindo o mesmo padrão -->
+</section>
+    
+<!-- Botão do foguetinho -->
+<div id="rocket-button" class="hidden">
+    <img src="{% static 'imagens/vectores/foguete.png' %}" alt="Foguete" class="rocket-icon">
+    <div class="fire"></div>
+</div>
+
+
+   
+<footer>
+    <h2>CINESPACE</h2>
+    <div class="footer-content">
+        <div>
+            <h4>INSTITUCIONAL</h4>
+            <p>Sobre nós</p>
+            <p>Termos de uso</p>
+            <p>Política de privacidade</p>
+        </div>
+        <div>
+            <h4>SUPORTE</h4>
+            <p>Ajuda</p>
+            <p>Contato</p>
+            <p>FAQ</p>
+        </div>
+        <div>
+            <h4>CONTEÚDO</h4>
+            <p>Filmes</p>
+            <p>Séries</p>
+            <p>Novidades</p>
+        </div>
+        <div>
+            <h4>PARCERIAS</h4>
+            <p>Produtoras</p>
+            <p>Anunciantes</p>
+            <p>Afiliados</p>
+        </div>
+        <div>
+            <h4>ASSINATURA</h4>
+            <p>Planos</p>
+            <p>Promoções</p>
+            <p>Cancelamento</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>English | Português | Español | Français | Italiano | Deutsch | 日本語 | 中文</p>
+        <p>&copy; 2025 Cinespace, LLC. Todos os direitos reservados. Todos os elementos pertencem aos seus respectivos proprietários.</p>
+    </div>
+</footer>
+
+        
+    <script src="{% static 'javascripts/paginadeassinatura.js' %}"></script>
+
+    </body>
+    </html>

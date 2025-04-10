@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinespace - Pesquisa</title>
+    <link rel="stylesheet" href="{% static 'css/pesquisa.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="icon" href="{% static 'imagens/favicon cinetrailers.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'imagens/favicon cinetrailers.png' %}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=ABeeZee&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Biblioteca jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="site-logo">
+            <a href="{% url 'index' %}" class="logo-text">CINESPACE</a>
+        </div>
+       
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="{% url 'filmes' %}">FILMES</a></li>
+                <li><a href="{% url 'series' %}">SERIES</a></li>
+                <li><a href="{% url 'animes' %}">ANIMES</a></li>
+                <li><a href="{% url 'esportes' %}">SPACE ESPORTES</a></li>
+                <li><a href="{% url 'space_music' %}">SPACE MUSIC</a></li>
+            </ul>
+        </nav>
+    
+        <div class="header-icons">
+            <a href="{% url 'resultados' %}">
+                <div id="search-icon" class="search-icon">
+                    <img src="{% static 'imagens/vectores/lupavec.png' %}" alt="Pesquisar">
+                </div>
+            </a>
+           
+
+                <div id="I.A-icon" class="alert-icon">
+                    <img src="{% static 'imagens/vectores/spacebot-vec.png' %}" alt="Favoritos">
+                </div>
+
+
+            <div class="profile-header">
+                <img id="profileImage" src="{% static 'imagens/default/profile.jpg' %}" alt="Perfil" class="perfil-image">
+                <img id="arrowIcon" src="{% static 'imagens/vectores/setaprabaixovec.png' %}" alt="Abrir menu" class="arrow-icon">
+                <div class="menu-perfil">
+                    <!-- Link para a página inicial (Home) -->
+                    <a href="{% url 'cinetrailers' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/homevec.png' %}" alt="Home">
+                        <span class="menu-text">Home</span>
+                    </a>
+            
+                  <!-- Link para a página de configurações -->
+                    <a href="{% url 'conta' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/configvec.png' %}" alt="Configurações">
+                        <span class="menu-text">Configurações</span>
+                    </a>
+            
+                    <!-- Link para a página de escolher usuário (Trocar Perfil) -->
+                    <a href="{% url 'escolherusuario' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/perfilvec.png' %}" alt="Trocar-Perfil">
+                        <span class="menu-text">Trocar Perfil</span>
+                    </a>
+            
+                    <!-- Link para a página de gerenciar perfis (Editar) -->
+                    <a href="{% url 'gerenciar_perfis' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/lapisvec.png' %}" alt="EditarPerfil">
+                        <span class="menu-text">Editar Perfil</span>
+                    </a>
+            
+                    <!-- Link para a página de ajuda -->
+                    <a href="{% url 'ajuda' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/ajudavec.png' %}" alt="Ajuda">
+                        <span class="menu-text">Ajuda</span>
+                    </a>
+            
+                    <!-- Link para logout -->
+                    <a href="{% url 'logout' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/sairvec.png' %}" alt="Sair">
+                        <span class="menu-text">Sair</span>
+                    </a>
+                </div>
+            </div>
+    </header>
+
+<!-- Janela do Chat Bot -->
+<div id="chat-window" class="chat-window">
+<div class="chat-header">
+<h2>SPACE BOT</h2>
+<button id="close-chat">X</button>
+</div>
+<div class="chat-content">
+<!-- Textos acima dos blocos -->
+<div class="chat-texts">
+<h1>SPACE BOT</h1>
+<p class="subtitle">Chat bot</p>
+</div>
+
+<!-- Blocos de Comando -->
+<div class="blocks">
+<div class="block" id="block-fotos">
+    <img src="{% static 'imagens/spacebot/vectores/fotosvec.png' %}" alt="Ícone Criar" class="block-icon">
+    <p class="block-text">Criar fotos</p>
+</div>
+<div class="block" id="block-textos">
+    <img src="{% static 'imagens/spacebot/vectores/textovec.png' %}" alt="Ícone Texto" class="block-icon">
+    <p class="block-text">Criar textos</p>
+</div>
+<div class="block" id="block-conversar">
+    <img src="{% static 'imagens/spacebot/vectores/conversarvec.png' %}" alt="Ícone Conversar" class="block-icon">
+    <p class="block-text">Conversar</p>
+</div>
+<div class="block" id="block-agendar">
+    <img src="{% static 'imagens/spacebot/vectores/agendavec.png' %}" alt="Ícone Agendar" class="block-icon">
+    <p class="block-text">Agendar</p>
+</div>
+</div>
+
+<!-- Área do Chat -->
+<div class="chat-container">
+<div class="chat-messages" id="chat-messages">
+    <div class="loading-indicator" id="loading-indicator" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+</div>
+</div>
+
+<!-- Barra de Mensagens -->
+<div class="message-bar-container">
+<div class="message-bar">
+    <textarea placeholder="Envie sua mensagem" class="message-input" id="userInput"></textarea>
+    <div class="message-icons">
+        <img src="{% static 'imagens/spacebot/vectores/galeriavec.png' %}" alt="Ícone Galeria" class="icon">
+        <div class="divider"></div>
+        <img src="{% static 'imagens/spacebot/vectores/micvec.png' %}" alt="Ícone Microfone" class="icon" id="micButton">
+    </div>
+    <div class="send-button" id="sendButton">
+        <img src="{% static 'imagens/spacebot/vectores/enviarvec.png' %}" alt="Ícone Enviar" class="icon">
+    </div>
+</div>
+</div>
+<!-- Mensagem abaixo da barra de mensagens -->
+<div class="footer-message">
+<p>
+Esta é apenas uma janela do SPACEBOT. Se quiser ter uma experiência melhor, acesse o <a href="{% url 'spacebot' %}" target="_blank" class="spacebot-link">SPACEBOT</a>.
+</p>
+</div>
+</div>
+</div>
+
+    <div class="search-bar-container">
+        <div class="search-bar">
+            <form method="GET" action="{% url 'resultados' %}" id="search-form">
+                <input type="text" id="search-input" name="query" placeholder="Escreva aqui..." value="{% if query %}{{ query }}{% endif %}">
+                <button class="search-button" type="submit"></button>
+            </form>
+            <img src="{% static 'imagens/vectores/lupavec2.png' %}" alt="Pesquisar" class="iconelupa">
+        </div>
+    </div>
+
+   <!-- CATEGORIAS E FILTROS -->
+   <section class="category-filter-section">
+    <form method="GET" action="{% url 'resultados' %}" id="filter-form">
+        <input type="hidden" name="submitted" value="true">
+        <input type="hidden" name="query" value="{% if query %}{{ query }}{% endif %}">
+
+       <!-- Categorias -->
+<div class="categories-container">
+    <div class="category-item" data-category="Filmes" onclick="clearSearchAndFilter('Filmes')">
+        <img src="{% static 'imagens/vectores/filmescat.png' %}" alt="Filmes">
+        <span>Filmes</span>
+        <div class="category-indicator"></div>
+    </div>
+    <div class="category-item" data-category="Séries" onclick="clearSearchAndFilter('Séries')">
+        <img src="{% static 'imagens/vectores/seriescat.png' %}" alt="Series">
+        <span>Séries</span>
+        <div class="category-indicator"></div>
+    </div>
+    <div class="category-item" data-category="Animes" onclick="clearSearchAndFilter('Animes')">
+        <img src="{% static 'imagens/vectores/seriadocat.png' %}" alt="Seriado">
+        <span>Animes</span>
+        <div class="category-indicator"></div>
+    </div>
+    <div class="category-item" data-category="Doramas" onclick="clearSearchAndFilter('Doramas')">
+        <img src="{% static 'imagens/vectores/seriescat.png' %}" alt="Seriado">
+        <span>Doramas</span>
+        <div class="category-indicator"></div>
+    </div>
+    <div class="category-item" data-category="Documentários" onclick="clearSearchAndFilter('Documentários')">
+        <img src="{% static 'imagens/vectores/doccat.png' %}" alt="Documentários">
+        <span>Documentários</span>
+        <div class="category-indicator"></div>
+    </div>
+</div>
+
+            <!-- Linha separadora -->
+            <div class="separator-line"></div>
+
+         <!-- Filtros -->
+<div class="filters-container">
+    <span class="ordenar-por-texto">Ordenar por:</span>
+    <div class="filter-item filter-button" data-filter="recent" onclick="clearSearchAndSort('recent')">
+        <span class="filter-label">Mais recente</span>
+    </div>
+    <div class="filter-item filter-button" data-filter="ano" onclick="clearSearchAndSort('ano')">
+        <span class="filter-label">Ano</span>
+    </div>
+    <div class="filter-item filter-button" data-filter="az" onclick="clearSearchAndSort('az')">
+        <span class="filter-label">A-Z</span>
+    </div>
+    <div class="filter-item" id="classificacao-filter">
+        <span class="filter-label">Classificação</span>
+        <img src="{% static 'imagens/vectores/setaprabaixo.png' %}" alt="Dropdown" class="dropdown-toggle">
+        <div class="filter-dropdown">
+            <a href="#" data-classificacao_idade="L" onclick="clearSearchAndClassificacao('L')">
+                <span>Livre</span>
+                <img src="https://th.bing.com/th/id/OIP.tyPFzMC6UesI-RbRSD3MwAHaHa?w=600&h=600&rs=1&pid=ImgDetMain" alt="L" class="classificacao-icon">
+            </a>
+            <a href="#" data-classificacao_idade="10" onclick="clearSearchAndClassificacao('10')">
+                <span>  10 anos</span>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCczBF0Tngm-P3JI5FIX1rtW_UEHztJDRWr6wk-ZK2SdvjqhN3_YR_CpiDF-w86Nix1K4&usqp=CAU" alt="10" class="classificacao-icon">
+            </a>
+            <a href="#" data-classificacao_idade="12" onclick="clearSearchAndClassificacao('12')">
+                <span> 12 anos</span>
+                <img src="https://s3-alpha-sig.figma.com/img/4a36/19b5/31fe0d6e80d7bcd9040629eed4b77749?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=BoedB4X8SNqu-JIPJJB3yeZLLKMwvG39sczHNDRdh6DtdrewC1UHxlgNfN5p~hs6lSdzJ-UKEyEUCBZgxbaNbHdVqIHkrKh18-8Fs-3y2jLB7Ur0BNfZYojUYWfFm3~Ow5tqGwpjEPgnrKt5MFwAqvmOuwQd4gmbxgktPM6~8U4XAKIRcfWxa-deRidBNx~HyQBf1gA2Ne1GZfNxKj~n2jTrmV5N53m8YlfhE1R0rk2~78aNQH999wrsqiwlNYIvRoBKEv3HTzx8pDlm7bKt-4NOvKKjePELjRPNUB5YFSan1V3OnBL5tNGJsoCv7JMWcChRNMGx1KNXx7zM4d6CBQ__" alt="12" class="classificacao-icon">
+            </a>
+            <a href="#" data-classificacao_idade="14" onclick="clearSearchAndClassificacao('14')">
+                <span> 14 anos</span>
+                <img src="https://logodownload.org/wp-content/uploads/2017/07/classificacao-14-anos-logo-3.png" alt="14" class="classificacao-icon">
+            </a>
+            <a href="#" data-classificacao_idade="16" onclick="clearSearchAndClassificacao('16')">
+                <span> 16 anos</span>
+                <img src="https://logodownload.org/wp-content/uploads/2017/07/classificacao-16-anos-logo-1.png" alt="16" class="classificacao-icon">
+            </a>
+            <a href="#" data-classificacao_idade="18" onclick="clearSearchAndClassificacao('18')">
+                <span> 18 anos</span>
+                <img src="https://logodownload.org/wp-content/uploads/2017/07/classificacao-18-anos-logo-6.png" alt="18" class="classificacao-icon">
+            </a>
+        </div>
+    </div>
+</div>
+        </form>
+    </section>
+
+
+
+  <div class="bannerfundo">
+    <img src="{% static 'imagens/fundos/fundospace.png' %}" alt="Imagem de Fundo">
+</div>
+
+<section class="cards-section" id="search-cards-section">
+ <!-- Título da seção -->
+<h1 class="section-title" id="search-title">
+    {% if query and resultados %} 
+        Resultados para: "{{ query }}"
+    {% elif categoria and resultados %} 
+        Resultados para a categoria: {{ categoria }}
+    {% elif classificacao_idade and resultados %} 
+        Resultados para a classificação: {{ classificacao_idade }}
+    {% elif sort_by and resultados %} 
+        Resultados ordenados por: {{ sort_by }}
+    {% elif genero and resultados %} 
+        Resultados para o gênero: {{ genero }}
+    {% elif exibir_mensagem_categoria %} 
+        Nenhum resultado encontrado para "{{ query }}" na categoria "{{ categoria }}"
+    {% elif exibir_mensagem %} 
+        No momento, não temos esse item no nosso catálogo
+    {% else %} 
+        Achados de hoje para você
+    {% endif %}
+</h1>
+
+
+    <div class="cards-container" id="results-container">
+        {% if pesquisa_realizada %}
+            {% if resultados %}
+                <!-- Exibe os resultados da pesquisa do banco de dados -->
+                {% for result in resultados %}
+                    <div class="card">
+                        <a href="{{ result.url }}">
+                            <img src="{{ result.image_url }}" alt="{{ result.titulo }}">
+                            <button class="play-button-card">▶</button>
+                        </a>
+                        <h4 class="movie-title">{{ result.titulo }}</h4>
+                        <div class="movie-info">
+                            <span class="movie-year">{{ result.ano }}</span>
+                            <span class="movie-rating">⭐ {{ result.classificacao }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <!-- Mensagem de item não encontrado -->
+                {% if exibir_mensagem_categoria %}
+
+                {% elif exibir_mensagem %}
+                  
+                {% endif %}
+    
+                <!-- Sugestões relacionadas -->
+                <div class="related-suggestions">
+                    <h2>Você também pode gostar:</h2>
+                    <div class="cards-container">
+                        {% for suggestion in sugestoes_relacionadas %}
+                            <div class="card">
+                                <a href="{{ suggestion.url }}">
+                                    <img src="{{ suggestion.image_url }}" alt="{{ suggestion.titulo }}">
+                                    <button class="play-button-card">▶</button>
+                                </a>
+                                <h4 class="movie-title">{{ suggestion.titulo }}</h4>
+                                <div class="movie-info">
+                                    <span class="movie-year">{{ suggestion.ano }}</span>
+                                    <span class="movie-rating">⭐ {{ suggestion.classificacao }}</span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        {% else %}
+                 <!-- Resto dos cards estáticos -->
+                 <div class="card">
+                    <a href="#">
+                        <img src="{% static 'imagens/cards/cobrakaicard.png' %}" alt="Cobra Kai">
+                        <button class="play-button-card">▶</button>
+                    </a>
+                    <h4 class="movie-title">Cobra Kai</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2018</span>
+                        <span class="movie-rating">⭐ 4.6</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <a href="#">
+                        <img src="{% static 'imagens/cards/falcaoamericacard.png' %}" alt="Falcon and the Winter Soldier">
+                        <button class="play-button-card">▶</button>
+                    </a>
+                    <h4 class="movie-title">Falcon and the Winter Soldier</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2021</span>
+                        <span class="movie-rating">⭐ 4.7</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <a href="#">
+                        <img src="{% static 'imagens/cards/flashcard.png' %}" alt="The Flash">
+                        <button class="play-button-card">▶</button>
+                    </a>
+                    <h4 class="movie-title">The Flash</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2014</span>
+                        <span class="movie-rating">⭐ 4.3</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <a href="#">
+                        <img src="{% static 'imagens/cards/genvcard.png' %}" alt="Gen V">
+                        <button class="play-button-card">▶</button>
+                    </a>
+                    <h4 class="movie-title">Gen V</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2023</span>
+                        <span class="movie-rating">⭐ 4.6</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <a href="#">
+                        <img src="{% static 'imagens/cards/halocard.png' %}" alt="Hello">
+                        <button class="play-button-card">▶</button>
+                    </a>
+                    <h4 class="movie-title">Hello</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2022</span>
+                        <span class="movie-rating">⭐ 4.5</span>
+                    </div>
+                </div>
+                <!-- Segunda linha de cards -->
+                <div class="card">
+                    <a href="#">
+                        <img src="{% static 'imagens/cards/houseofdragoncard.png' %}" alt="House of the Dragon">
+                        <button class="play-button-card">▶</button>
+                    </a>
+                    <h4 class="movie-title">House of the Dragon</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2022</span>
+                        <span class="movie-rating">⭐ 4.8</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <a href="#">
+                        <img src="{% static 'imagens/cards/knighcard.png' %}" alt="Knight Rider">
+                        <button class="play-button-card">▶</button>
+                    </a>
+                    <h4 class="movie-title">Knight Rider</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2016</span>
+                        <span class="movie-rating">⭐ 4.2</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <a href="#">
+                        <img src="{% static 'imagens/cards/o continental.png' %}" alt="The Continental Pro">
+                        <button class="play-button-card">▶</button>
+                    </a>
+                    <h4 class="movie-title">The Continental Pro</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2023</span>
+                        <span class="movie-rating">⭐ 4.4</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <a href="#">
+                        <img src="{% static 'imagens/cards/theboyscard.png' %}" alt="The Boys">
+                        <button class="play-button-card">▶</button>
+                    </a>
+                    <h4 class="movie-title">The Boys</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2019</span>
+                        <span class="movie-rating">⭐ 4.8</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <a href="#">
+                        <img src="{% static 'imagens/cards/thelastofuscard.png' %}" alt="The Last of Us">
+                        <button class="play-button-card">▶</button>
+                    </a>
+                    <h4 class="movie-title">The Last of Us</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2023</span>
+                        <span class="movie-rating">⭐ 4.9</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <a href="#">
+                        <img src="{% static 'imagens/cards/dardevilcard.png' %}" alt="Marvel's Dorsetovia">
+                        <button class="play-button-card">▶</button>
+                    </a>
+                    <h4 class="movie-title">Marvel's Dorsetovia</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2015</span>
+                        <span class="movie-rating">⭐ 4.5</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <a href="#">
+                        <img src="https://ingresso-a.akamaihd.net/prd/img/movie/sonic-3-o-filme/63e3c50d-0a24-49dd-a5ad-8d15d487d5e4.webp" alt="Sonic 3: O Filme">
+                        <button class="play-button-card">▶</button>
+                    </a>
+                    <h4 class="movie-title">Sonic 3: O Filme</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2025</span>
+                        <span class="movie-rating">⭐ 4.5</span>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+<script>
+    
+</script>
+
+
+<footer>
+    <h2>CINESPACE</h2>
+    <div class="footer-content">
+        <div>
+            <h4>INSTITUCIONAL</h4>
+            <p>Sobre nós</p>
+            <p>Termos de uso</p>
+            <p>Política de privacidade</p>
+        </div>
+        <div>
+            <h4>SUPORTE</h4>
+            <p>Ajuda</p>
+            <p>Contato</p>
+            <p>FAQ</p>
+        </div>
+        <div>
+            <h4>CONTEÚDO</h4>
+            <p>Filmes</p>
+            <p>Séries</p>
+            <p>Novidades</p>
+        </div>
+        <div>
+            <h4>PARCERIAS</h4>
+            <p>Produtoras</p>
+            <p>Anunciantes</p>
+            <p>Afiliados</p>
+        </div>
+        <div>
+            <h4>ASSINATURA</h4>
+            <p>Planos</p>
+            <p>Promoções</p>
+            <p>Cancelamento</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>English | Português | Español | Français | Italiano | Deutsch | 日本語 | 中文</p>
+        <p>&copy; 2025 Cinespace, LLC. Todos os direitos reservados. Todos os elementos pertencem aos seus respectivos proprietários.</p>
+    </div>
+</footer>
+
+
+<script src="{% static 'javascripts/menu.js' %}"></script>
+<script src="{% static 'javascripts/header.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/franc@6.1.0/dist/franc.min.js"></script>
+<script src="{% static 'javascripts/chatbot.js' %}"></script>
+<script src="{% static 'javascripts/paginapesquisa.js' %}"></script>
+
+</body>
+</html>

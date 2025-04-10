@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Encontre os melhores trailers de filmes, séries, animes e doramas. Explore lançamentos e produções famosas com uma experiência visual incrível.">
+    <meta property="og:title" content="Cinetrailers">
+    <meta property="og:description"
+        content="Encontre os melhores trailers de filmes, séries, animes e doramas. Explore lançamentos e produções famosas com uma experiência visual incrível.">
+
+    <title>Assistir - Series </title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/exibirseries.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="icon" href="{% static 'imagens/favicon cinetrailers.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'imagens/favicon cinetrailers.png' %}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=ABeeZee&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+    <header>
+        <div class="site-logo">
+            <a href="{% url 'index' %}" class="logo-text">CINESPACE</a>
+        </div>
+
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="{% url 'filmes' %}">FILMES</a></li>
+                <li><a href="{% url 'series' %}">SERIES</a></li>
+                <li><a href="{% url 'animes' %}">ANIMES</a></li>
+                <li><a href="{% url 'esportes' %}">SPACE ESPORTES</a></li>
+                <li><a href="#">SPACE MUSIC</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-icons">
+            <div id="search-icon" class="search-icon" onclick="toggleSearchContainer()">
+                <img src="{% static 'imagens/vectores/lupavec.png' %}" alt="Pesquisar">
+            </div>
+            <div id="alert-icon" class="alert-icon">
+                <img src="{% static 'imagens/vectores/alertvec.png' %}" alt="Alerta">
+            </div>
+            <div class="profile-header">
+                <img id="profileImage" src="{% static 'imagens/default/profile.jpg' %}" alt="Perfil"
+                    class="perfil-image">
+                <img id="arrowIcon" src="{% static 'imagens/vectores/setaprabaixovec.png' %}" alt="Abrir menu"
+                    class="arrow-icon">
+                <div class="menu-perfil">
+                    <!-- Link para a página inicial (Home) -->
+                    <a href="{% url 'cinetrailers' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/homevec.png' %}" alt="Home">
+                        <span class="menu-text">Home</span>
+                    </a>
+
+                    <!-- Link para a página de configurações -->
+                    <a href="{% url 'configuracoes' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/configvec.png' %}" alt="Configurações">
+                        <span class="menu-text">Configurações</span>
+                    </a>
+
+                    <!-- Link para a página de escolher usuário (Trocar Perfil) -->
+                    <a href="{% url 'escolherusuario' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/perfilvec.png' %}" alt="Trocar-Perfil">
+                        <span class="menu-text">Trocar Perfil</span>
+                    </a>
+
+                    <!-- Link para a página de gerenciar perfis (Editar) -->
+                    <a href="{% url 'gerenciar_perfis' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/lapisvec.png' %}" alt="EditarPerfil">
+                        <span class="menu-text">Editar Perfil</span>
+                    </a>
+
+                    <!-- Link para a página de ajuda -->
+                    <a href="{% url 'ajuda' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/ajudavec.png' %}" alt="Ajuda">
+                        <span class="menu-text">Ajuda</span>
+                    </a>
+
+                    <!-- Link para logout -->
+                    <a href="{% url 'logout' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/sairvec.png' %}" alt="Sair">
+                        <span class="menu-text">Sair</span>
+                    </a>
+                </div>
+            </div>
+
+
+
+            <div id="search-container" class="hidden">
+                <img id="search-input-icon" src="{% static 'imagens/buscaicon1.png' %}" alt="Pesquisar"
+                    class="input-icon">
+                <input type="text" name="query" placeholder="Pesquise..." id="search-input">
+            </div>
+    </header>
+
+
+    <script src="{% static 'javascripts/lupa.js' %}"></script>
+    <script src="{% static 'javascripts/header.js' %}"></script>
+
+    <div class="serie-container">
+        <!-- Imagem de banner -->
+        <img id="bannerImage"
+            src="https://film-book.com/wp-content/uploads/2023/01/the-last-of-us-tv-show-poster-banner-01-700x400-1-700x400.jpg"
+            alt="Banner da Série" class="banner-image">
+
+        <!-- Vídeo (inicialmente oculto) -->
+        <video id="trailerVideo" class="hidden">
+            Seu navegador não suporta vídeos.
+        </video>
+
+
+        <!-- Botão de Som -->
+        <button id="sound-toggle" class="sound-button hidden" data-sound-on="{% static 'imagens/somativo.png' %}"
+            data-sound-off="{% static 'imagens/sommutado.png' %}">
+            <img id="sound-icon" src="{% static 'imagens/sommutado.png' %}" alt="Som Mudo" />
+        </button>
+
+        <!-- Container para agrupar os elementos -->
+        <div class="content-container">
+            <!-- Botões de Gênero -->
+            <div class="genre-buttons-video">
+                <button class="genre-btn-video">Séries</button>
+                <button class="genre-btn-video">Drama</button>
+            </div>
+
+            <!-- Título e Subtítulo -->
+            <h2 class="movie-title-video">The Last of Us - Episódio 1</h2>
+            <p class="movie-subtitle-video">O início da jornada de Joel e Ellie.</p>
+
+            <!-- Informações da Série -->
+            <div class="movie-info-video">
+                <span class="movie-year-video">2023</span>
+                <span class="separator-video">|</span>
+                <span class="movie-duration-video">1h 20min</span>
+                <span class="separator-video">|</span>
+                <img src="{% static 'imagens/vectores/idade16.png' %}" alt="Classificação 16 anos"
+                    class="classificacao-idade-video">
+                <span class="separator-video">|</span>
+                <div class="estrelas-video">
+                    <img src="{% static 'imagens/vectores/starvec.png' %}" alt="Estrela" class="star">
+                    <img src="{% static 'imagens/vectores/starvec.png' %}" alt="Estrela" class="star">
+                    <img src="{% static 'imagens/vectores/starvec.png' %}" alt="Estrela" class="star">
+                    <img src="{% static 'imagens/vectores/starvec.png' %}" alt="Estrela" class="star">
+                    <img src="{% static 'imagens/vectores/starvec.png' %}" alt="Estrela" class="star">
+                </div>
+            </div>
+
+            <!-- Linha de Separação -->
+            <div class="separator-line-video"></div>
+
+            <!-- Descrição da Série -->
+            <div class="movie-description-video">
+                <p>Vinte anos após a queda da civilização moderna, Joel, um sobrevivente endurecido, é contratado para
+                    levar Ellie, uma garota de 14 anos, para fora de uma zona de quarentena opressiva. O que começa como
+                    um simples trabalho se torna uma jornada brutal e emocionante pelos Estados Unidos devastados.
+                </p>
+            </div>
+        </div>
+
+        <!-- Botões de Ação -->
+        <div class="movie-actions-video">
+            <button id="assistirBtn" class="assistir-btn-video">
+                <img src="{% static 'imagens/vectores/playvec.png' %}" alt="Assistir" class="play-icon-video"> Assistir
+            </button>
+            <button class="minha-lista-btn-video">
+                <img src="{% static 'imagens/vectores/Favoritos.png' %}" alt="Minha Lista" class="plus-icon-video"> Add
+                a lista
+            </button>
+        </div>
+        <!-- Novos Botões de Ação à Direita -->
+        <div class="movie-actions-video-right">
+            <button class="download-btn-video">
+                <img src="{% static 'imagens/vectores/Dowloand.png' %}" alt="Download" class="download-icon-video">
+                Download
+            </button>
+            <button class="curtir-btn-video">
+                <img src="{% static 'imagens/vectores/curtir.png' %}" alt="Curtir" class="curtir-icon-video"> Curtir
+            </button>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Modal do Player -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <!-- Botão de fechar (seta) -->
+            <button class="close">
+                <img src="{% static 'imagens/player/seta-esquerda.png' %}" alt="Fechar">
+            </button>
+
+            <video id="videoPlayer">
+                <source src="http://10.53.51.20:5500/thelastofus-ep1.mp4" type="video/mp4">
+                Seu navegador não suporta vídeos.
+            </video>
+            <!-- Nome do filme -->
+            <div id="movieTitle" class="movie-title-modal">
+                The Last of Us - Episódio 1
+            </div>
+            <!-- Ícone de play/pause na tela -->
+            <div id="videoPlayPauseOverlay" class="play-pause-overlay">
+                <img id="videoPlayPauseIcon" src="{% static 'imagens/player/play.png' %}" alt="Play/Pause">
+            </div>
+
+            <!-- Controles do player -->
+            <div class="player-controls">
+                <button id="prevEpisodeButton" class="control-button">
+                    <img src="{% static 'imagens/player/anteriorep.png' %}" alt="Voltar Episódio">
+                </button>
+
+                <!-- Botão de retroceder 15 segundos -->
+                <button id="rewindButton" class="control-button skip-button">
+                    <img src="{% static 'imagens/player/menos15seg.png' %}" alt="Retroceder 15s">
+                </button>
+
+                <!-- Botão de Play/Pause -->
+                <button id="playPauseButton" class="control-button">
+                    <img id="playPauseIcon" src="{% static 'imagens/player/pausa.png' %}" alt="Play/Pause">
+                </button>
+
+                <!-- Botão de avançar 15 segundos -->
+                <button id="forwardButton" class="control-button skip-button">
+                    <img src="{% static 'imagens/player/mais15seg.png' %}" alt="Avançar 15s">
+                </button>
+
+                <!-- Ícone de volume e controle de volume -->
+                <div class="volume-control">
+                    <button id="volumeButton" class="control-button">
+                        <img id="volumeIcon" src="{% static 'imagens/player/volume.png' %}" alt="Volume">
+                    </button>
+                    <div class="volume-slider-container">
+                        <input id="volumeSlider" type="range" min="0" max="1" step="0.1" value="1"
+                            class="volume-slider">
+                    </div>
+                </div>
+
+
+                <!-- Tempo do vídeo -->
+                <div id="videoTime" class="video-time">00:00 / 00:00</div>
+                <!-- Preview do vídeo ao arrastar a barra de progresso -->
+
+                <div id="videoPreview" class="video-preview">
+                    <img id="previewImage" src="" alt="Preview do Vídeo">
+                    <span id="previewTime">00:00</span>
+                </div>
+                <!-- Controle de velocidade -->
+                <div class="speed-control">
+                    <button id="speedButton" class="control-button">
+                        <img src="{% static 'imagens/player/velocidade.png' %}" alt="Velocidade">
+                    </button>
+                    <div id="speedMenu" class="speed-menu">
+                        <button data-speed="0.5">0.5x</button>
+                        <button data-speed="1">1x</button>
+                        <button data-speed="1.5">1.5x</button>
+                        <button data-speed="2">2x</button>
+                    </div>
+                </div>
+
+                <!-- Botão de Próximo Episódio -->
+                <button id="nextEpisodeButton" class="control-button">
+                    <img src="{% static 'imagens/player/proximoep.png' %}" alt="Próximo Episódio">
+                </button>
+
+                <!-- Botão de tela cheia -->
+                <button id="fullscreenButton" class="control-button">
+                    <img src="{% static 'imagens/player/telacheia.png' %}" alt="Tela Cheia">
+                </button>
+            </div>
+
+
+            <!-- Barra de progresso -->
+            <div class="progress-container">
+                <div id="progressBar" class="progress-bar"></div>
+                <div id="progressBall" class="progress-ball"></div>
+            </div>
+
+            <!-- Ícone de feedback para retroceder 15 segundos -->
+            <div id="rewindFeedback" class="feedback-icon left">
+                <img src="{% static 'imagens/player/menos15seg.png' %}" alt="Retroceder 15s">
+            </div>
+
+            <!-- Ícone de feedback para avançar 15 segundos -->
+            <div id="forwardFeedback" class="feedback-icon right">
+                <img src="{% static 'imagens/player/mais15seg.png' %}" alt="Avançar 15s">
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <div class="content-background">
+
+        <section class="elenco-carrossel">
+            <h2>Elenco</h2>
+            <div class="carousel-container carousel-container-elenco">
+                <div class="carousel-overlay-elenco left-overlay-elenco"></div>
+                <div class="carousel-overlay-elenco right-overlay-elenco"></div>
+                <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda"
+                    class="carousel-elenco left-arrow-elenco">
+                <div class="carousel carrossel-elenco">
+                    <!-- Item 1 -->
+                    <div class="carousel-item carrossel-elenco">
+                        <div class="ator-container">
+                            <div class="ator-imagem-container">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Bella_Ramsey_at_the_2022_TIFF_Premiere_of_Catherine_Called_Birdy_%2852358884151%29_%28cropped%29.jpg/1200px-Bella_Ramsey_at_the_2022_TIFF_Premiere_of_Catherine_Called_Birdy_%2852358884151%29_%28cropped%29.jpg"
+                                    alt="Ator 1" class="ator-imagem">
+                            </div>
+                            <div class="ator-info">
+                                <h4 class="ator-nome">Bella Ramsey</h4>
+                                <p class="ator-personagem">Ellie</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="carousel-item carrossel-elenco">
+                        <div class="ator-container">
+                            <div class="ator-imagem-container">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Pedro_Pascal_by_Gage_Skidmore.jpg"
+                                    alt="Ator 2" class="ator-imagem">
+                            </div>
+                            <div class="ator-info">
+                                <h4 class="ator-nome">Pedro Pascal</h4>
+                                <p class="ator-personagem">Joel Miller</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-elenco">
+                        <div class="ator-container">
+                            <div class="ator-imagem-container">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRepRW8jq-fziDzZYMBx2Rsm7B9D1HpP5AR9g&s"
+                                    alt="Ator 3" class="ator-imagem">
+                            </div>
+                            <div class="ator-info">
+                                <h4 class="ator-nome">Nico Parker</h4>
+                                <p class="ator-personagem">Sarah Miller</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item carrossel-elenco">
+                        <div class="ator-container">
+                            <div class="ator-imagem-container">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/0/02/Nick_Offerman_2022_National_Book_Festival_%2852342575962%29_%28cropped%29.jpg"
+                                    alt="Ator 1" class="ator-imagem">
+                            </div>
+                            <div class="ator-info">
+                                <h4 class="ator-nome">Nick Offerman</h4>
+                                <p class="ator-personagem">Bill</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="carousel-item carrossel-elenco">
+                        <div class="ator-container">
+                            <div class="ator-imagem-container">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/b/bf/Anna_Torv_by_Gage_Skidmore.jpg"
+                                    alt="Ator 2" class="ator-imagem">
+                            </div>
+                            <div class="ator-info">
+                                <h4 class="ator-nome">Anna Torv</h4>
+                                <p class="ator-personagem">Theresa</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-elenco">
+                        <div class="ator-container">
+                            <div class="ator-imagem-container">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK16ntdZvZznIrKqDK5btsRCYK_8uGLD1PKA&s"
+                                    alt="Ator 3" class="ator-imagem">
+                            </div>
+                            <div class="ator-info">
+                                <h4 class="ator-nome">Gabriel Luna</h4>
+                                <p class="ator-personagem">Tommy Miller</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item carrossel-elenco">
+                        <div class="ator-container">
+                            <div class="ator-imagem-container">
+                                <img src="https://m.media-amazon.com/images/M/MV5BMjA0NjY3NjI4MV5BMl5BanBnXkFtZTgwNTM4OTg5NDE@._V1_FMjpg_UX1000_.jpg"
+                                    alt="Ator 1" class="ator-imagem">
+                            </div>
+                            <div class="ator-info">
+                                <h4 class="ator-nome">Murray Bartlett</h4>
+                                <p class="ator-personagem">Frank</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="carousel-item carrossel-elenco">
+                        <div class="ator-container">
+                            <div class="ator-imagem-container">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/0/07/Pedro_Pascal%2C_Kaitlyn_Dever%2C_and_Gabriel_Luna_at_SXSW_2025_03_%28cropped%29.jpg"
+                                    alt="Ator 2" class="ator-imagem">
+                            </div>
+                            <div class="ator-info">
+                                <h4 class="ator-nome">Kaitlyn Dever</h4>
+                                <p class="ator-personagem">Abby</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-elenco">
+                        <div class="ator-container">
+                            <div class="ator-imagem-container">
+                                <img src="https://m.media-amazon.com/images/M/MV5BMjIzNDg5NTg4Nl5BMl5BanBnXkFtZTcwMTU3NjgyMw@@._V1_.jpg"
+                                    alt="Ator 3" class="ator-imagem">
+                            </div>
+                            <div class="ator-info">
+                                <h4 class="ator-nome">Melanie Lynskey</h4>
+                                <p class="ator-personagem">Kathleen Coghlan</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item carrossel-elenco">
+                        <div class="ator-container">
+                            <div class="ator-imagem-container">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Let_It_Snow_cast_vlogbrothers_1_%28cropped%29.png"
+                                    alt="Ator 1" class="ator-imagem">
+                            </div>
+                            <div class="ator-info">
+                                <h4 class="ator-nome">Isabela Merced</h4>
+                                <p class="ator-personagem">Dina</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="carousel-item carrossel-elenco">
+                        <div class="ator-container">
+                            <div class="ator-imagem-container">
+                                <img src="https://m.media-amazon.com/images/M/MV5BNjM5NDk3NDM4NV5BMl5BanBnXkFtZTgwMzU4Mzc1NzM@._V1_.jpg"
+                                    alt="Ator 2" class="ator-imagem">
+                            </div>
+                            <div class="ator-info">
+                                <h4 class="ator-nome">Tati Gabrielle</h4>
+                                <p class="ator-personagem">Nora</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-elenco">
+                        <div class="ator-container">
+                            <div class="ator-imagem-container">
+                                <img src="https://m.media-amazon.com/images/M/MV5BNjUwZjhkNDItZWQ4NS00MTlkLWI0NjEtZmQ2ODYyNGJkNGFmXkEyXkFqcGc@._V1_.jpg"
+                                    alt="Ator 3" class="ator-imagem">
+                            </div>
+                            <div class="ator-info">
+                                <h4 class="ator-nome">Merle Dandridge</h4>
+                                <p class="ator-personagem">Marlene</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Adicione mais itens conforme necessário -->
+                </div>
+                <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita"
+                    class="carousel-elenco right-arrow-elenco">
+            </div>
+        </section>
+
+
+        <div class="categories-menu">
+            <!-- Categoria Episodios -->
+            <div class="category-item">
+                <button class="category-button" data-target="#episodios">Episodios</button>
+            </div>
+
+            <!-- Categoria Detalhes -->
+            <div class="category-item">
+                <button class="category-button" data-target="#detalhes">Detalhes</button>
+            </div>
+
+            <!-- Categoria Curiosidades -->
+            <div class="category-item">
+                <button class="category-button" data-target="#curiosidades">Curiosidades</button>
+            </div>
+        </div>
+
+        <section id="episodios" class="content-section">
+            <!-- Conteúdo dos episódios -->
+            <div class="episodios-header">
+                <h2>1-9 EPISÓDIOS</h2>
+                <div class="temporada-menu">
+                    <span>TEMPORADA 1</span>
+                    <img src="{% static 'imagens/vectores/setaprabaixo.png' %}" alt="Dropdown" class="dropdown-icon">
+                    <div class="temporada-dropdown">
+                        <ul>
+                            <li>TEMPORADA 1</li>
+                            <li>TEMPORADA 2</li>
+                            <li>TEMPORADA 3</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-container carousel-container-episodios">
+
+                <div class="carousel-overlay-episodios left-overlay-episodios"></div>
+                <div class="carousel-overlay-episodios right-overlay-episodios"></div>
+                <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda"
+                    class="carousel-episodios left-arrow-episodios">
+                <div class="carousel carrossel-episodios">
+                    <!-- Item 1 -->
+                    <!-- Carrossel de Episódios -->
+                    <div class="carousel-item carrossel-episodios" data-src="http://10.53.51.20:5500/series/thelastofus-ep1.mp4"
+                        data-title="The Last of Us - Episódio 1">
+                        <div class="episodio-container">
+                            <img src="https://beam-images.warnermediacdn.com/BEAM_LWM_DELIVERABLES/c07ae042-082e-4b53-ba86-b6ac5e3004db/e4f92492923d585fc96db003fdad0a30c695ad0b.jpg?host=wbd-images.prod-vod.h264.io&partner=beamcom&w=320"
+                                alt="Episódio 1" class="episodio-imagem">
+                            <div class="episodio-info">
+                                <h4 class="episodio-titulo">Episódio 1</h4>
+                                <p class="episodio-descricao">Descrição breve do episódio 1.</p>
+                                <div class="episodio-tempo">
+                                    <span class="tempo">13:20</span>
+                                    <div class="linha-vermelha"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item carrossel-episodios" data-src="http://10.53.51.20:5500/series/thelastofus-ep2.mp4"
+                        data-title="The Last of Us - Episódio 2">
+                        <div class="episodio-container">
+                            <img src="https://beam-images.warnermediacdn.com/BEAM_LWM_DELIVERABLES/50b6f9e5-a151-4b87-b51d-ac71a279912f/41dc9a12e9549b44c37df290cf4318c83a792d5d.jpg?host=wbd-images.prod-vod.h264.io&partner=beamcom&w=320"
+                                alt="Episódio 2" class="episodio-imagem">
+                            <div class="episodio-info">
+                                <h4 class="episodio-titulo">Episódio 2</h4>
+                                <p class="episodio-descricao">Descrição breve do episódio 2.</p>
+                                <div class="episodio-tempo">
+                                    <span class="tempo">15:30</span>
+                                    <div class="linha-vermelha"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item carrossel-episodios" data-src="http://10.53.51.20:5500/series/thelastofus-ep3.mp4"
+                        data-title="The Last of Us - Episódio 3">
+                        <div class="episodio-container">
+                            <img src="https://beam-images.warnermediacdn.com/BEAM_LWM_DELIVERABLES/dc635587-abe0-4de3-a495-beced73841e8/540d590ae8d25d167caa34b2437d58201c84eb75.jpg?host=wbd-images.prod-vod.h264.io&partner=beamcom&w=320"
+                                alt="Episódio 3" class="episodio-imagem">
+                            <div class="episodio-info">
+                                <h4 class="episodio-titulo">Episódio 3</h4>
+                                <p class="episodio-descricao">Descrição breve do episódio 3.</p>
+                                <div class="episodio-tempo">
+                                    <span class="tempo">18:45</span>
+                                    <div class="linha-vermelha"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita"
+                    class="carousel-episodios right-arrow-episodios">
+            </div>
+        </section>
+
+        <section id="detalhes" class="content-section" style="display: none;">
+            <div class="detalhes-container">
+                <!-- Lado esquerdo -->
+                <div class="detalhes-esquerdo">
+                    <!-- Ano de Lançamento -->
+                    <div class="detalhe-item">
+                        <img src="{% static 'imagens/vectores/calendariovec.png' %}" alt="Ícone de Calendário"
+                            class="icone">
+                        <div>
+                            <p class="detalhe-titulo">Ano de lançamento</p>
+                            <p class="detalhe-info">2023</p>
+                        </div>
+                    </div>
+                    <!-- Línguas -->
+                    <div class="detalhe-item">
+                        <img src="{% static 'imagens/vectores/linguavec.png' %}" alt="Ícone de Tradutor" class="icone">
+                        <div>
+                            <p class="detalhe-titulo">Línguas</p>
+                            <p class="detalhe-info">English, Hindi, Tamil, Telugu, Kannada, portugues</p>
+                        </div>
+                    </div>
+                    <!-- Avaliação -->
+                    <div class="detalhe-item">
+                        <img src="{% static 'imagens/vectores/avaliaçãovec.png' %}" alt="Ícone de Avaliação"
+                            class="icone">
+                        <div>
+                            <p class="detalhe-titulo">Avaliação</p>
+                        </div>
+                    </div>
+                    <div class="avaliacao">
+                        <div class="avaliacao-item">
+                            <p class="titulo-avaliacao">IMDb</p>
+                            <div class="estrelas">
+                                <img src="{% static 'imagens/vectores/estrelaazulvec.png' %}" alt="Estrela Cheia"
+                                    class="estrela">
+                                <img src="{% static 'imagens/vectores/estrelaazulvec.png' %}" alt="Estrela Cheia"
+                                    class="estrela">
+                                <img src="{% static 'imagens/vectores/estrelaazulvec.png' %}" alt="Estrela Cheia"
+                                    class="estrela">
+                                <img src="{% static 'imagens/vectores/estrelaazulvec.png' %}" alt="Estrela Cheia"
+                                    class="estrela">
+                                <span class="nota">4.0</span>
+                            </div>
+                        </div>
+                        <div class="avaliacao-item">
+                            <p class="titulo-avaliacao">Sensação ao Assistir</p>
+                            <div class="estrelas">
+                                <img src="{% static 'imagens/vectores/estrelaazulvec.png' %}" alt="Estrela Cheia"
+                                    class="estrela">
+                                <img src="{% static 'imagens/vectores/estrelaazulvec.png' %}" alt="Estrela Cheia"
+                                    class="estrela">
+                                <img src="{% static 'imagens/vectores/estrelaazulvec.png' %}" alt="Estrela Cheia"
+                                    class="estrela">
+                                <img src="{% static 'imagens/vectores/estrelaazulvec.png' %}" alt="Estrela Cheia"
+                                    class="estrela">
+                                <img src="{% static 'imagens/vectores/estrelaazulvec.png' %}" alt="Estrela Cheia"
+                                    class="estrela">
+                                <span class="nota">5.0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Gênero -->
+                    <div class="detalhe-item">
+                        <img src="{% static 'imagens/vectores/generovec.png' %}" alt="Ícone de Gênero" class="icone">
+                        <div>
+                            <p class="detalhe-titulo">Gênero</p>
+                            <p class="detalhe-info">Ação/Aventura</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lado direito -->
+                <div class="detalhes-direito">
+                    <!-- Diretor -->
+                    <p class="titulo-direito">Diretor</p>
+                    <div class="detalhe-item info-pessoal">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e8/Neil_Druckmann%2C_co-director%2C_at_SXSW_2025_01_%28cropped%29.jpg"
+                            alt="Foto do Diretor" class="foto-pessoal">
+                        <div>
+                            <p class="detalhe-info">Neil Druckmann</p>
+                            <p class="detalhe-info-menor">Israel</p>
+                        </div>
+                    </div>
+
+                    <!-- Música -->
+                    <p class="titulo-direito">Roteirista</p>
+                    <div class="detalhe-item info-pessoal">
+                        <img src="https://th.bing.com/th/id/OIP.J_povSXiCa6cCQ7fLhlf0QHaJU?rs=1&pid=ImgDetMain"
+                            alt="Foto da Música" class="foto-pessoal">
+                        <div>
+                            <p class="detalhe-info">Craig Mazin</p>
+                            <p class="detalhe-info-menor">EUA</p>
+                        </div>
+                    </div>
+                    <!-- Música -->
+                    <p class="titulo-direito">Produtor</p>
+                    <div class="detalhe-item info-pessoal">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmhKhdRvLfkj8QeqoOsmQ8wdilMbpYc472CQ&s"
+                            alt="Foto da Música" class="foto-pessoal">
+                        <div>
+                            <p class="detalhe-info">Greg Spence</p>
+                            <p class="detalhe-info-menor">EUA</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="curiosidades" class="content-section" style="display: none;">
+            <div class="detalhes-container">
+                <!-- Lado esquerdo -->
+                <div class="detalhes-esquerdo">
+                    <!-- Ano de Lançamento -->
+                    <div class="detalhe-item">
+                        <img src="{% static 'imagens/vectores/curiosidadevec.png' %}" alt="Ícone de Calendário"
+                            class="icone">
+                        <div>
+                            <p class="detalhe-titulo">Inspiração em uma cena real</p>
+                            <p class="detalhe-info">A abertura do jogo (e da série), onde uma cientista nos anos 60
+                                discute a ameaça de fungos, foi baseada em uma entrevista real da BBC com o micologista
+                                Dr. Michael O’Neill, que explicou como fungos poderiam controlar mentes. O criador Neil
+                                Druckmann se inspirou nisso para criar o conceito do Cordyceps, o fungo que devastou a
+                                humanidade no universo de The Last of Us</p>
+                        </div>
+                    </div>
+                    <div class="detalhe-item">
+                        <img src="{% static 'imagens/vectores/curiosidadevec.png' %}" alt="Ícone de Calendário"
+                            class="icone">
+                        <div>
+                            <p class="detalhe-titulo"> Bella Ramsey quase recusou o papel de Ellie</p>
+                            <p class="detalhe-info">Bella Ramsey, que interpreta Ellie na série, inicialmente hesitou em
+                                aceitar o papel porque tinha medo da pressão de viver um personagem tão amado pelos fãs
+                                do jogo. Ela só aceitou depois de conversar com Pedro Pascal (Joel), que a convenceu de
+                                que seria uma experiência incrível. No final, sua performance foi aclamada pela crítica
+                                e pelo público.</p>
+                        </div>
+                    </div>
+        </section>
+
+
+
+
+        <section>
+            <h1 class="carousel-title">Séries Relacionadas</h1>
+            <div class="carousel-container carrossel-um">
+                <div class="carousel-overlay left-overlay"></div>
+                <div class="carousel-overlay right-overlay"></div>
+                <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda"
+                    class="carousel-1 left-arrow">
+                <div class="carousel carrossel-um">
+                    <div class="carousel-item carrossel-um">
+                        <a href="#">
+                            <img class="carrossel-um"
+                                src="https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/78/35/82/20303823.jpg"
+                                alt="Kingsman">
+                            <!-- Apenas um botão de play -->
+                            <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                        </a>
+                        <h4 class="movie-title">The Walking Dead</h4>
+                        <div class="movie-info">
+                            <span class="movie-year">2010</span>
+                            <span class="movie-rating">⭐ 5.5</span>
+
+                        </div>
+                    </div>
+
+                    <div class="carousel-item carrossel-um">
+                        <a href="#">
+                            <img class="carrossel-um"
+                                src="https://resizing.flixster.com/lpJkDxnEFNQT1OWJjnmYfvpAHJ0=/ems.cHJkLWVtcy1hc3NldHMvdHZzZXJpZXMvUlRUVjI2NjgyOS53ZWJw"
+                                alt="">
+                            <!-- Apenas um botão de play -->
+                            <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                        </a>
+                        <h4 class="movie-title">Dark</h4>
+                        <div class="movie-info">
+                            <span class="movie-year">2017</span>
+                            <span class="movie-rating">⭐ 4.8</span>
+
+                        </div>
+                    </div>
+
+                    <div class="carousel-item carrossel-um">
+                        <a href="#">
+                            <img class="carrossel-um"
+                                src="https://m.media-amazon.com/images/M/MV5BOWVjYTlhZGEtMGRmNS00NWU1LWE4NzQtYjE5OTdjNzBmZDI4XkEyXkFqcGc@._V1_.jpg"
+                                alt="">
+                            <!-- Apenas um botão de play -->
+                            <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                        </a>
+                        <h4 class="movie-title">Sintonia</h4>
+                        <div class="movie-info">
+                            <span class="movie-year">2019</span>
+                            <span class="movie-rating">⭐ 5.6</span>
+
+                        </div>
+                    </div>
+                    <div class="carousel-item carrossel-um">
+                        <a href="#">
+                            <img class="carrossel-um"
+                                src="https://br.web.img3.acsta.net/pictures/18/12/31/02/49/2373131.jpg" alt="">
+                            <!-- Apenas um botão de play -->
+                            <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                        </a>
+                        <h4 class="movie-title">Você</h4>
+                        <div class="movie-info">
+                            <span class="movie-year">2018</span>
+                            <span class="movie-rating">⭐ 5.7</span>
+
+                        </div>
+                    </div>
+                    <div class="carousel-item carrossel-um">
+                        <a href="#">
+                            <img class="carrossel-um"
+                                src="https://br.web.img3.acsta.net/c_310_420/pictures/22/11/30/19/53/5856320.jpg"
+                                alt="">
+                            <!-- Apenas um botão de play -->
+                            <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                        </a>
+                        <h4 class="movie-title">The Last of Us</h4>
+                        <div class="movie-info">
+                            <span class="movie-year">2023</span>
+                            <span class="movie-rating">⭐ 5.2</span>
+
+                        </div>
+                    </div>
+                    <div class="carousel-item carrossel-um">
+                        <a href="#">
+                            <img class="carrossel-um"
+                                src="https://m.media-amazon.com/images/M/MV5BM2QzMGVkNjUtN2Y4Yi00ODMwLTg3YzktYzUxYjJlNjFjNDY1XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+                                alt="">
+                            <!-- Apenas um botão de play -->
+                            <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                        </a>
+                        <h4 class="movie-title">A Casa do Dragão</h4>
+                        <div class="movie-info">
+                            <span class="movie-year">2022</span>
+                            <span class="movie-rating">⭐ 5.9</span>
+
+                        </div>
+                    </div>
+                    <div class="carousel-item carrossel-um">
+                        <a href="#">
+                            <img class="carrossel-um"
+                                src="https://images-na.ssl-images-amazon.com/images/M/MV5BMjEzMDAxOTUyMV5BMl5BanBnXkFtZTgwNzAxMzYzOTE@._V1_.jpg"
+                                alt="">
+                            <!-- Apenas um botão de play -->
+                            <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                        </a>
+                        <h4 class="movie-title">Stranger Things</h4>
+                        <div class="movie-info">
+                            <span class="movie-year">2016</span>
+                            <span class="movie-rating">⭐ 5.9</span>
+
+                        </div>
+                    </div>
+                    <div class="carousel-item carrossel-um">
+                        <a href="#">
+                            <img class="carrossel-um"
+                                src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRcr0khV9t7IeOcVDRvC84eCW_5yidk-aWcf466252yFKNPAf5M"
+                                alt="">
+                            <!-- Apenas um botão de play -->
+                            <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                        </a>
+                        <h4 class="movie-title">Breaking Bad - A Química do Mal</h4>
+                        <div class="movie-info">
+                            <span class="movie-year">2008</span>
+                            <span class="movie-rating">⭐ 5.9</span>
+
+                        </div>
+                    </div>
+                    <div class="carousel-item carrossel-um">
+                        <a href="#">
+                            <img class="carrossel-um"
+                                src="https://m.media-amazon.com/images/M/MV5BOTFmZmExYTEtYmE0Mi00MzRmLWE4ZDYtOThiNzNlOTIyODljXkEyXkFqcGc@._V1_.jpg"
+                                alt="">
+                            <!-- Apenas um botão de play -->
+                            <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                        </a>
+                        <h4 class="movie-title">Vikings</h4>
+                        <div class="movie-info">
+                            <span class="movie-year">2013</span>
+                            <span class="movie-rating">⭐ 4.1</span>
+
+                        </div>
+                    </div>
+                    <div class="carousel-item carrossel-um">
+                        <a href="#">
+                            <img class="carrossel-um"
+                                src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSHel80alzgYyna6UG8WpsVmyg-rM5f_zl5Ta_UnAHzIFA4nb6l"
+                                alt="">
+                            <!-- Apenas um botão de play -->
+                            <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                        </a>
+                        <h4 class="movie-title">Loki</h4>
+                        <div class="movie-info">
+                            <span class="movie-year">2021</span>
+                            <span class="movie-rating">⭐ 4.9</span>
+
+                        </div>
+                    </div>
+
+                </div>
+                <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita"
+                    class="carousel-1 right-arrow">
+            </div>
+        </section>
+
+
+
+        <script src="{% static 'javascripts/reproduçao.js' %}"></script>
+        <script src="{% static 'javascripts/lupa.js' %}"></script>
+        <script src="{% static 'javascripts/header.js' %}"></script>
+        <script src="{% static 'javascripts/playerseries.js' %}"></script>
+        <script src="{% static 'javascripts/rolagem.js' %}"></script>
+
+    </div>
+</body>
+
+</html>

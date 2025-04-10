@@ -1,0 +1,655 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Manrope', sans-serif;
+    color: #FAFAFA;
+    display: flex;
+    height: 100vh;
+    background: linear-gradient(0deg, #000000, #000000),
+    radial-gradient(circle, rgba(120, 137, 223, 0.255) 0%, rgba(119, 138, 232, 0) 100%);
+background-blend-mode: overlay; /* Importante para combinar os gradientes */
+background-attachment: fixed;
+}
+
+.bannerfundo {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: 2; /* Garante que fique atrás do conteúdo */
+pointer-events: none; /* Permite interações com elementos abaixo */
+opacity: 0.30; /* Opacidade conforme pedido */
+}
+
+.bannerfundo img {
+width: 100%;
+height: 100%;
+object-fit: cover; /* Garante que a imagem cubra todo o div */
+}
+
+/* Sidebar */
+.sidebar {
+    width: 283px;
+    height: 100vh;
+    background: linear-gradient(0deg, #292929, #3a3a3a),
+    radial-gradient(circle, rgba(0, 42, 247, 0.603) 0%, rgba(119, 138, 232, 0) 100%);
+background-blend-mode: overlay; /* Importante para combinar os gradientes */
+background-attachment: fixed;
+    border-top-right-radius: 34px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.1s ease, width 0.1s ease;
+    position: fixed;
+    left: 0;
+    z-index: 1000;
+}
+/* Lista de Chats */
+#chat-list {
+    width: 100%;
+    overflow-y: auto;
+    flex: 1;
+    margin-top: 20px;
+}
+/* Estado Colapsado */
+.sidebar.collapsed {
+    width: 100px;
+    padding: 10px;
+}
+
+/* Título da Sidebar */
+.sidebar-title {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.2;
+    color: #FFFFFF;
+    margin-bottom: 70px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Quando a sidebar estiver recolhida */
+.sidebar.collapsed .sidebar-title {
+    margin-bottom: 40px;
+}
+
+/* Logo da Sidebar */
+.sidebar-logo {
+    width: 80px;
+    height: 50px;
+    display: none;
+}
+
+/* Quando a sidebar estiver recolhida */
+.sidebar.collapsed .sidebar-title h1 {
+    display: none;
+}
+
+.sidebar.collapsed .sidebar-logo {
+    display: block;
+}
+
+/* Itens do Menu */
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: 100%;
+}
+
+.menu-item:hover {
+    background: linear-gradient(270deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.menu-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.menu-text {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 21.86px;
+    color: #FAFAFA;
+}
+
+/* Quando a sidebar estiver recolhida */
+.sidebar.collapsed .menu-text {
+    display: none;
+}
+
+.sidebar.collapsed .menu-item {
+    justify-content: center;
+}
+
+.sidebar.collapsed .menu-icon {
+    width: 30px;
+    height: 30px;
+}
+
+/* Conteúdo Principal */
+.main-content {
+    flex: 1;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    margin-left: 283px; /* Desloca o conteúdo para a direita */
+    transition: margin-left 0.2s ease;
+}
+
+/* Quando a sidebar estiver recolhida */
+.sidebar.collapsed ~ .main-content {
+    margin-left: 100px; /* Ajusta o conteúdo para a largura recolhida */
+}
+
+.content-title {
+    margin-top: 340px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.content-title h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 600;
+    font-size: 3rem;
+    line-height: 1.2;
+    color: #FFFFFF;
+}
+
+.subtitle {
+    font-family: 'ABeeZee', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #FAFAFA;
+}
+
+/* Estilos para o bloco de código */
+.code-block-container {
+    background-color: #1e1e1e; /* Fundo escuro (VS Code) */
+    border-radius: 8px;
+    overflow: hidden; /* Importante para bordas arredondadas */
+    margin-bottom: 15px; /* Espaço entre blocos de código */
+    border: 1px solid #333; /* Borda sutil */
+}
+
+.code-block-header {
+    background-color: #333; /* Fundo do cabeçalho */
+    color: #fff;
+    padding: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace; /* Fonte monoespaçada */
+    font-size: 0.9em;
+}
+
+.code-block-header span {
+    font-weight: bold;
+}
+
+.code-block-header button {
+    background-color: #4a90e2; /* Cor do botão (azul) */
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8em;
+    transition: background-color 0.2s;
+}
+
+.code-block-header button:hover {
+    background-color: #3578c1; /* Azul mais escuro no hover */
+}
+
+/* Estilos para o código dentro do bloco (pre code) */
+.code-block-container pre {
+    padding: 12px;
+    overflow-x: auto; /* Barra de rolagem horizontal se necessário */
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9em;
+    line-height: 1.4;
+    /* As cores abaixo são *exemplos*. Ajuste conforme as cores exatas do VS Code */
+    color: #d4d4d4; /* Cor do texto padrão */
+}
+
+.code-block-container pre code {
+  display: block;
+  white-space: pre;
+}
+/* Cores para diferentes linguagens (exemplo - você precisará adicionar mais) */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-section,
+.hljs-link {
+    color: #569cd6; /* Azul claro para palavras-chave */
+}
+
+.hljs-string,
+.hljs-attribute {
+    color: #ce9178; /* Laranja para strings */
+}
+
+.hljs-number,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-built_in,
+.hljs-builtin-name
+{
+    color: #b5cea8; /* Verde para números */
+}
+
+.hljs-title,
+.hljs-variable {
+    color: #9cdcfe;
+}
+
+.hljs-comment,
+.hljs-quote,
+.hljs-deletion {
+    color: #6a9955; /* Cinza para comentários */
+}
+
+.hljs-meta {
+    color: #569cd6;
+}
+
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-type,
+.hljs-params {
+  color: #4EC9B0;
+}
+
+.hljs-title.function_,
+.hljs-title.class_ {
+  color: #DCDCAA;
+}
+
+.hljs-tag,
+.hljs-subst,
+.hljs-formula,
+.hljs-regexp {
+    color: #d4d4d4;
+}
+
+
+
+/* Blocos de Conteúdo */
+.blocks {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.block {
+    width: 168px;
+    height: 144px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 16px;
+    background: linear-gradient(0deg, #333333, #0f0f0f),
+    radial-gradient(circle, rgba(11, 48, 236, 0.255) 0%, rgba(119, 138, 232, 0) 100%);
+background-blend-mode: overlay; /* Importante para combinar os gradientes */
+background-attachment: fixed; 
+    backdrop-filter: blur(46px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.block-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+}
+
+.block-text {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 21.86px;
+    color: #FAFAFA;
+}
+
+/* Barra de Mensagens */
+.message-bar-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding-right: 10px;
+    transition: margin-left 0.2s ease;
+    
+}
+
+/* ... (seu CSS existente) ... */
+
+.copy-button {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-top: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.code-explanations {
+    background-color: #3B3D40;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.code-explanations p {
+    margin: 0;
+}
+.message-bar {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(0deg, #333333, #0f0f0f),
+    radial-gradient(circle, rgba(11, 48, 236, 0.255) 0%, rgba(119, 138, 232, 0) 100%);
+background-blend-mode: overlay; /* Importante para combinar os gradientes */
+background-attachment: fixed; 
+   border-radius: 12px;
+    padding: 12px 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.message-input::-webkit-scrollbar {
+    width: 8px;
+}
+
+.message-input::-webkit-scrollbar-thumb {
+    background-color: #666666; /* Cinza médio para o "polegar" */
+    border-radius: 4px;
+}
+
+.message-input::-webkit-scrollbar-track {
+    background-color: #3B3D40; /* Cinza escuro para o "trilho" */
+    border-radius: 4px;
+}
+
+.message-input::-webkit-scrollbar-thumb:hover {
+    background-color: #777777; /* Cinza mais claro ao passar o mouse */
+}
+
+.message-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #FAFAFA;
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px;
+    outline: none;
+    margin-right: 10px;
+    resize: none;
+    overflow-y: auto;
+    height: 20px;
+    max-height: 150px;
+}
+
+.message-input::placeholder {
+    color: #A0A0A0; /* Cinza claro para o placeholder */
+}
+
+.message-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: 10px;
+}
+
+.icon {
+    width: 22px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.divider {
+    width: 0.5px;
+    height: 24px;
+    background: linear-gradient(90deg, #8692A6 0%, #343840 100%);
+}
+
+.send-button {
+    border-radius: 12px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.send-button img {
+    width: 20px;
+    height: 20px;
+}
+/* Container externo para o chat */
+.chat-outer-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding-right: 20px; /* Espaço para a barra de rolagem */
+    overflow-y: auto; /* Barra de rolagem no container externo */
+    height: calc(100vh - 200px); /* Ajuste a altura conforme necessário */
+}
+
+/* Estilo do chat-container */
+.chat-container {
+    width: 100%;
+    padding: 20px;
+    border-radius: 12px;
+  
+    overflow-y: visible; /* Remove a barra de rolagem interna */
+}
+
+/* Estilo da barra de rolagem para o container externo */
+.chat-outer-container::-webkit-scrollbar {
+    width: 12px; /* Largura da barra de rolagem */
+}
+
+.chat-outer-container::-webkit-scrollbar-thumb {
+    background-color: #666666; /* Cor do "polegar" da barra de rolagem (cinza) */
+    border-radius: 6px; /* Bordas arredondadas */
+    border: 3px solid #3B3D40; /* Espaço ao redor do "polegar" */
+}
+
+.chat-outer-container::-webkit-scrollbar-track {
+    background-color: #3B3D40; /* Cor do fundo da barra de rolagem (cinza escuro) */
+    border-radius: 6px; /* Bordas arredondadas */
+}
+
+.chat-outer-container::-webkit-scrollbar-thumb:hover {
+    background-color: #777777; /* Cor do "polegar" ao passar o mouse (cinza mais claro) */
+}
+
+/* Estilo do conteúdo das mensagens */
+.chat-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-right: 10px; /* Espaço para evitar que o conteúdo encoste na barra de rolagem */
+}
+
+
+/* Estilo dos Chats na Sidebar */
+.chat-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: 100%;
+    border-radius: 8px;
+    background: rgba(40, 42, 47, 0.86);
+    backdrop-filter: blur(46px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chat-item:hover {
+    background: linear-gradient(270deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.chat-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.chat-nome {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 21.86px;
+    color: #FAFAFA;
+}
+
+/* Mensagem do Usuário */
+.user-message {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.user-message .message-content {
+    background: #3B3D40;
+    padding: 10px;
+    border-radius: 12px;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+/* Mensagem do Bot */
+.bot-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.bot-message .message-content {
+    padding: 23px;
+    border-radius: 12px;
+    max-width: 100%;
+    word-wrap: break-word;
+}
+
+/* Ícones */
+.user-message .icon,
+.bot-message .icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* Ícone do Bot */
+.bot-message .icon {
+    background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7tCidkoI4vptoPcnAU8COMm72uEN5Sndj_Je6m-z4u_At1KDJRSMycPOvGUvvcbWoJGQ&usqp=CAU') no-repeat center center;
+    background-size: cover;
+}
+
+/* Ícone de Menu (Mobile) */
+.mobile-menu-icon {
+    display: none; /* Oculta por padrão */
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+/* Media Queries para Responsividade */
+
+/* Telas menores (celulares) */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%); /* Oculta a sidebar */
+    }
+
+    .sidebar.active {
+        transform: translateX(0); /* Mostra a sidebar */
+    }
+
+    .main-content {
+        margin-left: 0; /* Remove o deslocamento em telas pequenas */
+    }
+
+    .mobile-menu-icon {
+        display: block; /* Mostra o ícone de menu em telas pequenas */
+    }
+
+    .blocks {
+        display: none; /* Oculta os blocos em telas pequenas */
+    }
+
+    .content-title h1::after {
+        content: "Como posso ajudar?";
+        display: block;
+        font-size: 1rem;
+        font-weight: 400;
+        margin-top: 10px;
+    }
+
+    .chat-container {
+        margin-top: 60px; /* Ajusta o chat para cima */
+    }
+}
+
+.loading-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top: 4px solid #4a90e2;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+

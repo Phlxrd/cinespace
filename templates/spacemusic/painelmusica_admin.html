@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Inserção de Músicas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-group input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+
+        .message {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .message.success {
+            color: #28a745;
+        }
+
+        .message.error {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Inserir Nova Música</h2>
+        <form id="insert-music-form">
+            <div class="form-group">
+                <label for="titulo">Título:</label>
+                <input type="text" id="titulo" name="titulo" required>
+            </div>
+            <div class="form-group">
+                <label for="artista">Artista:</label>
+                <input type="text" id="artista" name="artista" required>
+            </div>
+            <div class="form-group">
+                <label for="album">Álbum:</label>
+                <input type="text" id="album" name="album">
+            </div>
+            <div class="form-group">
+                <label for="capa">URL da Capa:</label>
+                <input type="url" id="capa" name="capa" required>
+            </div>
+            <div class="form-group">
+                <label for="arquivo">URL do Arquivo de Música:</label>
+                <input type="url" id="arquivo" name="arquivo" required>
+            </div>
+            <div class="form-group">
+                <label for="duracao">Duração (em segundos):</label>
+                <input type="number" id="duracao" name="duracao" required>
+            </div>
+            <div class="form-group">
+                <label for="visualizacoes">Visualizações:</label>
+                <input type="number" id="visualizacoes" name="visualizacoes" required>
+            </div>
+            <button type="submit" class="submit-button">Inserir Música</button>
+        </form>
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        document.getElementById('insert-music-form').addEventListener('submit', async function (e) {
+            e.preventDefault(); // Evita o comportamento padrão do formulário
+
+            // Coleta os dados do formulário
+            const formData = {
+                titulo: document.getElementById('titulo').value,
+                artista: document.getElementById('artista').value,
+                album: document.getElementById('album').value,
+                capa: document.getElementById('capa').value,
+                arquivo: document.getElementById('arquivo').value,
+                duracao: parseInt(document.getElementById('duracao').value),
+                visualizacoes: parseInt(document.getElementById('visualizacoes').value),
+            };
+
+            try {
+                // Envia os dados para o backend
+                const response = await fetch('/inserir-musica/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken'), // Adiciona o token CSRF
+                    },
+                    body: JSON.stringify(formData),
+                });
+
+                const data = await response.json();
+                const messageElement = document.getElementById('message');
+
+                if (response.ok) {
+                    messageElement.textContent = 'Música inserida com sucesso!';
+                    messageElement.className = 'message success';
+                    document.getElementById('insert-music-form').reset(); // Limpa o formulário
+                } else {
+                    messageElement.textContent = 'Erro ao inserir música: ' + data.error;
+                    messageElement.className = 'message error';
+                }
+            } catch (error) {
+                console.error('Erro ao enviar formulário:', error);
+                const messageElement = document.getElementById('message');
+                messageElement.textContent = 'Erro ao enviar formulário. Verifique o console para mais detalhes.';
+                messageElement.className = 'message error';
+            }
+        });
+
+        // Função para obter o token CSRF
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === name + '=') {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+
+</body>
+</html>

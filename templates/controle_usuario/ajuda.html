@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Encontre os melhores trailers de filmes, séries, animes e doramas. Explore lançamentos e produções famosas com uma experiência visual incrível.">
+    <meta property="og:title" content="Cinetrailers">
+    <meta property="og:description"
+        content="Encontre os melhores trailers de filmes, séries, animes e doramas. Explore lançamentos e produções famosas com uma experiência visual incrível.">
+
+    <title>Configurações - Ajuda </title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/controle_usuario/configuracoes.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="icon" href="{% static 'imagens/favicon cinetrailers.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'imagens/favicon cinetrailers.png' %}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=ABeeZee&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+
+</head>
+
+<body>
+    <header>
+        <div class="site-logo">
+            <a href="{% url 'index' %}" class="logo-text">CINESPACE</a>
+        </div>
+
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="{% url 'filmes' %}">FILMES</a></li>
+                <li><a href="{% url 'series' %}">SERIES</a></li>
+                <li><a href="{% url 'animes' %}">ANIMES</a></li>
+                <li><a href="{% url 'esportes' %}">SPACE ESPORTES</a></li>
+                <li><a href="{% url 'space_music' %}">SPACE MUSIC</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-icons">
+            <a href="{% url 'resultados' %}">
+                <div id="search-icon" class="search-icon">
+                    <img src="{% static 'imagens/vectores/lupavec.png' %}" alt="Pesquisar">
+                </div>
+            </a>
+
+
+            <div id="I.A-icon" class="alert-icon">
+                <img src="{% static 'imagens/vectores/spacebot-vec.png' %}" alt="Favoritos">
+            </div>
+
+
+            <div class="profile-header">
+                <img id="profileImage" src="{% static 'imagens/default/profile.jpg' %}" alt="Perfil"
+                    class="perfil-image">
+                <img id="arrowIcon" src="{% static 'imagens/vectores/setaprabaixovec.png' %}" alt="Abrir menu"
+                    class="arrow-icon">
+                <div class="menu-perfil">
+                    <!-- Link para a página inicial (Home) -->
+                    <a href="{% url 'cinetrailers' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/homevec.png' %}" alt="Home">
+                        <span class="menu-text">Home</span>
+                    </a>
+
+                    <!-- Link para a página de configurações -->
+                    <a href="{% url 'conta' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/configvec.png' %}" alt="Configurações">
+                        <span class="menu-text">Configurações</span>
+                    </a>
+
+                    <!-- Link para a página de escolher usuário (Trocar Perfil) -->
+                    <a href="{% url 'escolherusuario' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/perfilvec.png' %}" alt="Trocar-Perfil">
+                        <span class="menu-text">Trocar Perfil</span>
+                    </a>
+
+                    <!-- Link para a página de gerenciar perfis (Editar) -->
+                    <a href="{% url 'gerenciar_perfis' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/lapisvec.png' %}" alt="EditarPerfil">
+                        <span class="menu-text">Editar Perfil</span>
+                    </a>
+
+                    <!-- Link para a página de ajuda -->
+                    <a href="{% url 'ajuda' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/ajudavec.png' %}" alt="Ajuda">
+                        <span class="menu-text">Ajuda</span>
+                    </a>
+
+                    <!-- Link para logout -->
+                    <a href="{% url 'logout' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/sairvec.png' %}" alt="Sair">
+                        <span class="menu-text">Sair</span>
+                    </a>
+                </div>
+            </div>
+    </header>
+
+    <!-- Janela do Chat Bot -->
+    <div id="chat-window" class="chat-window">
+        <div class="chat-header">
+            <h2>SPACE BOT</h2>
+            <button id="close-chat">X</button>
+        </div>
+        <div class="chat-content">
+            <!-- Textos acima dos blocos -->
+            <div class="chat-texts">
+                <h1>SPACE BOT</h1>
+                <p class="subtitle">Chat bot</p>
+            </div>
+
+            <!-- Blocos de Comando -->
+            <div class="blocks">
+                <div class="block" id="block-fotos">
+                    <img src="{% static 'imagens/spacebot/vectores/fotosvec.png' %}" alt="Ícone Criar"
+                        class="block-icon">
+                    <p class="block-text">Criar fotos</p>
+                </div>
+                <div class="block" id="block-textos">
+                    <img src="{% static 'imagens/spacebot/vectores/textovec.png' %}" alt="Ícone Texto"
+                        class="block-icon">
+                    <p class="block-text">Criar textos</p>
+                </div>
+                <div class="block" id="block-conversar">
+                    <img src="{% static 'imagens/spacebot/vectores/conversarvec.png' %}" alt="Ícone Conversar"
+                        class="block-icon">
+                    <p class="block-text">Conversar</p>
+                </div>
+                <div class="block" id="block-agendar">
+                    <img src="{% static 'imagens/spacebot/vectores/agendavec.png' %}" alt="Ícone Agendar"
+                        class="block-icon">
+                    <p class="block-text">Agendar</p>
+                </div>
+            </div>
+
+            <!-- Área do Chat -->
+            <div class="chat-container">
+                <div class="chat-messages" id="chat-messages">
+                    <div class="loading-indicator" id="loading-indicator" style="display: none;">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Barra de Mensagens -->
+            <div class="message-bar-container">
+                <div class="message-bar">
+                    <textarea placeholder="Envie sua mensagem" class="message-input" id="userInput"></textarea>
+                    <div class="message-icons">
+                        <img src="{% static 'imagens/spacebot/vectores/galeriavec.png' %}" alt="Ícone Galeria"
+                            class="icon">
+                        <div class="divider"></div>
+                        <img src="{% static 'imagens/spacebot/vectores/micvec.png' %}" alt="Ícone Microfone"
+                            class="icon" id="micButton">
+                    </div>
+                    <div class="send-button" id="sendButton">
+                        <img src="{% static 'imagens/spacebot/vectores/enviarvec.png' %}" alt="Ícone Enviar"
+                            class="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Mensagem abaixo da barra de mensagens -->
+            <div class="footer-message">
+                <p>
+                    Esta é apenas uma janela do SPACEBOT. Se quiser ter uma experiência melhor, acesse o <a
+                        href="{% url 'spacebot' %}" target="_blank" class="spacebot-link">SPACEBOT</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Menu de Categorias -->
+    <div class="categories-container">
+        <div class="categories-menu">
+            <!-- Categoria Conta -->
+            <div class="category-item">
+                <a href="{% url 'conta' %}"
+                    class="category-button {% if request.path == '/conta/' %}active{% endif %}">Conta</a>
+            </div>
+
+            <!-- Categoria Assinatura -->
+            <div class="category-item">
+                <a href="{% url 'assinaturas' %}"
+                    class="category-button {% if request.path == '/assinaturas/' %}active{% endif %}">Assinatura</a>
+            </div>
+            <!-- Categoria Ajuda -->
+            <div class="category-item">
+                <a href="{% url 'ajuda' %}"
+                    class="category-button {% if request.path == '/ajuda/' %}active{% endif %}">Ajuda</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <h2>CINESPACE</h2>
+        <div class="footer-content">
+            <div>
+                <h4>INSTITUCIONAL</h4>
+                <p>Sobre nós</p>
+                <p>Termos de uso</p>
+                <p>Política de privacidade</p>
+            </div>
+            <div>
+                <h4>SUPORTE</h4>
+                <p>Ajuda</p>
+                <p>Contato</p>
+                <p>FAQ</p>
+            </div>
+            <div>
+                <h4>CONTEÚDO</h4>
+                <p>Filmes</p>
+                <p>Séries</p>
+                <p>Novidades</p>
+            </div>
+            <div>
+                <h4>PARCERIAS</h4>
+                <p>Produtoras</p>
+                <p>Anunciantes</p>
+                <p>Afiliados</p>
+            </div>
+            <div>
+                <h4>ASSINATURA</h4>
+                <p>Planos</p>
+                <p>Promoções</p>
+                <p>Cancelamento</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>English | Português | Español | Français | Italiano | Deutsch | 日本語 | 中文</p>
+            <p>&copy; 2025 Cinespace, LLC. Todos os direitos reservados. Todos os elementos pertencem aos seus respectivos proprietários.</p>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const profileHeader = document.querySelector(".profile-header");
+            const menuPerfil = document.querySelector(".menu-perfil");
+            let timeoutID;
+
+            // Alternar o menu ao clicar na imagem de perfil
+            profileHeader.addEventListener("click", (event) => {
+                event.stopPropagation(); // Impede que o clique feche imediatamente
+                if (menuPerfil.style.display === "flex") {
+                    menuPerfil.style.display = "none";
+                } else {
+                    menuPerfil.style.display = "flex";
+                }
+            });
+
+            // Fecha o menu quando o mouse sai tanto do perfil quanto do menu
+            function fecharMenu() {
+                timeoutID = setTimeout(() => {
+                    menuPerfil.style.display = "none";
+                }, 200); // Espera 1 segundo antes de fechar
+            }
+
+            profileHeader.addEventListener("mouseleave", fecharMenu);
+            menuPerfil.addEventListener("mouseleave", fecharMenu);
+
+            // Impede que o menu feche se o mouse estiver sobre ele
+            menuPerfil.addEventListener("mouseenter", () => {
+                clearTimeout(timeoutID);
+            });
+
+            // Fecha o menu se clicar fora dele
+            document.addEventListener("click", (event) => {
+                if (!profileHeader.contains(event.target) && !menuPerfil.contains(event.target)) {
+                    menuPerfil.style.display = "none";
+                }
+            });
+        });
+    </script>
+    <script src="{% static 'javascripts/menu.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/franc@6.1.0/dist/franc.min.js"></script>
+    <script src="{% static 'javascripts/chatbot.js' %}"></script>
+    <script src="{% static 'javascripts/lupa.js' %}"></script>
+    <script src="{% static 'javascripts/header.js' %}"></script>
+</body>
+</html>

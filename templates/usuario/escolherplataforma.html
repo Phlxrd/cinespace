@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escolher Plataforma - CINESPACE</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/escolherplataforma.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/pt.js"></script> <!--- Adicione isso para português -->
+</head>
+
+<body>
+    <div class="bannerfundo">
+        <img src="{% static 'imagens/fundos/bannerescolhaplata.png' %}" alt="Imagem de Fundo">
+    </div>
+
+    <div class="container">
+        <a href="{% url 'cinetrailers' %}" class="option option-left">
+            <span>CINES PACE</span>
+        </a>
+        <a href="{% url 'space_music' %}" class="option option-right">
+            <span>SPACE MUSIC</span>
+        </a>
+    </div>
+</body>
+
+</html>

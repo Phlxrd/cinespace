@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Encontre os melhores trailers de filmes, séries, animes e doramas. Explore lançamentos e produções famosas com uma experiência visual incrível.">
+    <meta property="og:title" content="Cinetrailers">
+    <meta property="og:description"
+        content="Encontre os melhores trailers de filmes, séries, animes e doramas. Explore lançamentos e produções famosas com uma experiência visual incrível.">
+
+    <title>Cinespace - Esportes </title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/subpaginas/esportes.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="icon" href="{% static 'imagens/favicon cinetrailers.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'imagens/favicon cinetrailers.png' %}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=ABeeZee&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+     <header>
+                    <div class="site-logo">
+                        <a href="{% url 'index' %}" class="logo-text">CINESPACE</a>
+                    </div>
+                   
+                    <nav class="nav-menu">
+                        <ul>
+                            <li><a href="{% url 'filmes' %}">FILMES</a></li>
+                            <li><a href="{% url 'series' %}">SERIES</a></li>
+                            <li><a href="{% url 'animes' %}">ANIMES</a></li>
+                            <li><a href="{% url 'esportes' %}">SPACE ESPORTES</a></li>
+                            <li><a href="{% url 'space_music' %}">SPACE MUSIC</a></li>
+                        </ul>
+                    </nav>
+                
+                    <div class="header-icons">
+                        <a href="{% url 'resultados' %}">
+                            <div id="search-icon" class="search-icon">
+                                <img src="{% static 'imagens/vectores/lupavec.png' %}" alt="Pesquisar">
+                            </div>
+                        </a>
+                       
+
+                            <div id="I.A-icon" class="alert-icon">
+                                <img src="{% static 'imagens/vectores/spacebot-vec.png' %}" alt="Favoritos">
+                            </div>
+
+
+                        <div class="profile-header">
+                            <img id="profileImage" src="{% static 'imagens/default/profile.jpg' %}" alt="Perfil" class="perfil-image">
+                            <img id="arrowIcon" src="{% static 'imagens/vectores/setaprabaixovec.png' %}" alt="Abrir menu" class="arrow-icon">
+                            <div class="menu-perfil">
+                                <!-- Link para a página inicial (Home) -->
+                                <a href="{% url 'cinetrailers' %}" class="menu-item">
+                                    <img src="{% static 'imagens/vectores/homevec.png' %}" alt="Home">
+                                    <span class="menu-text">Home</span>
+                                </a>
+                        
+                              <!-- Link para a página de configurações -->
+                                <a href="{% url 'conta' %}" class="menu-item">
+                                    <img src="{% static 'imagens/vectores/configvec.png' %}" alt="Configurações">
+                                    <span class="menu-text">Configurações</span>
+                                </a>
+                        
+                                <!-- Link para a página de escolher usuário (Trocar Perfil) -->
+                                <a href="{% url 'escolherusuario' %}" class="menu-item">
+                                    <img src="{% static 'imagens/vectores/perfilvec.png' %}" alt="Trocar-Perfil">
+                                    <span class="menu-text">Trocar Perfil</span>
+                                </a>
+                        
+                                <!-- Link para a página de gerenciar perfis (Editar) -->
+                                <a href="{% url 'gerenciar_perfis' %}" class="menu-item">
+                                    <img src="{% static 'imagens/vectores/lapisvec.png' %}" alt="EditarPerfil">
+                                    <span class="menu-text">Editar Perfil</span>
+                                </a>
+                        
+                                <!-- Link para a página de ajuda -->
+                                <a href="{% url 'ajuda' %}" class="menu-item">
+                                    <img src="{% static 'imagens/vectores/ajudavec.png' %}" alt="Ajuda">
+                                    <span class="menu-text">Ajuda</span>
+                                </a>
+                        
+                                <!-- Link para logout -->
+                                <a href="{% url 'logout' %}" class="menu-item">
+                                    <img src="{% static 'imagens/vectores/sairvec.png' %}" alt="Sair">
+                                    <span class="menu-text">Sair</span>
+                                </a>
+                            </div>
+                        </div>
+                </header>
+
+  
+    <!-- Janela do Chat Bot -->
+    <div id="chat-window" class="chat-window">
+        <div class="chat-header">
+            <button class="new-chat-btn">Novo Chat</button>
+            <button id="close-chat">X</button>
+        </div>
+        <div class="chat-content">
+            <!-- Textos acima dos blocos -->
+            <div class="chat-texts">
+                <h1>SPACE BOT</h1>
+                <p class="subtitle">seja bem vindo ao space bot</p>
+            </div>
+
+            <!-- Área do Chat -->
+            <div class="chat-container">
+                <div class="chat-messages" id="chat-messages">
+                    <div class="loading-indicator" id="loading-indicator" style="display: none;">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Barra de Mensagens -->
+            <div class="message-bar-container">
+                <div class="message-bar">
+                    <textarea placeholder="Envie sua mensagem" class="message-input" id="userInput"></textarea>
+                    <div class="send-button" id="sendButton">
+                        <img id="sendIcon" src="{% static 'imagens/spacebot/vectores/enviarvec.png' %}" alt="Ícone Enviar" class="icon">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mensagem abaixo da barra de mensagens -->
+            <div class="footer-message">
+                <p>
+                    Esta é apenas uma janela do SPACEBOT. Se quiser ter uma experiência melhor, acesse o <a href="{% url 'spacebot' %}" target="_blank" class="spacebot-link">SPACEBOT</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+   
+
+
+
+<!-- Botão do foguetinho -->
+<div id="rocket-button" class="hidden">
+    <img src="{% static 'imagens/vectores/foguete.png' %}" alt="Foguete" class="rocket-icon">
+    <div class="fire"></div>
+</div>
+<script>
+   document.addEventListener("DOMContentLoaded", function () {
+    const rocketButton = document.getElementById('rocket-button');
+
+    // Mostra o botão quando o usuário rola a página
+    window.addEventListener('scroll', function () {
+        if (window.scrollY > 1700) {
+            rocketButton.classList.add('visible');
+        } else {
+            rocketButton.classList.remove('visible');
+        }
+    });
+
+    // Animação de subida ao clicar no botão
+    rocketButton.addEventListener('click', function () {
+        rocketButton.classList.add('launch');
+        setTimeout(() => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            rocketButton.classList.remove('launch');
+        }, 1000); // Tempo da animação
+    });
+});
+</script>
+
+
+
+
+    <div class="esportes-container">
+        <img id="bannerImage"
+            src="https://i.postimg.cc/50mJR43m/championsbanner.jpg"
+            alt="Banner da Partida" class="banner-image">
+        <div class="content-container">
+    
+            <!-- Botões de Gênero -->
+            <div class="genre-buttons-video">
+                <button class="genre-btn-video">Esportes</button>
+            </div>
+    
+            <div class="team-logos">
+                <img src="https://tmssl.akamaized.net/images/wappen/medium/98.png?lm=1455750085" alt="Brentford"
+                    class="team-logo">
+                <span class="vs-text">VS</span>
+                <img src="https://tmssl.akamaized.net/images/wappen/medium/11.png?lm=1345982086" alt="Arsenal"
+                    class="team-logo">
+            </div>
+    
+            <h2 class="partida-name">Brentford X Arsenal</h2>
+            <p class="description">Os times se enfrentam em busca da vitória na Champions League.</p>
+    
+            <div class="movie-info-video">
+                <span class="movie-year-video">25/02/10/03/2025 AS 19:00</span>
+                <span class="separator-video">|</span>
+                <span class="movie-duration-video">2h 11min</span>
+                <span class="separator-video">|</span>
+                <span class="movie-rating">
+                    <p>Classificação Livre</p>
+                </span>
+            </div>
+    
+            <div class="separator-line-video"></div>
+    
+            <p class="sinopse">Em um confronto eletrizante, Brentford e Arsenal medem forças para garantir um lugar
+                na cobiçada Liga dos Campeões.</p>
+    
+            <div class="movie-actions-video">
+                <button class="assistir-btn-video">
+                    <img src="{% static 'imagens/vectores/playvec.png' %}" alt="Assistir" class="play-icon-video">
+                    Assistir
+                </button>
+                <button class="minha-lista-btn-video">
+                    <img src="{% static 'imagens/vectores/mais.png' %}" alt="Minha Lista" class="plus-icon-video">
+                     Add a lista
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="bannerfundo">
+        <img src="https://s3-alpha-sig.figma.com/img/be6f/903e/8efc077e49c04b277969249b43e12ba1?Expires=1741564800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=mWtch-tN12cXWblkWrCdwmmQsQXwpqzh3neoi3NJhJ6bEIjPf6Fk7JB4LUHUDAjk3b4lD7dfJbk7u-UPF~g5B33lTQm~JRdND1jPF9Z6gwGxifcbTfSdcOpfgVcYpFbHfoJhAJojeIGZ4pqCOkIv5QAceKwB~q~Zeygr~d3JxVoftWQbK7YHTlLORH7Z-dMDreQYuusFiwmZ6PPq9xAlIuBYct97-2oY9SNl0BdBL49CDnBiBPuQAQnQejEquw3aT5s2l3KXFAZ5227QQ9FdC~FWL38O0m7GDGzkRTDutToj0kaeoJkLjt4XSucj0G6ledaEEJ1jUN15Q9luqxb0Pw__" alt="Imagem de Fundo">
+    </div>
+
+    <div class="premier-league-banner">
+        <img src="{% static 'imagens/banners/premier league banner.png' %}" alt="Premier League Banner">
+    </div>
+   
+
+
+    <section>
+        <div class="carousel-container carrossel-dois">
+            <h1>Proximos eventos ao vivo</h1>
+            <div class="carousel-overlay-dois left-overlay-dois"></div>
+            <div class="carousel-overlay-dois right-overlay-dois"></div>
+            <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda" class="carousel-2 left-arrow-dois">
+            <div class="carousel carrossel-dois">
+                <!-- Item 1 -->
+                <div class="carousel-item carrossel-dois">
+                    <a href="/series/Vampiresdiares.html">
+                        <img src="https://i.postimg.cc/3R6nQ2FN/arsena-x-united.png" alt="Top 1">
+
+                    </a>
+                    <div class="movie-info">
+                        <h4 class="movie-title">Arsenal x Manchester United FC  </h4>
+                        <span class="movie-year">10/03/10/03/2025 AS 19:00 AS 19:00</span>
+                        
+                    </div>
+                   
+                </div>
+                <!-- Item 2 -->
+                <div class="carousel-item carrossel-dois">
+                    <a href="https://link-para-novidade2.com">
+                        <img src="https://i.postimg.cc/xTjcVBqk/chelsea-x-liver.png" alt="Top 2">
+
+                    </a>
+                    <div class="movie-info">
+                        <h4 class="movie-title">Chelsea X Liverpool</h4>
+                        <span class="movie-year">12/03/2025 AS 20:00</span>
+                       
+                    </div>
+                   
+                </div>
+                <!-- Item 3 -->
+                <div class="carousel-item carrossel-dois">
+                    <a href="https://link-para-novidade3.com">
+                        <img src="https://i.postimg.cc/RhPB1s7h/Arsenal-whestham.png" alt="Top 3">
+
+                    </a>
+                    <div class="movie-info">
+                        <h4 class="movie-title">Arsenal x West Ham United FC</h4>
+                        <span class="movie-year">02/04/2025 AS 15:00</span>
+                      
+                    </div>
+                   
+                </div>
+                   <!-- Item 3 -->
+                   <div class="carousel-item carrossel-dois">
+                    <a href="https://link-para-novidade3.com">
+                        <img src="https://i.postimg.cc/pdNtBnFf/Leicester-x-newclastle.png" alt="Top 3">
+
+                    </a>
+                    <div class="movie-info">
+                        <h4 class="movie-title">
+                            Leicester City FC x 
+                            Newcastle United FC </h4>
+                        <span class="movie-year">17/04/2025 AS 14:00</span>
+                      
+                    </div>
+                   
+                </div>
+                   <!-- Item 3 -->
+                   <div class="carousel-item carrossel-dois">
+                    <a href="https://link-para-novidade3.com">
+                        <img src="https://i.postimg.cc/50gd17kg/Wolverhampton-Wanderers-FC-x-Everton-FC.png" alt="Top 3">
+
+                    </a>
+                    <div class="movie-info">
+                        <h4 class="movie-title">Wolverhampton Wanderers FC x Everton FC</h4>
+                        <span class="movie-year">05/03/2025 AS 21:00</span>
+                      
+                    </div>
+                   
+                </div>
+                <!-- Adicione mais itens conforme necessário -->
+            </div>
+            <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita" class="carousel-2 right-arrow-dois">
+        </div>
+    </section>
+
+
+
+
+
+
+    <section>
+        <div class="carousel-container carrossel-dois">
+            <h1>Melhores Partidas da Semana</h1>
+            <div class="carousel-overlay-dois left-overlay-dois"></div>
+            <div class="carousel-overlay-dois right-overlay-dois"></div>
+            <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda" class="carousel-2 left-arrow-dois">
+            <div class="carousel carrossel-dois">
+                <!-- Item 1 -->
+                <div class="carousel-item carrossel-dois">
+                    <a href="/series/Vampiresdiares.html">
+                        <img src="https://i.postimg.cc/4NSGm04F/Brighton-x-aston-vla.png" alt="Top 1">
+
+                    </a>
+                    <div class="movie-info">
+                        <h4 class="movie-title">Brighton & Hove Albion FC x Aston Vila</h4>
+                        <span class="movie-year">17/04/2025 AS 16:00</span>
+                        
+                    </div>
+                   
+                </div>
+                <!-- Item 2 -->
+                <div class="carousel-item carrossel-dois">
+                    <a href="https://link-para-novidade2.com">
+                        <img src="https://i.postimg.cc/90g6w42q/CITY-X-WESTTHAM.png" alt="Top 2">
+
+                    </a>
+                    <div class="movie-info">
+                        <h4 class="movie-title">Manchester City FC x West Ham United FC</h4>
+                        <span class="movie-year">10/03/2025 AS 19:00</span>
+                       
+                    </div>
+                   
+                </div>
+                <!-- Item 3 -->
+                <div class="carousel-item carrossel-dois">
+                    <a href="https://link-para-novidade3.com">
+                        <img src="https://i.postimg.cc/Xvw617fT/United-x-chelsea.png" alt="Top 3">
+
+                    </a>
+                    <div class="movie-info">
+                        <h4 class="movie-title">Manchester United FC x Chelsea</h4>
+                        <span class="movie-year">06/04/2025 AS 19:30</span>
+                      
+                    </div>
+                   
+                </div>
+                   <!-- Item 3 -->
+                   <div class="carousel-item carrossel-dois">
+                    <a href="https://link-para-novidade3.com">
+                        <img src="https://i.postimg.cc/qqYkVDzY/ARSENAL-X-CHELSEA.png" alt="Top 3">
+
+                    </a>
+                    <div class="movie-info">
+                        <h4 class="movie-title">Arsenal x Chelsea</h4>
+                        <span class="movie-year">21/04/2025 AS 16:00</span>
+                      
+                    </div>
+                   
+                </div>
+                   <!-- Item 3 -->
+                   <div class="carousel-item carrossel-dois">
+                    <a href="https://link-para-novidade3.com">
+                        <img src="https://i.postimg.cc/KcscMjJN/UNITED-X-CITY.png" alt="Top 3">
+
+                    </a>
+                    <div class="movie-info">
+                        <h4 class="movie-title">Manchester United FC x Manchester City FC </h4>
+                        <span class="movie-year">01/04/2025 AS 15:30</span>
+                      
+                    </div>
+                   
+                </div>
+                <!-- Adicione mais itens conforme necessário -->
+            </div>
+            <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita" class="carousel-2 right-arrow-dois">
+        </div>
+    </section>
+
+
+
+
+    <div class="nba-banner">
+        <img src="{% static 'imagens/esportesbanner//banner-nba.png' %}" alt="Banner da NBA" class="nba-banner-image">
+    </div>
+
+
+
+
+
+
+    <section>
+        <div class="carousel-container carrossel-dois">
+            <h1>Proximos eventos ao vivo</h1>
+            <div class="carousel-overlay-dois left-overlay-dois"></div>
+            <div class="carousel-overlay-dois right-overlay-dois"></div>
+            <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda" class="carousel-2 left-arrow-dois">
+            <div class="carousel carrossel-dois">
+                <!-- Item 1 -->
+                <div class="carousel-item carrossel-dois">
+                    <a href="/series/Vampiresdiares.html">
+                        <img src="https://i.postimg.cc/0Qc1YXv3/atlanta-x-tornto.png" alt="Top 1">
+
+                    </a>
+                    <div class="movie-info">
+                        <h4 class="movie-title">Atlanta Hawks x Toronto Raptors </h4>
+                        <span class="movie-year">14/04/2025 AS 22:00</span>
+                        
+                    </div>
+                   
+                </div>
+                <!-- Item 2 -->
+                <div class="carousel-item carrossel-dois">
+                    <a href="https://link-para-novidade2.com">
+                        <img src="https://i.postimg.cc/pXYVrChw/golden-state-x-orlando-magic.png" alt="Top 2">
+
+                    </a>
+                    <div class="movie-info">
+                        <h4 class="movie-title"> Golden State x Orlando  Magic </h4>
+                        <br>
+                        <span class="movie-year">10/04/2025 AS 21:00</span>
+                       
+                    </div>
+                   
+                </div>
+                <!-- Item 3 -->
+                <div class="carousel-item carrossel-dois">
+                    <a href="https://link-para-novidade3.com">
+                        <img src="https://i.postimg.cc/K80ZrY5Q/lakers-x-phoenix.png" alt="Top 3">
+                    </a>
+                    <div class="movie-info">
+                        <h4 class="movie-title">L.A Lakers X Phoenix Suns</h4>
+                        <span class="movie-year">07/04/2025 AS 00:00</span>
+                      
+                    </div>
+                   
+                </div>
+                   <!-- Item 3 -->
+                   <div class="carousel-item carrossel-dois">
+                    <a href="https://link-para-novidade3.com">
+                        <img src="https://i.postimg.cc/dVssyCGL/milwake-x-los-angles-clippers.png" alt="Top 3">
+                    </a>
+                    <div class="movie-info">
+                        <h4 class="movie-title">Milwaukee Bucks X LA Clippers </h4>
+                        <span class="movie-year">15/04/2025 AS 21:30</span>
+                      
+                    </div>
+                   
+                </div>
+                   <!-- Item 3 -->
+                   <div class="carousel-item carrossel-dois">
+                    <a href="https://link-para-novidade3.com">
+                        <img src="https://i.postimg.cc/XvXn20HW/pacer-x-chicago-bulls.png" alt="Top 3">
+
+                    </a>
+                    <div class="movie-info">
+                        <h4 class="movie-title">Indiana Pacers X Chicago Bulls</h4>
+                        <span class="movie-year">20/04/2025 AS 23:00</span>
+                      
+                    </div>
+                   
+                </div>
+                <!-- Adicione mais itens conforme necessário -->
+            </div>
+            <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita" class="carousel-2 right-arrow-dois">
+        </div>
+    </section>
+
+
+
+
+
+
+    <section>
+        <div class="carousel-container carrossel-dois">
+            <h1>Duelo de Estrelas </h1>
+            <div class="carousel-overlay-dois left-overlay-dois"></div>
+            <div class="carousel-overlay-dois right-overlay-dois"></div>
+            <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda" class="carousel-2 left-arrow-dois">
+            <div class="carousel carrossel-dois">
+              <!-- Item 1 -->
+              <div class="carousel-item carrossel-dois">
+                <a href="/series/Vampiresdiares.html">
+                    <img src="https://i.postimg.cc/L6M57m8t/pacers-x-chicago-bulls.png" alt="Top 1">
+
+                </a>
+                <div class="movie-info">
+                    <h4 class="movie-title">Indiana Pacers x Chicago Bulss </h4>
+                    <span class="movie-year">14/04/2025 AS 17:00</span>
+                    
+                </div>
+               
+            </div>
+            <!-- Item 2 -->
+            <div class="carousel-item carrossel-dois">
+                <a href="https://link-para-novidade2.com">
+                    <img src="https://i.postimg.cc/y6pZWDs7/bucks-x-hawks.png" alt="Top 2">
+
+                </a>
+                <div class="movie-info">
+                    <h4 class="movie-title"> Milwaukee Bucks X Atlanta Hawks</h4>
+                    <br>
+                    <span class="movie-year">10/04/2025 AS 18:00</span>
+                   
+                </div>
+               
+            </div>
+            <!-- Item 3 -->
+            <div class="carousel-item carrossel-dois">
+                <a href="https://link-para-novidade3.com">
+                    <img src="https://i.postimg.cc/02LKdhz3/la-lakers-x-golden-state.png" alt="Top 3">
+                </a>
+                <div class="movie-info">
+                    <h4 class="movie-title">L.A Lakers X Golden State</h4>
+                    <span class="movie-year">07/04/2025 AS 00:30</span>
+                  
+                </div>
+               
+            </div>
+               <!-- Item 3 -->
+               <div class="carousel-item carrossel-dois">
+                <a href="https://link-para-novidade3.com">
+                    <img src="https://i.postimg.cc/CLZf8wxk/suns-x-la-clippers.png" alt="Top 3">
+                </a>
+                <div class="movie-info">
+                    <h4 class="movie-title">Phoenix Suns X LA Clippers </h4>
+                    <span class="movie-year">15/04/2025 AS 20:30</span>
+                  
+                </div>
+               
+            </div>
+               <!-- Item 3 -->
+               <div class="carousel-item carrossel-dois">
+                <a href="https://link-para-novidade3.com">
+                    <img src="https://i.postimg.cc/SxC2ZV8K/celtics-x-bulls.png" alt="Top 3">
+
+                </a>
+                <div class="movie-info">
+                    <h4 class="movie-title">Boston celtics X Chicago Bulls</h4>
+                    <span class="movie-year">20/04/2025 AS 21:00</span>
+                  
+                </div>
+               
+            </div>
+            <!-- Adicione mais itens conforme necessário -->
+        </div>
+            <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita" class="carousel-2 right-arrow-dois">
+        </div>
+    </section>
+
+
+    <div class="nfl-banner">
+        <img src="{% static 'imagens/esportesbanner/banner-nfl.png' %}" alt="Banner da NFL" class="nfl-banner-image">
+    </div>
+
+
+    <section>
+        <div class="carousel-container carrossel-dois">
+            <h1>Proximos eventos ao vivo</h1>
+            <div class="carousel-overlay-dois left-overlay-dois"></div>
+            <div class="carousel-overlay-dois right-overlay-dois"></div>
+            <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda" class="carousel-2 left-arrow-dois">
+            <div class="carousel carrossel-dois">
+                <!-- Item 1 -->
+                <div class="carousel-item carrossel-dois">
+                    <a href="/series/Vampiresdiares.html">
+                        <img src="https://i.postimg.cc/7ZdDjy31/l-a-rams-vs-dallas-cowboys.png" alt="Top 1">
+
+                    </a>
+                    <div class="movie-info">
+                        <h4 class="movie-title">Los Angeles Arams x Dallas Cowboys</h4>
+                        <span class="movie-year">03/04/2025 AS 14:00</span>
+                        
+                    </div>
+                   
+                </div>
+                <!-- Item 2 -->
+                <div class="carousel-item carrossel-dois">
+                    <a href="https://link-para-novidade2.com">
+                        <img src="https://i.postimg.cc/fTH0tJsw/arizona-cardinals-x-chicago-bears.png" alt="Top 2">
+
+                    </a>
+                    <div class="movie-info">
+                        <h4 class="movie-title">Arizona Cardinals x Chicago Bears</h4>
+                        <span class="movie-year">16/04/2025 AS 15:00</span>
+                       
+                    </div>
+                   
+                </div>
+                <!-- Item 3 -->
+                <div class="carousel-item carrossel-dois">
+                    <a href="https://link-para-novidade3.com">
+                        <img src="https://i.postimg.cc/ncMhWT8J/Bufalo-bills-x-dalas-cowboys.png" alt="Top 3">
+
+                    </a>
+                    <div class="movie-info">
+                        <h4 class="movie-title">Bufallo Bills x Dallas Cowboys </h4>
+                        <span class="movie-year">14/04/2025 AS 17:00</span>
+                      
+                    </div>
+                   
+                </div>
+                   <!-- Item 3 -->
+                   <div class="carousel-item carrossel-dois">
+                    <a href="https://link-para-novidade3.com">
+                        <img src="https://i.postimg.cc/mgvkC95G/Las-Vegas-Raiders-x-Atlanta-Falcons.png" alt="Top 3">
+
+                    </a>
+                    <div class="movie-info">
+                        <h4 class="movie-title">Las Vegas Raiders x Atlanta Falcons </h4>
+                        <span class="movie-year">12/04/2025 AS 19:00</span>
+                      
+                    </div>
+                   
+                </div>
+                   <!-- Item 3 -->
+                   <div class="carousel-item carrossel-dois">
+                    <a href="https://link-para-novidade3.com">
+                        <img src="https://i.postimg.cc/Ss7nyKVb/Green-Bay-Packers-x-Denver-broncos.png" alt="Top 3">
+
+                    </a>
+                    <div class="movie-info">
+                        <h4 class="movie-title">Green Bay Packers x Denver Broncos</h4>
+                        <span class="movie-year">19/04/2025 AS 20:00</span>
+                      
+                    </div>
+                   
+                </div>
+                <!-- Adicione mais itens conforme necessário -->
+            </div>
+            <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita" class="carousel-2 right-arrow-dois">
+        </div>
+    </section>
+
+
+
+
+
+
+    <section>
+        <div class="carousel-container carrossel-dois">
+            <h1>Jogos da Semana da NFL</h1>
+            <div class="carousel-overlay-dois left-overlay-dois"></div>
+            <div class="carousel-overlay-dois right-overlay-dois"></div>
+            <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda" class="carousel-2 left-arrow-dois">
+            <div class="carousel carrossel-dois">
+                <!-- Item 1 -->
+                <div class="carousel-item carrossel-dois">
+                    <a href="/series/Vampiresdiares.html">
+                        <img src="https://i.postimg.cc/htfQ9c4V/GREEN-bay-packer-x-detroid-lions.png" alt="Top 1">
+
+                    </a>
+                    <div class="movie-info">
+                        <h4 class="movie-title">Green Bay Packers x Detroid Lions</h4>
+                        <span class="movie-year">10/03/2025 AS 17:30</span>
+                        
+                    </div>
+                   
+                </div>
+                <!-- Item 2 -->
+                <div class="carousel-item carrossel-dois">
+                    <a href="https://link-para-novidade2.com">
+                        <img src="https://i.postimg.cc/Kc0YQwHf/Tennessee-Titans-x-new-orleans-saints.png" alt="Top 2">
+
+                    </a>
+                    <div class="movie-info">
+                        <h4 class="movie-title">Tennessee Titans X New Orleans Saints</h4>
+                        <span class="movie-year">06/04/2025 AS 16:00</span>
+                       
+                    </div>
+                   
+                </div>
+                <!-- Item 3 -->
+                <div class="carousel-item carrossel-dois">
+                    <a href="https://link-para-novidade3.com">
+                        <img src="https://i.postimg.cc/cJ3KbhnH/Cleveland-Browns-x-Atlanta-Falcons.png" alt="Top 3">
+
+                    </a>
+                    <div class="movie-info">
+                        <h4 class="movie-title">  
+                            Cleveland Browns x Atlanta Falcons</h4>
+                        <span class="movie-year">01/04/2025 AS 15:00</span>
+                      
+                    </div>
+                   
+                </div>
+                   <!-- Item 4 -->
+                   <div class="carousel-item carrossel-dois">
+                    <a href="https://link-para-novidade3.com">
+                        <img src="https://i.postimg.cc/63dMtCD6/Houston-texans-x-Indianapolis-COLTS.png" alt="Top 3">
+
+                    </a>
+                    <div class="movie-info">
+                        <h4 class="movie-title"> Houston Texans x Indianapolis Colts</h4>
+                        <span class="movie-year">03/04/2025 AS 13:00</span>
+                      
+                    </div>
+                   
+                </div>
+                   <!-- Item 5 -->
+                   <div class="carousel-item carrossel-dois">
+                    <a href="https://link-para-novidade3.com">
+                        <img src="https://i.postimg.cc/hvcpjfBL/Minnesota-vikings-x-New-England-patriots.png" alt="Top 3">
+
+                    </a>
+                    <div class="movie-info">
+                        <h4 class="movie-title">Minesota Vikings x New England Patriots</h4>
+                        <span class="movie-year">14/04/2025 AS 17:30</span>
+                      
+                    </div>
+                   
+                </div>
+                <!-- Adicione mais itens conforme necessário -->
+            </div>
+            <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita" class="carousel-2 right-arrow-dois">
+        </div>
+    </section>
+
+
+
+
+
+ <div class="espaco"> </div>
+
+
+
+    <section>
+        <h1 class="carousel-title">Bastidores do Esporte</h1>
+        <div class="carousel-container carrossel-um">
+            <div class="carousel-overlay left-overlay"></div>
+            <div class="carousel-overlay right-overlay"></div>
+            <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda"
+                class="carousel-1 left-arrow">
+            <div class="carousel carrossel-um">
+                <div class="carousel-item carrossel-um">
+                    <a href="/series/Vampiresdiares.html">
+                        <img class="carrossel-um"
+                            src="https://th.bing.com/th/id/OIP.I_1egKIk3uzhDp3SisN2DQHaLH?rs=1&pid=ImgDetMain"
+                            alt="The last Dance">
+                        
+                        <button class="play-button-um">▶</button> 
+                    </a>
+                    <h4 class="movie-title">The Last Dance</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2020</span>
+                        <span class="movie-rating">⭐ 4.5</span>
+
+                    </div>
+                </div>
+
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade2.com">
+                        <img class="carrossel-um"
+                            src="https://1.bp.blogspot.com/-QoTD9Pvw9p8/Xx_FYov5lfI/AAAAAAAALaA/-3KVujrwlloSFaRlpL-tFblsaVOk0-h5gCLcBGAsYHQ/s1600/4aca1231df8dd717e8fac2ab130ae758.jpg"
+                            alt="Senna">
+                        
+                        <button class="play-button-um">▶</button> 
+                    </a>
+                    <h4 class="movie-title">Senna </h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2010</span>
+                        <span class="movie-rating">⭐ 4.9</span>
+
+                    </div>
+                </div>
+
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://m.media-amazon.com/images/M/MV5BYjI5MzYzNDMtMTM5Yi00ZDhkLWEzM2EtN2E3ODVlYmI2ZjRkXkEyXkFqcGc@._V1_.jpg"
+                            alt="Free Solo ">
+                        
+                        <button class="play-button-um">▶</button> 
+                    </a>
+                    <h4 class="movie-title">Free Solo </h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2018</span>
+                        <span class="movie-rating">⭐ 4.2</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://www.themoviedb.org/t/p/original/lBo8uOrBwnpPQV8jbJfjsSfH48l.jpg"
+                            alt="Diego Maradona">
+                        
+                        <button class="play-button-um">▶</button> 
+                    </a>
+                    <h4 class="movie-title">Diego Maradona</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2019</span>
+                        <span class="movie-rating">⭐ 4.0</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://th.bing.com/th/id/OIP.vGq7NUdYGtRaKZLdkt79HQAAAA?w=310&h=413&rs=1&pid=ImgDetMain"
+                            alt="The Dawn Wall">
+                        
+                        <button class="play-button-um">▶</button> 
+                    </a>
+                    <h4 class="movie-title">The Dawn Wall</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2017</span>
+                        <span class="movie-rating">⭐ 3.6</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://th.bing.com/th/id/OIP.ij0zwFCpe_yt4gDCz8IdjgAAAA?rs=1&pid=ImgDetMain"
+                            alt="The Armstrong Lie ">
+                        
+                        <button class="play-button-um">▶</button> 
+                    </a>
+                    <h4 class="movie-title">The Armstrong Lie </h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2013</span>
+                        <span class="movie-rating">⭐ 4.4</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://www.themoviedb.org/t/p/original/oZmNwPsY0iiYe6N0DgLsTY86VGV.jpg"
+                            alt="Fórmula 1: Drive to Survive">
+                        
+                        <button class="play-button-um">▶</button> 
+                    </a>
+                    <h4 class="movie-title">Fórmula 1: Drive to Survive</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2019</span>
+                        <span class="movie-rating">⭐ 4.8</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRpsQ-QSUCk430VuvwPWqMxE9f0sGzpSBFy1Q-c-xCALwyHKTGG"
+                            alt="the Game Changers">
+                        
+                        <button class="play-button-um">▶</button> 
+                    </a>
+                    <h4 class="movie-title">The Game Changers</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2018</span>
+                        <span class="movie-rating">⭐ 3.8</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://th.bing.com/th/id/OIP.56Zkerl-hU83Yhb9c1IBfQHaEK?rs=1&pid=ImgDetMain"
+                            alt="Icarus">
+                        <button class="play-button-um">▶</button> 
+                    </a>
+                    <h4 class="movie-title">Icarus</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2017</span>
+                        <span class="movie-rating">⭐ 3.5</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://th.bing.com/th/id/OIP.-APF2mo_tMJX_Cs6IKy3EgHaLG?rs=1&pid=ImgDetMain"
+                            alt="Hoop Dreams">
+                        
+                        <button class="play-button-um">▶</button> 
+                    </a>
+                    <h4 class="movie-title">Hoop Dreams</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">1994</span>
+                        <span class="movie-rating">⭐ 4.4</span>
+
+                    </div>
+                </div>
+
+            </div>
+            <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita"
+                class="carousel-1 right-arrow">
+        </div>
+    </section>
+
+
+        
+    <section>
+        <h1 class="carousel-title">Grandes Histórias do Esporte</h1>
+        <div class="carousel-container carrossel-um">
+            <div class="carousel-overlay left-overlay"></div>
+            <div class="carousel-overlay right-overlay"></div>
+            <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda"
+                class="carousel-1 left-arrow">
+            <div class="carousel carrossel-um">
+                <div class="carousel-item carrossel-um">
+                    <a href="/series/Vampiresdiares.html">
+                        <img class="carrossel-um"
+                            src="https://www.themoviedb.org/t/p/original/6YnJ8WwxuTRpWGlfsKjzPqnXUHt.jpg"
+                            alt="Invictus">
+                        
+                        <button class="play-button-um">▶</button> 
+                    </a>
+                    <h4 class="movie-title">Invictus</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2009</span>
+                        <span class="movie-rating">⭐ 4.8</span>
+
+                    </div>
+                </div>
+
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade2.com">
+                        <img class="carrossel-um"
+                            src="https://media.fstatic.com/9joVTzeqAsL_9UdZI6xRCjfn9aA=/290x478/smart/media/movies/covers/2013/02/0f02723c83659a4d1ff00cbaa904aaa1_1.jpg"
+                            alt="Duelo de Titãs">
+                        
+                        <button class="play-button-um">▶</button> 
+                    </a>
+                    <h4 class="movie-title">Duelo de Titãs </h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2000</span>
+                        <span class="movie-rating">⭐ 4.1</span>
+
+                    </div>
+                </div>
+
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://www.papodecinema.com.br/wp-content/uploads/2012/01/20200110-poster.jpg"
+                            alt="O Homem que Mudou o Jogo">
+                        
+                        <button class="play-button-um">▶</button> 
+                    </a>
+                    <h4 class="movie-title">O Homem que Mudou o Jogo</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2011</span>
+                        <span class="movie-rating">⭐ 4.7</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://th.bing.com/th/id/OIP.84rwyWWPa3xQdOafuWbqBAHaLH?rs=1&pid=ImgDetMain"
+                            alt="Soul Surfer - Coragem de Viver">
+                        
+                        <button class="play-button-um">▶</button> 
+                    </a>
+                    <h4 class="movie-title"> Soul Surfer - Coragem de Viver</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2018</span>
+                        <span class="movie-rating">⭐ 3.6</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://th.bing.com/th/id/OIP.JWHVes7tXx4J2yJxDWwBvAHaLH?rs=1&pid=ImgDetMain"
+                            alt="As Nadadoras">
+                        
+                        <button class="play-button-um">▶</button> 
+                    </a>
+                    <h4 class="movie-title">As Nadadoras</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2022</span>
+                        <span class="movie-rating">⭐ 4.9</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://media.fstatic.com/QUtkfYw-1M2OuLrCx6atrwkeHYU=/290x478/smart/media/movies/covers/2022/05/cats_J5b4qZz.jpg"
+                            alt="Arremessando Alto">
+                        
+                        <button class="play-button-um">▶</button> 
+                    </a>
+                    <h4 class="movie-title">Arremessando Alto</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2022</span>
+                        <span class="movie-rating">⭐ 4.7</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://media.fstatic.com/f9_KmL4znNnaK_PT5XVIP-AFVdA=/322x478/smart/filters:format(webp)/media/movies/covers/2022/12/images_1_sHEIcjA.jpg"
+                            alt="O Quinto Set">
+                        
+                        <button class="play-button-um">▶</button> 
+                    </a>
+                    <h4 class="movie-title">O Quinto Set</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2021</span>
+                        <span class="movie-rating">⭐ 4.4</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://th.bing.com/th/id/OIP.ykxtfsKxEc5Sc39fE8qj0gAAAA?rs=1&pid=ImgDetMain"
+                            alt="Nyad">
+                        
+                        <button class="play-button-um">▶</button> 
+                    </a>
+                    <h4 class="movie-title">Nyad</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2023</span>
+                        <span class="movie-rating">⭐ 4.8</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://th.bing.com/th/id/OIP.bHIidCWJPUqi156MfdsiBwHaLH?w=700&h=1050&rs=1&pid=ImgDetMain"
+                            alt="Ferrari">
+                        
+                        <button class="play-button-um">▶</button> 
+                    </a>
+                    <h4 class="movie-title">Ferrari</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2023</span>
+                        <span class="movie-rating">⭐ 4.9</span>
+
+                    </div>
+                </div>
+                <div class="carousel-item carrossel-um">
+                    <a href="https://link-para-novidade3.com">
+                        <img class="carrossel-um"
+                            src="https://pobreflix.org/wp-content/uploads/2021/12/king.jpg"
+                            alt="King Richard: Criando Campeãs">
+                        
+                        <button class="play-button-um">▶</button> 
+                    </a>
+                    <h4 class="movie-title">King Richard: Criando Campeãs</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">2021</span>
+                        <span class="movie-rating">⭐ 3.9</span>
+
+                    </div>
+                </div>
+
+            </div>
+            <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita"
+                class="carousel-1 right-arrow">
+        </div>
+    </section>
+
+
+    <footer>
+        <h2>CINESPACE</h2>
+        <div class="footer-content">
+            <div>
+                <h4>INSTITUCIONAL</h4>
+                <p>Sobre nós</p>
+                <p>Termos de uso</p>
+                <p>Política de privacidade</p>
+            </div>
+            <div>
+                <h4>SUPORTE</h4>
+                <p>Ajuda</p>
+                <p>Contato</p>
+                <p>FAQ</p>
+            </div>
+            <div>
+                <h4>CONTEÚDO</h4>
+                <p>Filmes</p>
+                <p>Séries</p>
+                <p>Novidades</p>
+            </div>
+            <div>
+                <h4>PARCERIAS</h4>
+                <p>Produtoras</p>
+                <p>Anunciantes</p>
+                <p>Afiliados</p>
+            </div>
+            <div>
+                <h4>ASSINATURA</h4>
+                <p>Planos</p>
+                <p>Promoções</p>
+                <p>Cancelamento</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>English | Português | Español | Français | Italiano | Deutsch | 日本語 | 中文</p>
+            <p>&copy; 2025 Cinespace, LLC. Todos os direitos reservados. Todos os elementos pertencem aos seus respectivos proprietários.</p>
+        </div>
+    </footer>
+    
+
+
+    <script src="{% static 'javascripts/continuarassistindo.js' %}"></script>
+    <script src="{% static 'javascripts/rolagem.js' %}"></script>
+    <script src="{% static 'javascripts/reproduzirvideo.js' %}"></script>
+    <script src="{% static 'javascripts/reproduçao.js' %}"></script>
+    <script src="{% static 'javascripts/menu.js' %}"></script>
+        <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/franc@6.1.0/dist/franc.min.js"></script>
+    <script src="{% static 'javascripts/chatbot.js' %}"></script>
+    <script src="{% static 'javascripts/lupa.js' %}"></script>
+    <script src="{% static 'javascripts/header.js' %}"></script>
+
+    </section>
+</body>
+
+</html>

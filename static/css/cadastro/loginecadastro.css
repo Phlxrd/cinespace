@@ -1,0 +1,311 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Banner de fundo ocupando a tela inteira */
+.bannerfundo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+}
+
+.bannerfundo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* Estilo do cabeçalho */
+header {    
+    position: absolute;
+    top: 35px;
+    right: 10px;
+    z-index: 50;
+}
+/* Exemplo para títulos */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 600; /* Peso da fonte */
+}
+.botao-voltar {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px;
+    border: 2px solid #fff;
+    border-radius: 25px;
+    background-color: transparent;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.botao-voltar:hover {
+    background-color: #092ae54f;
+    color: #fff;
+}
+
+/* Container principal */
+.login-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 32px;
+    padding: 40px;
+    max-width: 450px;
+    width: 90%;
+    text-align: center;
+    color: #fff;
+    backdrop-filter: blur(14px);
+    border: 1px solid #5e79f3c2;
+ background: rgba(9, 13, 32, 0.404);
+}
+
+.login-container h2 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.login-container p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* Formulário */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.login-form input {
+    padding: 15px;
+    border: 1px solid #ffffffc2;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0);
+    color: #fff;
+    font-size: 16px;
+}
+
+.login-form input::placeholder {
+    color: #999;
+}
+
+.login-form input:focus {
+    border-color: #0004e6; /* Destaque vermelho */
+    outline: none;
+    box-shadow: 0 0 5px rgba(42, 0, 230, 0.5);
+    background-color: rgba(34, 34, 34, 0.1);
+}
+
+/* Botão de envio */
+.botao-entrar {
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    background: #0019edd8;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.botao-entrar:hover {
+    background: #0529c9;
+}
+/* Container para o campo de senha e ícone do olho */
+.password-container {
+    position: relative;
+    width: 93%;
+}
+
+/* Estilo do campo de senha */
+.password-container input[type="password"],
+.password-container input[type="text"] {
+    padding-right: 40px; /* Espaço para o ícone do olho */
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ffffffc2;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0);
+    color: #fff;
+    font-size: 16px;
+}
+
+/* Estilo do ícone do olho */
+.password-container i {
+    position: absolute;
+    right: -17px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #999;
+    font-size: 18px;
+    transition: color 0.3s ease;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    overflow: hidden; /* Para esconder a pupila quando ela sair do ícone */
+}
+
+
+
+.password-container i:hover {
+    color: #fff;
+}
+
+/* Link de "Esqueceu sua senha?" */
+.forgot-password {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    color: #0968e5;
+}
+
+/* Link de cadastro */
+.signup-text a {
+    color: #0968e5;
+    text-decoration: none;
+}
+
+.signup-text a:hover {
+    text-decoration: underline;
+}
+
+.messages {
+    margin: 10px 0;
+    padding: 0;
+    list-style: none;
+    color: #fff;
+}
+
+.messages li {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.messages .error {
+    color: #ffffff; /* Cor vermelha para erros */
+    background-color: rgba(229, 9, 20, 0.877); /* Fundo vermelho claro */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ff121e;
+    margin-bottom: 10px;
+}
+
+.messages .success {
+    background-color: #28a745; /* Fundo verde */
+    color: #fff; /* Texto branco */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #32fc00;
+    margin-bottom: 10px;
+}
+
+
+/* Erros de formulário */
+.form-errors {
+    color: #e50914;
+    font-size: 14px;
+    margin: 10px 0;
+    list-style: none;
+    padding: 0;
+}
+
+.password-requirements {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+.password-requirements ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.password-requirements li {
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+}
+
+.password-requirements li::before {
+    content: "✗";
+    color: red;
+    margin-right: 8px;
+}
+
+.password-requirements li.valid::before {
+    content: "✓";
+    color: green;
+}
+
+
+.password-feedback {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #ff4444; /* Cor vermelha para mensagens de erro */
+}
+
+.password-feedback.valid {
+    color: #00C851; /* Cor verde para mensagens de sucesso */
+}
+
+
+.loading-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.loading-spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #1400c6;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escolher Usuário - CINESPACE</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/escolherusuario1.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/pt.js"></script>
+</head>
+
+<body>
+    <div class="bannerfundo">
+        <img src="{% static 'imagens/fundos/bannerescolhaperfil.png' %}" alt="Imagem de Fundo">
+    </div>
+
+    <main class="profile-container fade-in">
+        <h1>Quem está assistindo?</h1>
+        <div class="profiles">
+            {% for perfil in perfis %}
+            <div class="profile-placeholder" id="profile-{{ perfil.id }}">
+                <div class="profile-image-container">
+                    <img src="{% if perfil.imagem %}{{ perfil.imagem.url }}{% else %}{% static 'imagens/default/profile.jpg' %}{% endif %}"
+                        alt="Imagem do Perfil" class="profile-image" />
+                </div>
+                <span class="user-name">{{ perfil.nome_usuario }}</span>
+                <span class="edit-icon"></span>
+            </div>
+            {% endfor %}
+
+            {% if perfis|length < limite_perfis %} <div class="add-profile-icon">+
+        </div>
+        {% endif %}
+        </div>
+
+        <button class="manage-profile-button">Editar Perfis</button>
+
+        {% if perfis|length >= limite_perfis and plano %}
+        <p class="limite-perfis">Você atingiu o limite de {{ limite_perfis }} perfis no plano {{ plano|capfirst }}.</p>
+        {% endif %}
+    </main>
+
+    <!-- Indicador de carregamento -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+
+    <div id="overlay" class="overlay" style="display: none;"></div>
+    <div id="profile-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <!-- Botão de fechar no modal de seleção de imagem -->
+            <button class="close" onclick="closeProfileModal()">
+                <img src="{% static 'imagens/vectores/fechardireita.png' %}" alt="Fechar" class="close-icon">
+            </button>
+            <h2>Escolha uma imagem para o perfil</h2>
+            <!-- Categorias de Imagens -->
+            <div>
+                <!-- Carrossel de Imagens Personalizadas -->
+                <div class="carousel-container">
+                    <h3>Padrão Cinespace</h3>
+                    <div class="carousel-images">
+                        <label>
+                            <input type="radio" name="imagem_preset" value="default1">
+                            <img src="{% static 'imagensperfil/default/default1.png' %}" alt="Perfil 1"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="default2">
+                            <img src="{% static 'imagensperfil/default/default2.jpg' %}" alt="Perfil 2"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="default3">
+                            <img src="{% static 'imagensperfil/default/default3.jpg' %}" alt="Perfil 3"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="default4">
+                            <img src="{% static 'imagensperfil/default/default4.jpg' %}" alt="Perfil 4"
+                                class="profile-option">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="carousel-container">
+                    <h3>Herois</h3>
+                    <div class="carousel-images">
+                        <label>
+                            <input type="radio" name="imagem_preset" value="deadpool">
+                            <img src="{% static 'imagensperfil/herois/deadpool.jpg' %}" alt="Perfil 1"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="wolverine">
+                            <img src="{% static 'imagensperfil/herois/wolverine.jpg' %}" alt="Perfil 2"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="superman">
+                            <img src="{% static 'imagensperfil/herois/superman.jpg' %}" alt="Perfil 3"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="batman">
+                            <img src="{% static 'imagensperfil/herois/batman.jpg' %}" alt="Perfil 4"
+                                class="profile-option">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="carousel-container">
+                    <h3>Vilões</h3>
+                    <div class="carousel-images">
+                        <label>
+                            <input type="radio" name="imagem_preset" value="coringa">
+                            <img src="{% static 'imagensperfil/viloes/coringa.jpg' %}" alt="Perfil 1"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="darth">
+                            <img src="{% static 'imagensperfil/viloes/darth.jpg' %}" alt="Perfil 2"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="ultron">
+                            <img src="{% static 'imagensperfil/viloes/ultron.jpg' %}" alt="Perfil 3"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="vanda">
+                            <img src="{% static 'imagensperfil/viloes/vanda.jpg' %}" alt="Perfil 3"
+                                class="profile-option">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="carousel-container">
+                    <h3>Terror</h3>
+                    <div class="carousel-images">
+                        <label>
+                            <input type="radio" name="imagem_preset" value="itacoisa">
+                            <img src="{% static 'imagensperfil/terror/itacoisa.jpg' %}" alt="Perfil 1"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="freira">
+                            <img src="{% static 'imagensperfil/terror/freira.jpg' %}" alt="Perfil 2"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="jason">
+                            <img src="{% static 'imagensperfil/terror/jason.jpg' %}" alt="Perfil 3"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="ghost">
+                            <img src="{% static 'imagensperfil/terror/ghost.jpg' %}" alt="Perfil 4"
+                                class="profile-option">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="carousel-container">
+                    <h3>Anime</h3>
+                    <div class="carousel-images">
+                        <label>
+                            <input type="radio" name="imagem_preset" value="sukuna">
+                            <img src="{% static 'imagensperfil/animes/sukuna.jpg' %}" alt="Perfil 1"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="sasuke">
+                            <img src="{% static 'imagensperfil/animes/sasuke.jpg' %}" alt="Perfil 2"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="pikachu">
+                            <img src="{% static 'imagensperfil/animes/pikachu.jpg' %}" alt="Perfil 3"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="luffy">
+                            <img src="{% static 'imagensperfil/animes/luffy.jpg' %}" alt="Perfil 4"
+                                class="profile-option">
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="profile-details-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <!-- Botão de fechar no modal de detalhes do perfil -->
+            <button class="close-left" onclick="closeProfileDetailsModal()">
+                <img src="{% static 'imagens/vectores/fechar.png' %}" alt="Fechar" class="close-icon">
+            </button>
+            <div class="form-container">
+                <h2>Criar Perfil</h2>
+                <div class="image-preview">
+                    <div class="image-wrapper">
+                        <img id="selected-image-preview" src="" alt="Imagem Selecionada">
+                        <img class="edit-icon" src="{% static 'imagens/icons/alterar.png' %}" alt="Ícone de editar"
+                            id="edit-icon">
+                    </div>
+                    <span class="alterar-text" id="alterar-text">Alterar</span>
+                </div>
+                <!-- Formulário -->
+                <form id="create-profile-form" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <!-- Campo de Nome -->
+                    
+                    <!-- Campo de Nome do Perfil -->
+                    <div class="form-group">
+                        <input type="text" id="nome_usuario" name="nome_usuario" placeholder="Apelido Perfil" required>
+                    </div>
+                    <!-- Campo de Data de Nascimento -->
+                    <div class="form-group" data-nascimento>
+                        <div class="date-inputs">
+                            <input type="number" id="dia" name="dia" placeholder="Dia" min="1" max="31">
+                            <input type="number" id="mes" name="mes" placeholder="Mês" min="1" max="12">
+                            <input type="number" id="ano" name="ano" placeholder="Ano" min="1900" max="2099">
+                        </div>
+                        <input type="hidden" id="data_nascimento" name="data_nascimento">
+                    </div>
+                    <!-- Perfil Infantil -->
+                    <div class="form-group infantil-group">
+                        <div class="infantil-content">
+                            <div class="infantil-text-container">
+                                <div class="infantil-title">Perfil Infantil?</div>
+                                <div class="infantil-subtext">Conteúdos para menores de 12 anos</div>
+                            </div>
+                            <label class="toggle-switch-infantil">
+                                <input type="checkbox" id="perfil_infantil" name="perfil_infantil">
+                                <span class="slider-infantil"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Campo oculto para armazenar a imagem selecionada -->
+                    <input type="hidden" id="imagem_selecionada" name="imagem_selecionada">
+                    <!-- Botões de Ação -->
+                    <div class="form-actions">
+                        <button type="button" class="btn-cancel" onclick="closeProfileDetailsModal()">Cancelar</button>
+                        <button type="submit" class="btn-create">Salvar</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script>
+        const escolherPlataformaUrl = "{% url 'escolherplataforma' %}";
+        const gerenciarPerfisUrl = "{% url 'gerenciar_perfis' %}";
+        const criarPerfilUrl = "{% url 'criar_perfil' %}";
+    </script>
+
+
+    <!-- Carregue o JavaScript no final do body -->
+    <script src="{% static 'javascripts/escolherusuario5.js' %}" defer></script>
+    <script src="{% static 'javascripts/arrastaresoltar.js' %}" defer></script>
+</body>
+
+</html>

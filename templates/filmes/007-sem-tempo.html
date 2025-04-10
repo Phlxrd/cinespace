@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Encontre os melhores trailers de filmes, séries, animes e doramas. Explore lançamentos e produções famosas com uma experiência visual incrível.">
+    <meta property="og:title" content="Cinetrailers">
+    <meta property="og:description"
+        content="Encontre os melhores trailers de filmes, séries, animes e doramas. Explore lançamentos e produções famosas com uma experiência visual incrível.">
+
+    <title>Assistir - Filmes </title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/exibirfilmes.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="icon" href="{% static 'imagens/favicon cinetrailers.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'imagens/favicon cinetrailers.png' %}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=ABeeZee&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="site-logo">
+            <a href="{% url 'index' %}" class="logo-text">CINESPACE</a>
+        </div>
+
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="{% url 'filmes' %}">FILMES</a></li>
+                <li><a href="{% url 'series' %}">SERIES</a></li>
+                <li><a href="{% url 'animes' %}">ANIMES</a></li>
+                <li><a href="{% url 'esportes' %}">SPACE ESPORTES</a></li>
+                <li><a href="#">SPACE MUSIC</a></li>
+            </ul>
+        </nav>
+        <script src="https://www.youtube.com/iframe_api"></script>
+        <div class="header-icons">
+            <div id="search-icon" class="search-icon" onclick="toggleSearchContainer()">
+                <img src="{% static 'imagens/vectores/lupavec.png' %}" alt="Pesquisar">
+            </div>
+            <div id="alert-icon" class="alert-icon">
+                <img src="{% static 'imagens/vectores/alertvec.png' %}" alt="Alerta">
+            </div>
+            <div class="profile-header">
+                <img id="profileImage" src="{% static 'imagens/default/profile.jpg' %}" alt="Perfil"
+                    class="perfil-image">
+                <img id="arrowIcon" src="{% static 'imagens/vectores/setaprabaixovec.png' %}" alt="Abrir menu"
+                    class="arrow-icon">
+                <div class="menu-perfil">
+                    <!-- Link para a página inicial (Home) -->
+                    <a href="{% url 'cinetrailers' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/homevec.png' %}" alt="Home">
+                        <span class="menu-text">Home</span>
+                    </a>
+
+                    <!-- Link para a página de configurações -->
+                    <a href="{% url 'configuracoes' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/configvec.png' %}" alt="Configurações">
+                        <span class="menu-text">Configurações</span>
+                    </a>
+
+                    <!-- Link para a página de escolher usuário (Trocar Perfil) -->
+                    <a href="{% url 'escolherusuario' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/perfilvec.png' %}" alt="Trocar-Perfil">
+                        <span class="menu-text">Trocar Perfil</span>
+                    </a>
+
+                    <!-- Link para a página de gerenciar perfis (Editar) -->
+                    <a href="{% url 'gerenciar_perfis' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/lapisvec.png' %}" alt="EditarPerfil">
+                        <span class="menu-text">Editar Perfil</span>
+                    </a>
+
+                    <!-- Link para a página de ajuda -->
+                    <a href="{% url 'ajuda' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/ajudavec.png' %}" alt="Ajuda">
+                        <span class="menu-text">Ajuda</span>
+                    </a>
+
+                    <!-- Link para logout -->
+                    <a href="{% url 'logout' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/sairvec.png' %}" alt="Sair">
+                        <span class="menu-text">Sair</span>
+                    </a>
+                </div>
+            </div>
+
+
+            <div id="search-container" class="hidden">
+                <img id="search-input-icon" src="{% static 'imagens/buscaicon1.png' %}" alt="Pesquisar"
+                    class="input-icon">
+                <input type="text" name="query" placeholder="Pesquise..." id="search-input">
+            </div>
+    </header>
+
+
+
+
+    <div class="serie-container">
+        <!-- Imagem de banner -->
+        <img id="bannerImage"
+            src="https://i0.wp.com/www.jamesbondbrasil.com/wp-content/uploads/2020/09/NTTD_Banner_AppleTrailers.jpg?resize=980%2C652&ssl=1"
+            alt="Banner da Série" class="banner-image">
+
+        <!-- Vídeo (inicialmente oculto) -->
+        <video id="trailerVideo" class="hidden">
+            Seu navegador não suporta vídeos.
+        </video>
+
+
+        <!-- Botão de Som -->
+        <button id="sound-toggle" class="sound-button hidden" data-sound-on="{% static 'imagens/somativo.png' %}"
+            data-sound-off="{% static 'imagens/sommutado.png' %}">
+            <img id="sound-icon" src="{% static 'imagens/sommutado.png' %}" alt="Som Mudo" />
+        </button>
+
+        <!-- Container para agrupar os elementos -->
+        <div class="content-container">
+            <!-- Botões de Gênero -->
+            <div class="genre-buttons-video">
+                <button class="genre-btn-video">Filmes</button>
+                <button class="genre-btn-video">Ação</button>
+            </div>
+
+            <!-- Título e Subtítulo -->
+            <h2 class="movie-title-video">007: Sem Tempo para Morrer</h2>
+            <p class="movie-subtitle-video">A última missão de James Bond.</p>
+
+            <!-- Informações da Série -->
+            <div class="movie-info-video">
+                <span class="movie-year-video">2021</span>
+                <span class="separator-video">|</span>
+                <span class="movie-duration-video">2h 43min</span>
+                <span class="separator-video">|</span>
+                <img src="{% static 'imagens/vectores/idade16.png' %}" alt="Classificação 16 anos"
+                    class="classificacao-idade-video">
+                <span class="separator-video">|</span>
+                <div class="estrelas-video">
+                    <img src="{% static 'imagens/vectores/starvec.png' %}" alt="Estrela" class="star">
+                    <img src="{% static 'imagens/vectores/starvec.png' %}" alt="Estrela" class="star">
+                    <img src="{% static 'imagens/vectores/starvec.png' %}" alt="Estrela" class="star">
+                    <img src="{% static 'imagens/vectores/starvec.png' %}" alt="Estrela" class="star">
+                    <img src="{% static 'imagens/vectores/starvec.png' %}" alt="Estrela" class="star">
+                </div>
+            </div>
+
+            <!-- Linha de Separação -->
+            <div class="separator-line-video"></div>
+
+            <!-- Descrição da Série -->
+            <div class="movie-description-video">
+                <p>James Bond sai da aposentadoria para enfrentar um novo vilão armado com uma tecnologia perigosa.
+                    Enquanto tenta salvar o mundo, ele também precisa lidar com questões pessoais e emocionais,
+                    incluindo seu relacionamento com Madeleine Swann. A última missão de Bond testará sua lealdade,
+                    coragem e determinação como nunca antes.
+                </p>
+            </div>
+        </div>
+
+        <!-- Botões de Ação -->
+        <div class="movie-actions-video">
+            <button id="assistirBtn" class="assistir-btn-video">
+                <img src="{% static 'imagens/vectores/playvec.png' %}" alt="Assistir" class="play-icon-video"> Assistir
+            </button>
+            <button class="minha-lista-btn-video add-to-favorites-btn" data-conteudo-id="{{ conteudo.id }}">
+                <img src="{% static 'imagens/vectores/Favoritos.png' %}" alt="Minha Lista" class="plus-icon-video"> Add a lista
+            </button>
+        
+        </div>
+        <!-- Novos Botões de Ação à Direita -->
+        <div class="movie-actions-video-right">
+            <button class="download-btn-video">
+                <img src="{% static 'imagens/vectores/Dowloand.png' %}" alt="Download" class="download-icon-video">
+                Download
+            </button>
+            <button class="curtir-btn-video">
+                <img src="{% static 'imagens/vectores/curtir.png' %}" alt="Curtir" class="curtir-icon-video"> Curtir
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal do Player -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <!-- Botão de fechar (seta) -->
+            <button class="close">
+                <img src="{% static 'imagens/player/seta-esquerda.png' %}" alt="Fechar">
+            </button>
+
+            <video id="videoPlayer">
+                <source src="http://127.0.0.1:5500/bad-boys-4.mp4" type="video/mp4">
+                Seu navegador não suporta vídeos.
+            </video>
+            <!-- Nome do filme -->
+            <div id="movieTitle" class="movie-title-modal">
+                007 Sem Tempo Para Morrer
+            </div>
+            <!-- Ícone de play/pause na tela -->
+            <div id="videoPlayPauseOverlay" class="play-pause-overlay">
+                <img id="videoPlayPauseIcon" src="{% static 'imagens/player/play.png' %}" alt="Play/Pause">
+            </div>
+
+            <!-- Controles do player -->
+            <div class="player-controls">
+                <!-- Botão de retroceder 15 segundos -->
+                <button id="rewindButton" class="control-button skip-button">
+                    <img src="{% static 'imagens/player/menos15seg.png' %}" alt="Retroceder 15s">
+                </button>
+
+                <!-- Botão de Play/Pause -->
+                <button id="playPauseButton" class="control-button">
+                    <img id="playPauseIcon" src="{% static 'imagens/player/pausa.png' %}" alt="Play/Pause">
+                </button>
+
+                <!-- Botão de avançar 15 segundos -->
+                <button id="forwardButton" class="control-button skip-button">
+                    <img src="{% static 'imagens/player/mais15seg.png' %}" alt="Avançar 15s">
+                </button>
+
+                <!-- Ícone de volume e controle de volume -->
+                <div class="volume-control">
+                    <button id="volumeButton" class="control-button">
+                        <img id="volumeIcon" src="{% static 'imagens/player/volume.png' %}" alt="Volume">
+                    </button>
+                    <div class="volume-slider-container">
+                        <input id="volumeSlider" type="range" min="0" max="1" step="0.1" value="1"
+                            class="volume-slider">
+                    </div>
+                </div>
+
+                <!-- Tempo do vídeo -->
+                <div id="videoTime" class="video-time">00:00 / 00:00</div>
+                <!-- Preview do vídeo ao arrastar a barra de progresso -->
+
+                <div id="videoPreview" class="video-preview">
+                    <img id="previewImage" src="" alt="Preview do Vídeo">
+                    <span id="previewTime">00:00</span>
+                </div>
+                <!-- Controle de velocidade -->
+                <div class="speed-control">
+                    <button id="speedButton" class="control-button">
+                        <img src="{% static 'imagens/player/velocidade.png' %}" alt="Velocidade">
+                    </button>
+                    <div id="speedMenu" class="speed-menu">
+                        <button data-speed="0.5">0.5x</button>
+                        <button data-speed="1">1x</button>
+                        <button data-speed="1.5">1.5x</button>
+                        <button data-speed="2">2x</button>
+                    </div>
+                </div>
+
+                <!-- Ícone de legendas -->
+                <button id="subtitlesButton" class="control-button">
+                    <img src="{% static 'imagens/player/legenda.png' %}" alt="Legendas">
+                </button>
+
+                <!-- Botão de tela cheia -->
+                <button id="fullscreenButton" class="control-button">
+                    <img src="{% static 'imagens/player/telacheia.png' %}" alt="Tela Cheia">
+                </button>
+            </div>
+
+            <!-- Barra de progresso -->
+            <div class="progress-container">
+                <div id="progressBar" class="progress-bar"></div>
+                <div id="progressBall" class="progress-ball"></div>
+            </div>
+
+            <!-- Ícone de feedback para retroceder 15 segundos -->
+            <div id="rewindFeedback" class="feedback-icon left">
+                <img src="{% static 'imagens/player/menos15seg.png' %}" alt="Retroceder 15s">
+            </div>
+
+            <!-- Ícone de feedback para avançar 15 segundos -->
+            <div id="forwardFeedback" class="feedback-icon right">
+                <img src="{% static 'imagens/player/mais15seg.png' %}" alt="Avançar 15s">
+            </div>
+
+        </div>
+    </div>
+
+
+<script>
+    function adicionarFavorito(conteudoId) {
+    fetch(`/adicionar_favorito/${perfilId}/${conteudoId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({})
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            alert('Conteúdo adicionado aos favoritos!');
+        } else {
+            alert('Erro ao adicionar aos favoritos.');
+        }
+    });
+}
+</script>
+
+
+
+    <div class="content-background">
+
+        <section class="elenco-carrossel">
+            <h2>Elenco</h2>
+            <div class="carousel-container carousel-container-elenco">
+                <div class="carousel-overlay-elenco left-overlay-elenco"></div>
+                <div class="carousel-overlay-elenco right-overlay-elenco"></div>
+                <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda"
+                    class="carousel-elenco left-arrow-elenco">
+                <div class="carousel carrossel-elenco">
+                    <!-- Item 1 -->
+                    <div class="carousel-item carrossel-elenco">
+                        <div class="ator-container">
+                            <div class="ator-imagem-container">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHZWc3nu1iWSX-g6fLy4FzpcOtKP7ObU3-SuUQQwEHVSFE2SJPLtPbhpg&s=10"
+                                    alt="Ator 1" class="ator-imagem">
+                            </div>
+                            <div class="ator-info">
+                                <h4 class="ator-nome"> Daniel Craig</h4>
+                                <p class="ator-personagem">James bond</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="carousel-item carrossel-elenco">
+                        <div class="ator-container">
+                            <div class="ator-imagem-container">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhIyXEJXODL18IE0QqzYVF3ytWpaRsUbqIgY8lXSl3mWabh7_5rCBYw74&s=10"
+                                    alt="Ator 2" class="ator-imagem">
+                            </div>
+                            <div class="ator-info">
+                                <h4 class="ator-nome">Rami Malek</h4>
+                                <p class="ator-personagem">Lyutsifer Safin</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-elenco">
+                        <div class="ator-container">
+                            <div class="ator-imagem-container">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7cduIKWkn7hxz-Wxh6M5Qh72zZ5jq95l_2CFq-VtYWv48v7nQNiHtBzk&s=10"
+                                    alt="Ator 3" class="ator-imagem">
+                            </div>
+                            <div class="ator-info">
+                                <h4 class="ator-nome">Lashana Lynch</h4>
+                                <p class="ator-personagem">Nomi</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item carrossel-elenco">
+                        <div class="ator-container">
+                            <div class="ator-imagem-container">
+                                <img src="https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcS1X9ZROa5DIS27UcUSD3L8cHZ3fA5Wx3WUc6eW2RPAM-3GWDv4B1dp8NjFrig3J88lF0ZLjps&s=19"
+                                    alt="Ator 1" class="ator-imagem">
+                            </div>
+                            <div class="ator-info">
+                                <h4 class="ator-nome">Léa Seydoux</h4>
+                                <p class="ator-personagem">Madeleine Swann</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="carousel-item carrossel-elenco">
+                        <div class="ator-container">
+                            <div class="ator-imagem-container">
+                                <img src="https://midias.correiobraziliense.com.br/_midias/jpg/2023/08/03/640x853/1_screenshot_20221023_154113_chrome-28772004.jpg?20230803084336?20230803084336"
+                                    alt="Ator 2" class="ator-imagem">
+                            </div>
+                            <div class="ator-info">
+                                <h4 class="ator-nome">Naomie Harris</h4>
+                                <p class="ator-personagem">Miss Moneypenny</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-elenco">
+                        <div class="ator-container">
+                            <div class="ator-imagem-container">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD9miPFTGCHBBexBMLkLEbbooyzCDY4UbZiE9fd8RgbajzcgSq5umvKhw&s=10"
+                                    alt="Ator 3" class="ator-imagem">
+                            </div>
+                            <div class="ator-info">
+                                <h4 class="ator-nome">Ana de Armas</h4>
+                                <p class="ator-personagem">Paloma</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item carrossel-elenco">
+                        <div class="ator-container">
+                            <div class="ator-imagem-container">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRohldnQ9B7dvgFkuejwNrVQTGd2lNf4WvYvTrmtg1UursVLHJwvm2-&s=0"
+                                    alt="Ator 1" class="ator-imagem">
+                            </div>
+                            <div class="ator-info">
+                                <h4 class="ator-nome">Ben Whishaw</h4>
+                                <p class="ator-personagem">Q</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="carousel-item carrossel-elenco">
+                        <div class="ator-container">
+                            <div class="ator-imagem-container">
+                                <img src="https://midias.correiobraziliense.com.br/_midias/jpg/2023/08/03/640x853/1_screenshot_20221023_154113_chrome-28772004.jpg?20230803084336?20230803084336"
+                                    alt="Ator 2" class="ator-imagem">
+                            </div>
+                            <div class="ator-info">
+                                <h4 class="ator-nome">Tom Holland</h4>
+                                <p class="ator-personagem">Peter Parker</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-elenco">
+                        <div class="ator-container">
+                            <div class="ator-imagem-container">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPgHHAAl41csS8p8M5gbdXveyt3cpDZFtVcg&s"
+                                    alt="Ator 3" class="ator-imagem">
+                            </div>
+                            <div class="ator-info">
+                                <h4 class="ator-nome">Billy Magnussen</h4>
+                                <p class="ator-personagem">Logan Ash</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item carrossel-elenco">
+                        <div class="ator-container">
+                            <div class="ator-imagem-container">
+                                <img src="https://www.revistabula.com/wp/wp-content/uploads/2020/12/Keanu-Reeves-610x836.jpg"
+                                    alt="Ator 1" class="ator-imagem">
+                            </div>
+                            <div class="ator-info">
+                                <h4 class="ator-nome">Keanu Reeves</h4>
+                                <p class="ator-personagem">John Wick</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="carousel-item carrossel-elenco">
+                        <div class="ator-container">
+                            <div class="ator-imagem-container">
+                                <img src="https://midias.correiobraziliense.com.br/_midias/jpg/2023/08/03/640x853/1_screenshot_20221023_154113_chrome-28772004.jpg?20230803084336?20230803084336"
+                                    alt="Ator 2" class="ator-imagem">
+                            </div>
+                            <div class="ator-info">
+                                <h4 class="ator-nome">Tom Holland</h4>
+                                <p class="ator-personagem">Peter Parker</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item carrossel-elenco">
+                        <div class="ator-container">
+                            <div class="ator-imagem-container">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPgHHAAl41csS8p8M5gbdXveyt3cpDZFtVcg&s"
+                                    alt="Ator 3" class="ator-imagem">
+                            </div>
+                            <div class="ator-info">
+                                <h4 class="ator-nome">Robert Downey Jr.</h4>
+                                <p class="ator-personagem">Tony Stark</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Adicione mais itens conforme necessário -->
+                </div>
+                <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita"
+                    class="carousel-elenco right-arrow-elenco">
+            </div>
+        </section>
+
+
+        <div class="categories-menu">
+            <!-- Categoria Detalhes -->
+            <div class="category-item">
+                <button class="category-button" data-target="#detalhes">Detalhes</button>
+            </div>
+
+            <!-- Categoria Curiosidades -->
+            <div class="category-item">
+                <button class="category-button" data-target="#curiosidades">Curiosidades</button>
+            </div>
+        </div>
+
+        <section id="detalhes" class="content-section" style="display: none;">
+            <div class="detalhes-container">
+                <!-- Lado esquerdo -->
+                <div class="detalhes-esquerdo">
+                    <!-- Ano de Lançamento -->
+                    <div class="detalhe-item">
+                        <img src="{% static 'imagens/vectores/calendariovec.png' %}" alt="Ícone de Calendário"
+                            class="icone">
+                        <div>
+                            <p class="detalhe-titulo">Ano de lançamento</p>
+                            <p class="detalhe-info">2021</p>
+                        </div>
+                    </div>
+                    <!-- Línguas -->
+                    <div class="detalhe-item">
+                        <img src="{% static 'imagens/vectores/linguavec.png' %}" alt="Ícone de Tradutor" class="icone">
+                        <div>
+                            <p class="detalhe-titulo">Línguas</p>
+                            <p class="detalhe-info">English, Hindi, Tamil, Telugu, Kannada</p>
+                        </div>
+                    </div>
+                    <!-- Avaliação -->
+                    <div class="detalhe-item">
+                        <img src="{% static 'imagens/vectores/avaliaçãovec.png' %}" alt="Ícone de Avaliação"
+                            class="icone">
+                        <div>
+                            <p class="detalhe-titulo">Avaliação</p>
+                        </div>
+                    </div>
+                    <div class="avaliacao">
+                        <div class="avaliacao-item">
+                            <p class="titulo-avaliacao">IMDb</p>
+                            <div class="estrelas">
+                                <img src="{% static 'imagens/vectores/estrelaazulvec.png' %}" alt="Estrela Cheia"
+                                    class="estrela">
+                                <img src="{% static 'imagens/vectores/estrelaazulvec.png' %}" alt="Estrela Cheia"
+                                    class="estrela">
+                                <img src="{% static 'imagens/vectores/estrelaazulvec.png' %}" alt="Estrela Cheia"
+                                    class="estrela">
+                                <img src="{% static 'imagens/vectores/estrelaazulvec.png' %}" alt="Estrela Cheia"
+                                    class="estrela">
+                                <span class="nota">4.3</span>
+                            </div>
+                        </div>
+                        <div class="avaliacao-item">
+                            <p class="titulo-avaliacao">Sensação ao Assistir</p>
+                            <div class="estrelas">
+                                <img src="{% static 'imagens/vectores/estrelaazulvec.png' %}" alt="Estrela Cheia"
+                                    class="estrela">
+                                <img src="{% static 'imagens/vectores/estrelaazulvec.png' %}" alt="Estrela Cheia"
+                                    class="estrela">
+                                <img src="{% static 'imagens/vectores/estrelaazulvec.png' %}" alt="Estrela Cheia"
+                                    class="estrela">
+                                <img src="{% static 'imagens/vectores/estrelaazulvec.png' %}" alt="Estrela Cheia"
+                                    class="estrela">
+                                <span class="nota">4.5</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Gênero -->
+                    <div class="detalhe-item">
+                        <img src="{% static 'imagens/vectores/generovec.png' %}" alt="Ícone de Gênero" class="icone">
+                        <div>
+                            <p class="detalhe-titulo">Gênero</p>
+                            <p class="detalhe-info">Ação/Aventura</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lado direito -->
+                <div class="detalhes-direito">
+                    <!-- Diretor -->
+                    <p class="titulo-direito">Diretor</p>
+                    <div class="detalhe-item info-pessoal">
+                        <img src="https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcTSHJLnEu4DvanVwa-Cx9YcoBhxlwc9AQMX3dauQ-S14ZAJxW4IlGzxW6nivh3-0uxKYhkXqTW8slMv6iyuxlN6MNt9l8nkWA"
+                            alt="Foto do Diretor" class="foto-pessoal">
+                        <div>
+                            <p class="detalhe-info">Cary Fukunaga</p>
+                            <p class="detalhe-info-menor"> norte-americano </p>
+                        </div>
+                    </div>
+
+                    <!-- Música -->
+                    <p class="titulo-direito"> Roteirista</p>
+                    <div class="detalhe-item info-pessoal">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxE_bLF8wpdBxA9JcL1-Ywb6jxnBa0ZKvm-w&s"
+                            alt="Foto da Música" class="foto-pessoal">
+                        <div>
+                            <p class="detalhe-info">Neal Purvis</p>
+                            <p class="detalhe-info-menor">Britânico</p>
+                        </div>
+                    </div>
+                    <!-- Música -->
+                    <p class="titulo-direito">Produtor</p>
+                    <div class="detalhe-item info-pessoal">
+                        <img src="https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/94/22/94/20311683.jpg"
+                            alt="Foto da Música" class="foto-pessoal">
+                        <div>
+                            <p class="detalhe-info">Barbara Broccoli</p>
+                            <p class="detalhe-info-menor">Americana e britânica</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="curiosidades" class="content-section" style="display: none;">
+            <div class="detalhes-container">
+                <!-- Lado esquerdo -->
+                <div class="detalhes-esquerdo">
+                    <!-- Ano de Lançamento -->
+                    <div class="detalhe-item">
+                        <img src="{% static 'imagens/vectores/curiosidadevec.png' %}" alt="Ícone de Calendário"
+                            class="icone">
+                        <div>
+                            <p class="detalhe-titulo">Despedida de Daniel Craig como 007</p>
+                            <p class="detalhe-info">Sem Tempo para Morrer marcou o quinto e último filme de Daniel Craig
+                                como James Bond, encerrando uma era de 15 anos no papel (desde Cassino Royale, em 2006).
+
+                                Craig inicialmente hesitou em retornar para este filme, chegando a dizer em 2015 que
+                                "preferiria cortar os pulsos" do que fazer outro filme de Bond. No entanto, ele mudou de
+                                ideia e decidiu encerrar sua jornada como 007 de forma épica.</p>
+                        </div>
+                    </div>
+                    <div class="detalhe-item">
+                        <img src="{% static 'imagens/vectores/curiosidadevec.png' %}" alt="Ícone de Calendário"
+                            class="icone">
+                        <div>
+                            <p class="detalhe-titulo"> A primeira agente 007 mulher</p>
+                            <p class="detalhe-info">Lashana Lynch interpretou Nomi, a primeira agente 007 mulher da
+                                franquia. Isso aconteceu porque Bond estava aposentado no início do filme, e o código
+                                007 foi passado para ela.
+
+                                A escolha gerou debates e elogios, mostrando a evolução da franquia para representar
+                                melhor a diversidade.</p>
+                        </div>
+                    </div>
+
+        </section>
+
+
+
+
+
+        <section>
+            <h1 class="carousel-title">Filmes Relacionados</h1>
+            <div class="carousel-container carrossel-um">
+                <div class="carousel-overlay left-overlay"></div>
+                <div class="carousel-overlay right-overlay"></div>
+                <img src="{% static 'imagens/vectores/seta-esquerda.png' %}" alt="Seta Esquerda"
+                    class="carousel-1 left-arrow">
+                <div class="carousel carrossel-um">
+                    <div class="carousel-item carrossel-um">
+                        <a href="/series/Vampiresdiares.html">
+                            <img class="carrossel-um"
+                                src="https://upload.wikimedia.org/wikipedia/pt/d/da/Thunderbolts_2025.jpg"
+                                alt="Kingsman">
+                            <!-- Apenas um botão de play -->
+                            <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                        </a>
+                        <h4 class="movie-title">Thunderbolts*</h4>
+                        <div class="movie-info">
+                            <span class="movie-year">2025</span>
+                            <span class="movie-rating">⭐ 4.5</span>
+
+                        </div>
+                    </div>
+
+                    <div class="carousel-item carrossel-um">
+                        <a href="https://link-para-novidade2.com">
+                            <img class="carrossel-um"
+                                src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTvLREsZsA67x2xbv43gZfecSQxU9SUxxv18h5d5xjtNQPqEoQZ"
+                                alt="">
+                            <!-- Apenas um botão de play -->
+                            <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                        </a>
+                        <h4 class="movie-title">Capitão América: Admirável Mundo Novo</h4>
+                        <div class="movie-info">
+                            <span class="movie-year">2025</span>
+                            <span class="movie-rating">⭐ 3.9</span>
+
+                        </div>
+                    </div>
+
+                    <div class="carousel-item carrossel-um">
+                        <a href="#">
+                            <img class="carrossel-um"
+                                src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTV8oe8nCv3hYp61LjZSkVXGxcWXC7GWJOa0fOSEt-OZc8XMZt-"
+                                alt="">
+                            <!-- Apenas um botão de play -->
+                            <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                        </a>
+                        <h4 class="movie-title">Kraven, o Caçador</h4>
+                        <div class="movie-info">
+                            <span class="movie-year">2024</span>
+                            <span class="movie-rating">⭐ 3.5</span>
+
+                        </div>
+                    </div>
+                    <div class="carousel-item carrossel-um">
+                        <a href="#">
+                            <img class="carrossel-um"
+                                src="https://br.web.img3.acsta.net/pictures/17/08/25/11/58/463146.jpg" alt="">
+                            <!-- Apenas um botão de play -->
+                            <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                        </a>
+                        <h4 class="movie-title">Blade Runner 2049</h4>
+                        <div class="movie-info">
+                            <span class="movie-year">2017</span>
+                            <span class="movie-rating">⭐ 4.5</span>
+
+                        </div>
+                    </div>
+                    <div class="carousel-item carrossel-um">
+                        <a href="#">
+                            <img class="carrossel-um"
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfG1TPdn9qevW-M5UEv-4F1BqgWm3VdTIdR9xM7H_pwGJ-BDzt"
+                                alt="">
+                            <!-- Apenas um botão de play -->
+                            <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                        </a>
+                        <h4 class="movie-title">Divertida Mente 2</h4>
+                        <div class="movie-info">
+                            <span class="movie-year">2024</span>
+                            <span class="movie-rating">⭐ 5.0</span>
+
+                        </div>
+                    </div>
+                    <div class="carousel-item carrossel-um">
+                        <a href="#">
+                            <img class="carrossel-um"
+                                src="https://ingresso-a.akamaihd.net/prd/img/movie/meu-malvado-favorito-4/4d756249-3b88-4b59-baa2-527f5e3d4c3e.webp"
+                                alt="">
+                            <!-- Apenas um botão de play -->
+                            <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                        </a>
+                        <h4 class="movie-title">Meu Malvado Favorito 4</h4>
+                        <div class="movie-info">
+                            <span class="movie-year">2024</span>
+                            <span class="movie-rating">⭐ 4.1</span>
+
+                        </div>
+                    </div>
+                    <div class="carousel-item carrossel-um">
+                        <a href="#">
+                            <img class="carrossel-um"
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYirR94uovQIQJupt921e767nzgz9V9bdPK6_AVjkJ5HwoHFdU"
+                                alt="">
+                            <!-- Apenas um botão de play -->
+                            <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                        </a>
+                        <h4 class="movie-title">Moana 2</h4>
+                        <div class="movie-info">
+                            <span class="movie-year">2024</span>
+                            <span class="movie-rating">⭐ 4.4</span>
+
+                        </div>
+                    </div>
+                    <div class="carousel-item carrossel-um">
+                        <a href="#">
+                            <img class="carrossel-um"
+                                src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRpsQ-QSUCk430VuvwPWqMxE9f0sGzpSBFy1Q-c-xCALwyHKTGG"
+                                alt="">
+                            <!-- Apenas um botão de play -->
+                            <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                        </a>
+                        <h4 class="movie-title">A Arte de Amar</h4>
+                        <div class="movie-info">
+                            <span class="movie-year">2024</span>
+                            <span class="movie-rating">⭐ 5.8</span>
+
+                        </div>
+                    </div>
+                    <div class="carousel-item carrossel-um">
+                        <a href="#">
+                            <img class="carrossel-um"
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1dQNmfSIdrkcP0p8LsEduIeQciEFrNE9s8g&s"
+                                alt="">
+                            <!-- Apenas um botão de play -->
+                            <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                        </a>
+                        <h4 class="movie-title">Deadpool & Wolverine</h4>
+                        <div class="movie-info">
+                            <span class="movie-year">2024</span>
+                            <span class="movie-rating">⭐ 5.9</span>
+
+                        </div>
+                    </div>
+                    <div class="carousel-item carrossel-um">
+                        <a href="#">
+                            <img class="carrossel-um"
+                                src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRUIFM6KonL1c8k06kqtRbY_1CKERViw0UMjIdMy266Fha8ToAI"
+                                alt="">
+                            <!-- Apenas um botão de play -->
+                            <button class="play-button-um">▶</button> <!-- Novo botão de play -->
+                        </a>
+                        <h4 class="movie-title">Imaculada</h4>
+                        <div class="movie-info">
+                            <span class="movie-year">2024</span>
+                            <span class="movie-rating">⭐ 4.9</span>
+
+                        </div>
+                    </div>
+
+                </div>
+                <img src="{% static 'imagens/vectores/seta-direita.png' %}" alt="Seta Direita"
+                    class="carousel-1 right-arrow">
+            </div>
+        </section>
+
+        <script src="{% static 'javascripts/favoritos.js' %}"></script>
+        <script src="{% static 'javascripts/lupa.js' %}"></script>
+        <script src="{% static 'javascripts/header.js' %}"></script>
+        <script src="{% static 'javascripts/playervideo.js' %}"></script>
+        <script src="{% static 'javascripts/rolagem.js' %}"></script>
+
+    </div>
+</body>
+
+</html>

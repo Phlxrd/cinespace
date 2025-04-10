@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forma de Pagamento - CineSpace</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/cadastro/etapa3.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="bannerfundo">
+        <img src="{% static 'imagens/fundos/banneretapa3.png' %}" alt="Imagem de Fundo">
+    </div>
+    <header>
+        <div class="back-button">
+            <a href="{% url 'etapa2_cadastro' %}" class="botao-voltar">Voltar</a>
+        </div>
+    </header>
+
+    <div class="overlay"></div>
+    <div class="formulario-pagamento">
+        <h2>Informe os dados do seu cartão</h2>
+        <p>PASSO 3 DE 3</p>
+
+        <!-- Simulação do cartão -->
+        <div class="cartao-simulacao">
+            <div class="cartao-frente">
+                <img src="{% static 'imagens/icons/chip-cartao.png' %}" alt="Chip do Cartão" class="chip-cartao">
+                <div class="bandeira-cartao" id="bandeira-cartao"></div>
+                <div class="numero-cartao" id="numero-cartao">#### #### #### ####</div>
+                <div class="nome-cartao" id="nome-cartao">NOME NO CARTÃO</div>
+                <div class="validade-cartao" id="validade-cartao">MM/AA</div>
+                <div class="cvv-cartao" id="cvv-cartao">CVV</div>
+            </div>
+        </div>
+
+        <form method="post" action="{% url 'etapa3_cadastro' %}" class="pagamento-form" id="payment-form">
+            {% csrf_token %}
+            <input type="hidden" name="nome_usuario" value="{{ dados.nome_usuario }}">
+            <input type="hidden" name="email" value="{{ dados.email }}">
+            <input type="hidden" name="password1" value="{{ dados.password1 }}">
+            <input type="hidden" name="plano" value="{{ dados.plano }}">
+
+            <div class="radio-group">
+                <input type="radio" name="tipo_pagamento" value="credito" id="credito-option" required>
+                <label for="credito-option">Crédito</label>
+
+                <input type="radio" name="tipo_pagamento" value="debito" id="debito-option">
+                <label for="debito-option">Débito</label>
+            </div>
+
+            <div class="opcoes-detalhadas" id="opcoes-detalhadas">
+                <input type="text" id="numero_cartao" name="numero_cartao" placeholder="Número do Cartão" maxlength="19" required>
+                <div class="input-group">
+                    <input type="text" id="validade" name="validade" placeholder="Validade (MM/AA)" maxlength="5" required>
+                    <input type="text" id="cvv" name="cvv" placeholder="CVV" maxlength="3" required>
+                </div>
+                <input type="text" id="nome" name="nome_cartao" placeholder="Nome no Cartão" maxlength="30" required>
+            </div>
+
+            <button type="submit" class="botao-entrar">Concluir</button>
+        </form>
+    </div>
+
+    <!-- Indicador de carregamento -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <script>
+        // Mostra o spinner ao enviar o formulário
+        document.getElementById('payment-form').addEventListener('submit', function () {
+            document.getElementById('loading-overlay').style.display = 'flex';
+        });
+    </script>
+
+    <script src="{% static 'javascripts/etapa3.js' %}"></script>
+    <script src="{% static 'javascripts/bloquearmouse.js' %}"></script>
+</body>
+
+</html>

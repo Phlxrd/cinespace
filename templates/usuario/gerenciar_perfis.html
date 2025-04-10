@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Perfis - Cinespace</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/gerenciarperfis1.css' %}">
+</head>
+
+<body>
+    <div class="bannerfundo">
+        <img src="{% static 'imagens/fundos/bannereditarperfil.png' %}" alt="Imagem de Fundo">
+    </div>
+    <header>
+        <h1>CINESPACE</h1>
+    </header>
+    <main class="profile-container fade-in">
+        <h1>Gerenciar Perfis</h1>
+        <div class="profiles">
+            {% for perfil in perfis %}
+            <div class="profile-placeholder" id="profile-{{ perfil.id }}" onclick="selectProfile({{ perfil.id }})">
+                <div class="profile-image-container">
+                    <img src="{% if perfil.imagem %}{{ perfil.imagem.url }}{% else %}{% static 'imagens/default/profile.jpg' %}{% endif %}"
+                        alt="Imagem do Perfil" class="profile-image" />
+                    <img src="{% static 'imagens/EDITARICON.png' %}" alt="Ícone de Editar" class="edit-icon"
+                    onclick="editProfile(event, {{ perfil.id }}, '{{ perfil.nome_usuario }}', '{{ perfil.data_nascimento|date:'Y-m-d' }}', '{% if perfil.imagem %}{{ perfil.imagem.url }}{% else %}{% static 'imagens/default/profile.jpg' %}{% endif %}', {% if perfil.perfil_infantil %}true{% else %}false{% endif %})">
+                </div>
+                <span class="user-name">{{ perfil.nome_usuario }}</span>
+            </div>
+            {% endfor %}
+        </div>
+        <button class="manage-profile-button"
+            onclick="window.location.href='{% url 'escolherusuario' %}'">Concluído</button>
+    </main>
+
+    <!-- Modal de Edição -->
+    <div id="edit-profile-modal" class="modal">
+        <div class="modal-content">
+            <!-- Botão de fechar com ícone -->
+            <button class="close-left" onclick="closeEditProfileModal()">
+                <img src="{% static 'imagens/vectores/fechar.png' %}" alt="Fechar" class="close-icon">
+            </button>
+            <div class="form-container">
+                <h2>Editar Perfil</h2>
+                <!-- Imagem de pré-visualização e texto "Alterar" -->
+                <div class="image-preview">
+                    <div class="image-wrapper">
+                        <img id="selected-image-preview" src="" alt="Imagem Selecionada">
+                        <img class="edit-icon" src="{% static 'imagens/icons/alterar.png' %}" alt="Ícone de editar"
+                            id="edit-icon">
+                    </div>
+                    <span class="alterar-text" id="alterar-text">Alterar</span>
+                </div>
+                <!-- Formulário -->
+                <form id="edit-profile-form" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <!-- Campo oculto para o ID do perfil -->
+                    <input type="hidden" id="edit-profile-id" name="perfil_id">
+
+                    <!-- Campo de Nome do Perfil (editável) -->
+                    <div class="form-group">
+                        <input type="text" id="nome_usuario" name="nome_usuario" placeholder="Apelido Perfil" required>
+                    </div>
+
+                    <div class="form-group" data-nascimento>
+                        <input type="date" id="data_nascimento" name="data_nascimento" readonly style="display: none;">
+                        <input type="text" id="data_nascimento_mensagem" name="data_nascimento_mensagem"
+                        placeholder="Data de Nascimento" readonly>
+                    </div>
+
+                    <!-- Remover Perfil -->
+                    <div class="remove-profile-section">
+                        <div class="remove-profile-text">
+                            <p>Remover perfil</p>
+                            <span>Remover perfil da Cine space</span>
+                        </div>
+                        <button type="button" class="btn-remove" onclick="openDeleteProfileModal()">Excluir</button>
+                    </div>
+
+                    <!-- Botões de Ação -->
+                    <div class="form-actions">
+                        <div>
+                            <button type="button" class="btn-cancel" onclick="closeEditProfileModal()">Cancelar</button>
+                            <button type="submit" class="btn-create">Salvar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="overlay" class="overlay" style="display: none;"></div>
+    <div id="profile-modal" class="modal" style="display: none;">
+        <div class="modal-content-imagens">
+            <h2>Escolha Sua nova Imagem de Perfil</h2>
+            <!-- Categorias de Imagens -->
+            <div>
+                <!-- Carrossel de Imagens Personalizadas -->
+                <div class="carousel-container">
+                    <h3>Padrão Cinespace</h3>
+                    <div class="carousel-images">
+                        <label>
+                            <input type="radio" name="imagem_preset" value="default1">
+                            <img src="{% static 'imagensperfil/default/default1.png' %}" alt="Perfil 1"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="default2">
+                            <img src="{% static 'imagensperfil/default/default2.jpg' %}" alt="Perfil 2"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="default3">
+                            <img src="{% static 'imagensperfil/default/default3.jpg' %}" alt="Perfil 3"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="default4">
+                            <img src="{% static 'imagensperfil/default/default4.jpg' %}" alt="Perfil 4"
+                                class="profile-option">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="carousel-container">
+                    <h3>Herois</h3>
+                    <div class="carousel-images">
+                        <label>
+                            <input type="radio" name="imagem_preset" value="deadpool">
+                            <img src="{% static 'imagensperfil/herois/deadpool.jpg' %}" alt="Perfil 1"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="wolverine">
+                            <img src="{% static 'imagensperfil/herois/wolverine.jpg' %}" alt="Perfil 2"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="superman">
+                            <img src="{% static 'imagensperfil/herois/superman.jpg' %}" alt="Perfil 3"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="batman">
+                            <img src="{% static 'imagensperfil/herois/batman.jpg' %}" alt="Perfil 4"
+                                class="profile-option">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="carousel-container">
+                    <h3>Vilões</h3>
+                    <div class="carousel-images">
+                        <label>
+                            <input type="radio" name="imagem_preset" value="coringa">
+                            <img src="{% static 'imagensperfil/viloes/coringa.jpg' %}" alt="Perfil 1"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="darth">
+                            <img src="{% static 'imagensperfil/viloes/darth.jpg' %}" alt="Perfil 2"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="ultron">
+                            <img src="{% static 'imagensperfil/viloes/ultron.jpg' %}" alt="Perfil 3"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="vanda">
+                            <img src="{% static 'imagensperfil/viloes/vanda.jpg' %}" alt="Perfil 3"
+                                class="profile-option">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="carousel-container">
+                    <h3>Terror</h3>
+                    <div class="carousel-images">
+                        <label>
+                            <input type="radio" name="imagem_preset" value="itacoisa">
+                            <img src="{% static 'imagensperfil/terror/itacoisa.jpg' %}" alt="Perfil 1"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="freira">
+                            <img src="{% static 'imagensperfil/terror/freira.jpg' %}" alt="Perfil 2"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="jason">
+                            <img src="{% static 'imagensperfil/terror/jason.jpg' %}" alt="Perfil 3"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="ghost">
+                            <img src="{% static 'imagensperfil/terror/ghost.jpg' %}" alt="Perfil 4"
+                                class="profile-option">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="carousel-container">
+                    <h3>Anime</h3>
+                    <div class="carousel-images">
+                        <label>
+                            <input type="radio" name="imagem_preset" value="sukuna">
+                            <img src="{% static 'imagensperfil/animes/sukuna.jpg' %}" alt="Perfil 1"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="sasuke">
+                            <img src="{% static 'imagensperfil/animes/sasuke.jpg' %}" alt="Perfil 2"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="pikachu">
+                            <img src="{% static 'imagensperfil/animes/pikachu.jpg' %}" alt="Perfil 3"
+                                class="profile-option">
+                        </label>
+                        <label>
+                            <input type="radio" name="imagem_preset" value="luffy">
+                            <img src="{% static 'imagensperfil/animes/luffy.jpg' %}" alt="Perfil 4"
+                                class="profile-option">
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Modal de Exclusão -->
+<div id="delete-profile-modal" class="modal">
+    <div class="modal-content">
+        <h2>Excluir Perfil</h2>
+        <p>Você está prestes a remover este perfil permanentemente</p>
+        <div class="warning-message">
+            ATENÇÃO: Esta ação não pode ser desfeita. Todos os dados associados serão perdidos.
+        </div>
+        <div class="button-container">
+            <button id="cancel-delete" onclick="closeDeleteProfileModal()">Cancelar</button>
+            <button id="confirm-delete" onclick="confirmDeleteProfile()">Confirmar Exclusão</button>
+        </div>
+    </div>
+</div>
+
+    <script src="{% static 'javascripts/gerenciarperfis1.js' %}"></script>
+</body>
+
+</html>

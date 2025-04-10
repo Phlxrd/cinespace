@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Bot</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Manrope:wght@400;500&family=ABeeZee&display=swap" rel="stylesheet">
+    <!-- Seus estilos (styles.css) -->
+    <link rel="stylesheet" href="{% static 'css/spacebot.css' %}">
+    <!-- Highlight.js (opcional, para realce de sintaxe) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
+</head>
+<body>
+    <input type="hidden" id="chat-id" value="{{ chat_atual.id }}"> <!-- Campo oculto para o chatId -->
+
+    <div class="bannerfundo">
+        <img src="{% static 'imagens/spacebot/fundospace.png' %}" alt="Imagem de Fundo">
+    </div>
+    <div class="sidebar">
+        <div class="sidebar-title">
+            <h1>SPACE BOT</h1>
+            <img src="{% static 'imagens/spacebot/cinespace.png' %}" alt="Logo" class="sidebar-logo">
+        </div>
+        <div class="menu-item" id="criar-chat">
+            <img src="{% static 'imagens/spacebot/icones/conversaricon.png' %}" alt="Ícone Conversar" class="menu-icon">
+            <span class="menu-text">Novo Chat</span>
+        </div>
+    </div>
+
+
+    <!-- Ícone de Menu (Mobile) -->
+    <img src="{% static 'imagens/spacebot/icones/menuicon.png' %}" alt="Ícone Menu" class="mobile-menu-icon" id="mobileMenuIcon">
+
+    <!-- Conteúdo Principal -->
+    <div class="main-content">
+        <div class="content-title">
+            <h1>SPACE BOT</h1>
+            <p class="subtitle">Chat bot</p>
+        </div>
+
+  
+
+   <!-- Container externo para o chat -->
+<div class="chat-outer-container">
+    <!-- Área do Chat -->
+    <div class="chat-container">
+        <div class="chat-messages" id="chat-messages">
+            <div class="loading-indicator" id="loading-indicator" style="display: none;">
+                <div class="spinner"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <div class="message-bar-container">
+            <div class="message-bar">
+                <textarea placeholder="Envie sua mensagem" class="message-input" id="userInput"></textarea>
+                <div class="message-icons">
+                    <img src="{% static 'imagens/spacebot/vectores/galeriavec.png' %}" alt="Ícone Galeria" class="icon">
+                    <div class="divider"></div>
+                    <img src="{% static 'imagens/spacebot/vectores/micvec.png' %}" alt="Ícone Microfone" class="icon" id="micButton">
+                </div>                
+                <div class="send-button" id="sendButton">
+                    <img src="{% static 'imagens/spacebot/vectores/enviarvec.png' %}" alt="Ícone Enviar" class="icon">
+                </div>
+            </div>
+        </div>
+
+    <!-- Seu script (scripts.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/franc@6.1.0/dist/franc.min.js"></script>
+    <script src="{% static 'javascripts/spacebot.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,340 @@
+/* Estilos gerais (sem media query) - Mantenha a maior parte aqui, e SÓ ajuste nas media queries o que *precisa* mudar */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
+    color: #e5e5e5;
+}
+
+/* Banner de fundo ocupando a tela inteira */
+.bannerfundo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+}
+
+.bannerfundo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+header {
+    position: absolute;
+    top: 25px;
+    right: 10px;
+    z-index: 50;
+}
+
+.botao-voltar {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px;
+    border: 2px solid #fff;
+    border-radius: 25px;
+    background-color: transparent;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.botao-voltar:hover {
+    background-color: #2e6cdf28;
+    color: #fff;
+}
+
+.login-container.etapa2 {
+    position: relative;
+    z-index: 20;
+    background: radial-gradient(145.31% 96.49% at 50% 77.59%, rgba(8, 18, 105, 0.26) 0%, rgba(255, 255, 255, 0) 100%);
+    padding: 40px;
+    max-width: 1100px;
+    width: 83%;
+    color: #fff;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    margin: 75px auto;
+    border: 1px solid #4c4ec5c2;
+}
+
+.login-container h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.login-container p {
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+.plano-selector {
+    background: #FFFFFF26;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 100px;
+    width: 220px;
+    height: 48px;
+    border-radius: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 10px;
+}
+
+.plano-selector button {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 14.8px;
+    line-height: 16px;
+    letter-spacing: 1.6px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    background: transparent;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.plano-selector button.selected {
+    background: #FFFFFF;
+    color: #000000;
+}
+
+.plano-selector button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.plano-selector button.selected:hover {
+    background: #FFFFFF;
+    color: #000000;
+}
+
+.plano-card .price {
+    font-family: 'ABeeZee', sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 12px;
+    display: inline-block;
+    margin-bottom: 5px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.planos-container {
+    display: flex;
+    justify-content: center; /* Mudei para center */
+    gap: 20px;
+    align-items: center;
+    margin: 50px 0;
+    flex-wrap: wrap;  /* Importante para responsividade */
+}
+
+.plano-card {
+    border: 1px solid #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: 300px; /* Mantém a largura, mas com flex-wrap, eles se ajustam */
+    height: 490px;
+    box-sizing: border-box; /* ESSENCIAL */
+    margin: 10px; /* Adiciona margem para espaçamento */
+}
+
+
+.plano-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.plano-card h3 {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.plano-card p {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.plano-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.plano-card ul li {
+    font-size: 16px;
+    margin: 10px 0;
+    position: relative;
+}
+
+.plano-card ul .divider {
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 10px auto;
+    width: 80%;
+}
+
+.plano-card.destaque {
+    background-blend-mode: luminosity;
+    background: linear-gradient(180deg, rgba(172, 172, 172, 0.63) 0%, rgba(70, 70, 70, 0.2016) 100%);
+    background-blend-mode: multiply;
+    background: #7353FF1A;
+    background: radial-gradient(145.31% 96.49% at 50% 77.59%, rgba(1, 9, 117, 0.225) 0%, rgba(255, 255, 255, 0) 100%);
+    backdrop-filter: blur(50.29999923706055px);
+    transform: scale(1.1);
+    z-index: 20;
+}
+
+
+.planos-container input[type="radio"] {
+    display: none;
+}
+
+.planos-container input[type="radio"]:checked + .plano-card {
+    border: 2px solid #05296b;
+    background-color: rgba(255, 255, 255, 0.103);
+}
+
+.botao-entrar {
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    background: #0019edd8;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.botao-entrar:hover {
+    background: #0529c9;
+}
+
+
+/* RESPONSIVIDADE */
+/* Tablets e celulares grandes (768px e menor) */
+@media (max-width: 768px) {
+    /* Header */
+    header {
+        top: 10px; /* Aproxima o header do topo */
+    }
+
+    .botao-voltar {
+        font-size: 14px; /* Reduz um pouco o tamanho da fonte */
+        padding: 8px 12px; /* Reduz o padding */
+    }
+
+    /* Container principal */
+    .login-container.etapa2 {
+        margin-top: 60px; /* Reduz a margem superior */
+        padding: 20px; /* Reduz o padding */
+        border-radius: 20px; /* Bordas um pouco menos arredondadas */
+    }
+
+    .login-container h2 {
+        font-size: 30px; /* Reduz um pouco */
+        margin-bottom: 15px;
+    }
+    .login-container p {
+        font-size: 16px;
+        margin-bottom: 25px; /* Reduz */
+    }
+
+     .plano-selector {
+        margin-bottom: 40px; /* Reduz margem*/
+        width: 100%; /*Ocupa toda a largura*/
+        padding: 0;
+    }
+
+      .plano-selector button {
+        font-size: 14px;
+        padding: 8px;  /*Reduz*/
+    }
+
+
+    /* Cards dos planos */
+    .plano-card {
+        width: 90%;  /*Aumenta a largura do card*/
+        height: auto; /* Altura automática para se ajustar ao conteúdo */
+        margin: 10px auto; /* Centraliza e adiciona margem */
+    }
+
+    .plano-card h3 {
+        font-size: 20px; /* Reduz */
+    }
+
+    .plano-card p,
+    .plano-card ul li {
+        font-size: 14px; /* Reduz */
+    }
+
+    .plano-card .price {
+        font-size: 24px;
+    }
+
+     .plano-card.destaque {
+      transform: scale(1); /* Remove o destaque do plano */
+      z-index: 1; /* Ajusta para ficar na mesma camada dos outros */
+}
+
+}
+
+
+/* Celulares menores (480px e menor) */
+@media (max-width: 480px) {
+
+   /* Header */
+    header {
+        position: static;  /* Header fica no fluxo normal */
+        text-align: center; /* Centraliza o botão */
+        margin-bottom: 20px; /* Espaço abaixo do header */
+    }
+     .botao-voltar {
+        display: inline-block; /* Para centralizar corretamente */
+        width: auto; /* Largura automática */
+}
+
+    .login-container.etapa2 {
+        margin-top: 20px; /* Reduz ainda mais */
+    }
+
+    .login-container h2 {
+        font-size: 24px; /* Reduz mais */
+    }
+
+    .login-container p {
+        font-size: 14px;
+    }
+
+    .plano-card {
+        width: 100%; /* Ocupa toda a largura */
+        padding: 15px; /* Reduz um pouco mais o padding */
+        /* Não precisa mais de height: auto; pois já está definido no breakpoint de 768px */
+    }
+     .plano-selector {
+       width:95%; /* Ocupa quase toda a largura*/
+}
+
+}

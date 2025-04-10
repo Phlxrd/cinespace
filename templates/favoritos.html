@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinespace - Favoritos</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/subpaginas/favoritos.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="icon" href="{% static 'imagens/favicon cinetrailers.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'imagens/favicon cinetrailers.png' %}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=ABeeZee&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  
+         
+    <header>
+        <div class="site-logo">
+            <a href="{% url 'index' %}" class="logo-text">CINESPACE</a>
+        </div>
+       
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="{% url 'filmes' %}">FILMES</a></li>
+                <li><a href="{% url 'series' %}">SERIES</a></li>
+                <li><a href="{% url 'animes' %}">ANIMES</a></li>
+                <li><a href="{% url 'esportes' %}">SPACE ESPORTES</a></li>
+                <li><a href="#">SPACE MUSIC</a></li>
+            </ul>
+        </nav>
+    
+        <div class="header-icons">
+            <a href="{% url 'resultados' %}">
+                <div id="search-icon" class="search-icon">
+                    <img src="{% static 'imagens/vectores/lupavec.png' %}" alt="Pesquisar">
+                </div>
+            </a>
+            
+            <div id="alert-icon" class="alert-icon">
+                <img src="{% static 'imagens/vectores/alertvec.png' %}" alt="Alerta">
+            </div>
+            <div class="profile-header">
+                <img id="profileImage" src="{% static 'imagens/default/profile.jpg' %}" alt="Perfil" class="perfil-image">
+                <img id="arrowIcon" src="{% static 'imagens/vectores/setaprabaixovec.png' %}" alt="Abrir menu" class="arrow-icon">
+                <div class="menu-perfil">
+                    <!-- Link para a página inicial (Home) -->
+                    <a href="{% url 'cinetrailers' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/homevec.png' %}" alt="Home">
+                        <span class="menu-text">Home</span>
+                    </a>
+            
+                  <!-- Link para a página de configurações -->
+                    <a href="{% url 'conta' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/configvec.png' %}" alt="Configurações">
+                        <span class="menu-text">Configurações</span>
+                    </a>
+            
+                    <!-- Link para a página de escolher usuário (Trocar Perfil) -->
+                    <a href="{% url 'escolherusuario' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/perfilvec.png' %}" alt="Trocar-Perfil">
+                        <span class="menu-text">Trocar Perfil</span>
+                    </a>
+            
+                    <!-- Link para a página de gerenciar perfis (Editar) -->
+                    <a href="{% url 'gerenciar_perfis' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/lapisvec.png' %}" alt="EditarPerfil">
+                        <span class="menu-text">Editar Perfil</span>
+                    </a>
+            
+                    <!-- Link para a página de ajuda -->
+                    <a href="{% url 'ajuda' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/ajudavec.png' %}" alt="Ajuda">
+                        <span class="menu-text">Ajuda</span>
+                    </a>
+            
+                    <!-- Link para logout -->
+                    <a href="{% url 'logout' %}" class="menu-item">
+                        <img src="{% static 'imagens/vectores/sairvec.png' %}" alt="Sair">
+                        <span class="menu-text">Sair</span>
+                    </a>
+                </div>
+            </div>
+    </header>
+
+    <div class="cards-container" id="results-container">
+        {% if favoritos %}
+            {% for favorito in favoritos %}
+                <div class="card">
+                    <a href="{{ favorito.conteudo.url }}">
+                        <img src="{{ favorito.conteudo.imagem.url }}" alt="{{ favorito.conteudo.titulo }}">
+                        <button class="play-button-card">▶</button>
+                    </a>
+                    <h4 class="movie-title">{{ favorito.conteudo.titulo }}</h4>
+                    <div class="movie-info">
+                        <span class="movie-year">{{ favorito.conteudo.data_lancamento.year }}</span>
+                        <span class="movie-rating">⭐ {{ favorito.conteudo.classificacao }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Nenhum favorito encontrado.</p>
+        {% endif %}
+    </div>
+   
+   
+    <script src="{% static 'javascripts/favoritos.js' %}"></script>
+    <script src="{% static 'javascripts/lupa.js' %}"></script>
+    <script src="{% static 'javascripts/header.js' %}"></script>
+</body>
+</html>

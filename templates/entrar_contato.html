@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - CineTrailers</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="icon" href="{% static 'imagens/favicon cinetrailers.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'imagens/favicon cinetrailers.png' %}" type="image/x-icon">
+</head>
+
+<body>
+    <header>
+        <h1 class="site-title">
+            <a href="{% url 'index' %}">
+                <span class="cine">CiNE</span>&nbsp;<span class="trailers">TRAILERS</span>
+            </a>
+        </h1>
+        <nav>
+            <a href="{% url 'index' %}" class="botao-entrar">Voltar</a>
+        </nav>
+    </header>
+
+
+    <div class="content">
+        <div class="banner-background" style="background-image: url('{% static 'imagens/banner cine trailers.jpg' %}');">
+           <div class="main-container">
+                <div class="login-container">
+                    <h2>Contato</h2>
+                    <form class="login-form" method="POST">
+                        {% csrf_token %}
+                        <div>
+                            <input type="text" placeholder="Nome" name="nome" required>
+                        </div>
+                        <div>
+                            <input type="email" placeholder="Email" name="email" required>
+                        </div>
+                        <div>
+                            <input class="espacomensagem" placeholder="Mensagem" name="mensagem" required></input>
+                        </div>
+                        <button type="submit">Enviar</button>
+                    </form>
+                    <p>Tem alguma dúvida? <a href="{% url 'paginalogin' %}">Entre em contato com o suporte</a></p>
+                </div>                
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <div class="footer-newsletter">
+                    <h4>Fique por dentro dos lançamentos</h4>
+                    <input type="email" placeholder="Digite seu email" />
+                    <button type="submit">Inscrever</button>
+                </div>
+                <ul>
+                    <li><a href="{% url 'cinetrailers' %}">CineTrailers</a></li>
+                    <li><a href="{% url 'sobre_mim' %}">Sobre Mim</a></li>
+                    <li><a href="{% url 'sobreacinetrailers' %}">Sobre a CineTrailers</a></li>
+                    <li><a href="{% url 'series' %}">Séries</a></li>
+                    <li><a href="{% url 'lancamentos' %}">Lançamentos</a></li>
+                    <li><a href="{% url 'filmes' %}">Filmes</a></li>
+                    <li><a href="{% url 'entrar_contato' %}">Entrar em Contato</a></li>
+                    <li><a href="{% url 'doramas' %}">Doramas</a></li>
+                    <li><a href="{% url 'desenhos' %}">Desenhos</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 CINETRAILERS. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

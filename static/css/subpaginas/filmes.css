@@ -1,0 +1,1012 @@
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    padding-top: 100px; /* Ajuste conforme a altura do header */
+    overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
+    color: #e5e5e5;
+    background: linear-gradient(0deg, #000000, #000000),
+                radial-gradient(50% 50% at 50% 50%, rgba(82, 62, 171, 0.432) 0%, rgba(119, 138, 232, 0) 100%);
+    backdrop-filter: blur(237.1999969482422px);
+    background-blend-mode: overlay;
+    background-attachment: fixed;
+}
+
+.bannerfundo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.55;
+    overflow: hidden;
+}
+
+.bannerfundo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 500;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+header.scrolled {
+    background-color: #000000a1;
+    backdrop-filter: blur(8px);
+}
+
+.site-logo {
+    margin-left: 20px;
+}
+
+.site-logo .logo-text {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    line-height: 68.25px;
+    letter-spacing: 0%;
+}
+
+.nav-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.nav-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.nav-menu li {
+    margin: 0 15px;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: rgb(226, 226, 226);
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19.36px;
+    letter-spacing: 0%;
+    font-weight: bold;
+
+}
+
+.nav-menu a:hover {
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+}
+
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-right: 100px;
+}
+
+.search-icon,
+.alert-icon,
+.profile-header {
+    cursor: pointer;
+}
+
+.search-icon img,
+.alert-icon img {
+    width: 38px;
+    height: 38px;
+}
+
+
+/* Estilo do cabeçalho do perfil */
+.profile-header {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    right: 4px;
+    cursor: pointer;
+}
+
+/* Estilo da imagem de perfil */
+.profile-header .perfil-image {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+    border: 1px solid white;
+    /* Borda branca */
+}
+
+.profile-header .perfil-image:hover {
+    transform: scale(1.02);
+}
+
+/* Menu de perfil */
+.menu-perfil {
+    display: none;
+    /* Oculta o menu por padrão */
+    position: absolute;
+    top: 60px;
+    /* Abaixo da imagem de perfil */
+    right: 46px;
+    background: rgba(8, 16, 124, 0.2);
+    backdrop-filter: blur(8px);
+    border-radius: 10px;
+    /* Bordas menos arredondadas */
+    padding: 0.5rem;
+    width: 200px;
+    /* Largura maior para acomodar texto */
+    flex-direction: column;
+    align-items: flex-start;
+    /* Alinha itens à esquerda */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    overflow: hidden;
+    /* Impede que elementos ultrapassem os limites da barra */
+}
+
+/* Estilização dos botões com imagens e texto */
+.menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    /* Alinha ícone e texto à esquerda */
+    width: 100%;
+    /* Ocupa toda a largura do menu */
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+    text-decoration: none;
+    color: white;
+}
+
+/* Estilização das imagens dentro dos botões */
+.menu-item img {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    /* Espaço entre ícone e texto */
+    transition: transform 0.2s ease;
+}
+
+/* Estilização do texto ao lado do ícone */
+.menu-item .menu-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Efeito ao passar o mouse */
+.menu-item:hover {
+    background: rgba(13, 16, 240, 0.2);
+}
+
+.menu-item img:hover {
+    transform: scale(1.1);
+}
+
+/* Estilização da seta */
+.arrow-icon {
+    margin-left: 10px;
+    margin-right: 30px;
+    /* Espaço entre a imagem e a seta */
+    transition: transform 0.3s ease;
+}
+
+/* ==================== */
+/* Ícone de Pesquisa */
+/* ==================== */
+#search-container {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    z-index: 100;
+    padding-left: 30px;
+    transition: width 0.5s ease;
+    width: 0;
+    overflow: hidden;
+
+}
+
+#search-container.show {
+    width: 245px;
+}
+
+#search-container.hidden {
+    width: 0;
+    opacity: 0;
+}
+
+#search-container input[type="text"] {
+    flex: 1;
+    padding: 12px;
+    padding-left: 40px;
+    border-radius: 4px;
+    border: 1px solid white;
+    background-color: rgba(0, 0, 0, 0.315);
+    color: white;
+    outline: none;
+    margin-left: 10px;
+    border-radius: 50px;
+}
+
+#search-input-icon {
+    width: 45px;
+    height: auto;
+    position: absolute;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+
+/* Estilo do botão do foguetinho */
+#rocket-button {
+    position: fixed;
+    /* Alterado para fixed */
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #05066d26;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 300;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+}
+
+#rocket-button.visible {
+    opacity: 1;
+}
+
+.rocket-icon {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s ease;
+}
+
+#rocket-button:hover .rocket-icon {
+    transform: translateY(-5px);
+}
+
+/* Animação do foguinho */
+.fire {
+    position: absolute;
+    bottom: -10px;
+    width: 20px;
+    height: 20px;
+    background-color: #ff6f00;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#rocket-button:hover .fire {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+/* Animação de subida */
+@keyframes rocketLaunch {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-100vh);
+    }
+}
+
+#rocket-button.launch {
+    animation: rocketLaunch 1s ease forwards;
+}
+
+
+
+
+/* Janela do Chat Bot */
+#chat-window {
+    display: none;
+    position: fixed;
+    width: 50%;
+    height: 100vh;
+    right: 1px;
+    background: linear-gradient(0deg, #000000, #000000), radial-gradient(circle, rgba(120, 137, 223, 0.255) 0%, rgba(119, 138, 232, 0) 100%);
+    background-blend-mode: overlay;
+    background-attachment: fixed;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000; /* Z-index maior que o overlay */
+}
+
+/* Cabeçalho do Chat */
+.chat-header {
+    background: linear-gradient(0deg, #000000, #000000),
+        radial-gradient(circle, rgba(120, 137, 223, 0.255) 0%, rgba(119, 138, 232, 0) 100%);
+    background-blend-mode: overlay;
+    /* Importante para combinar os gradientes */
+    background-attachment: fixed;
+    color: #fff;
+    /* Cor do texto */
+    padding: 15px;
+    /* Espaçamento interno */
+    border-top-left-radius: 12px;
+    /* Bordas arredondadas no topo */
+    border-top-right-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    /* Alinha o título e o botão de fechar */
+    align-items: center;
+}
+
+.chat-header h2 {
+    margin: 0;
+    /* Remove margens padrão */
+    font-size: 18px;
+    /* Tamanho da fonte */
+}
+
+#close-chat {
+    background: none;
+    /* Remove fundo */
+    border: none;
+    /* Remove borda */
+    color: #fff;
+    /* Cor do ícone */
+    font-size: 18px;
+    /* Tamanho do ícone */
+    cursor: pointer;
+    /* Cursor de clique */
+}
+/* Estilo dos textos acima dos blocos */
+.chat-texts {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.chat-texts h1 {
+    margin-top: 70px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 600;
+    font-size: 2rem;
+    line-height: 1.2;
+    color: #FFFFFF;
+    margin-bottom: 10px;
+}
+
+.chat-texts .subtitle {
+    font-family: 'ABeeZee', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #FAFAFA;
+}
+/* Ajustes no layout do chat */
+.chat-content {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 60px); /* Altura total menos o cabeçalho */
+    padding: 15px;
+    overflow-y: auto; /* Barra de rolagem no conteúdo */
+}
+
+/* Blocos de Conteúdo */
+.blocks {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.block {
+    width: 100px;
+    height: 114px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 16px;
+    background: linear-gradient(0deg, #333333, #0f0f0f),
+    radial-gradient(circle, rgba(11, 48, 236, 0.255) 0%, rgba(119, 138, 232, 0) 100%);
+background-blend-mode: overlay; /* Importante para combinar os gradientes */
+background-attachment: fixed; 
+    backdrop-filter: blur(46px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.block-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+}
+
+.block-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 21.86px;
+    color: #FAFAFA;
+}
+
+/* Área do Chat */
+.chat-container {
+    flex: 1;
+    /* Ocupa o espaço restante */
+    overflow-y: auto;
+    /* Barra de rolagem vertical */
+}
+
+.chat-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* Espaço entre as mensagens */
+}
+
+/* Barra de Mensagens */
+.message-bar-container {
+    background: linear-gradient(0deg, #333333, #0f0f0f),
+        radial-gradient(circle, rgba(11, 48, 236, 0.255) 0%, rgba(119, 138, 232, 0) 100%);
+    background-blend-mode: overlay;
+    /* Importante para combinar os gradientes */
+    background-attachment: fixed;
+    border-radius: 8px;
+    /* Bordas arredondadas */
+    padding: 10px;
+    /* Espaçamento interno */
+    margin-bottom: -10px;
+}
+
+.message-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* Espaço entre os elementos */
+}
+
+.message-input {
+    flex: 1;
+    /* Ocupa o espaço restante */
+    background: transparent;
+    /* Fundo transparente */
+    border: none;
+    /* Remove borda */
+    color: #FAFAFA;
+    /* Cor do texto */
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    outline: none;
+    /* Remove contorno ao focar */
+    resize: none;
+    /* Impede redimensionamento */
+    height: 40px;
+    /* Altura fixa */
+    max-height: 100px;
+    /* Altura máxima */
+    overflow-y: auto;
+    /* Barra de rolagem vertical */
+}
+
+.message-input::placeholder {
+    color: #A0A0A0;
+    /* Cor do placeholder */
+}
+
+.message-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* Espaço entre os ícones */
+}
+
+.icon {
+    width: 24px;
+    /* Tamanho dos ícones */
+    height: 24px;
+    cursor: pointer;
+    /* Cursor de clique */
+}
+
+.divider {
+    width: 1px;
+    /* Largura da linha divisória */
+    height: 24px;
+    /* Altura da linha divisória */
+    background: linear-gradient(90deg, #8692A6 0%, #343840 100%);
+}
+
+.send-button {
+    background: #4a90e2;
+    /* Cor de fundo do botão */
+    border: none;
+    /* Remove borda */
+    border-radius: 8px;
+    /* Bordas arredondadas */
+    padding: 8px;
+    /* Espaçamento interno */
+    cursor: pointer;
+    /* Cursor de clique */
+}
+
+.send-button img {
+    width: 20px;
+    /* Tamanho do ícone */
+    height: 20px;
+}
+/* Estilo das mensagens */
+.message {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.message-content {
+    max-width: 60%; /* Reduz a largura da resposta do bot */
+    padding: 10px;
+    border-radius: 12px;
+    word-wrap: break-word;
+}
+
+/* Mensagens do usuário */
+.user-message {
+    justify-content: flex-end;
+}
+
+.user-message .message-content {
+    background: #3B3D40; /* Fundo cinza */
+    color: #FAFAFA;
+}
+
+/* Mensagens do bot */
+.bot-message {
+    justify-content: flex-start;
+    align-items: flex-start; /* Alinha o ícone ao topo */
+}
+
+.bot-message .message-content {
+    max-width: 96%;
+    color: #FAFAFA;
+    display: flex;
+    align-items: flex-start; /* Alinha o ícone ao topo */
+}
+
+/* Estilo do texto formatado */
+.bot-message .message-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem; /* Aumentei o tamanho da fonte para 1rem */
+    color: #FAFAFA;
+    line-height: 1.5;
+}
+
+/* Estilo para texto em negrito */
+.bot-message .message-text strong {
+    color: #ffffff; /* Cor branca */
+    font-weight: bold; /* Negrito */
+}
+
+/* Estilo para texto em itálico */
+.bot-message .message-text em {
+    font-style: italic;
+}
+
+/* Estilo para listas */
+.bot-message .message-text ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    padding-left: 10px;
+}
+
+.bot-message .message-text li {
+    margin-bottom: 5px;
+}
+
+/* Estilo para links */
+.bot-message .message-text a {
+    color: #4a90e2; /* Cor azul para links */
+    text-decoration: none; /* Remove sublinhado */
+    font-weight: bold; /* Negrito */
+}
+
+.bot-message .message-text a:hover {
+    text-decoration: underline; /* Sublinhado ao passar o mouse */
+}
+.bot-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    flex-shrink: 0; /* Impede que o ícone diminua */
+}
+
+/* Loading indicator */
+.loading-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Alinha o loading à esquerda */
+    padding: 10px;
+}
+
+.spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top: 4px solid #4a90e2;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+    margin-right: 10px; /* Espaço entre o spinner e o ícone do bot */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+/* Estilo do container do chat */
+#chat-messages {
+    overflow-y: auto; /* Mantém a barra de rolagem visível */
+    scroll-behavior: smooth; /* Rolagem suave */
+    max-height: 551px; /* Defina a altura máxima do container do chat */
+    padding-right: 10px; /* Espaço para a barra de rolagem */
+}
+
+/* Remover a ocultação da barra de rolagem */
+#chat-messages::-webkit-scrollbar {
+    width: 8px; /* Largura da barra de rolagem */
+}
+
+#chat-messages::-webkit-scrollbar-thumb {
+    background: #888; /* Cor do "thumb" da barra de rolagem */
+    border-radius: 4px;
+}
+
+#chat-messages::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Cor do "thumb" ao passar o mouse */
+}
+
+
+/* Mensagem no rodapé */
+.footer-message {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5; /* Ajuste o espaçamento entre as linhas */
+    letter-spacing: 0%;
+    text-align: center;
+    color: #ffffff; /* Cor do texto */
+    margin-top: 10px; /* Espaço acima da mensagem */
+    padding: 10px; /* Espaçamento interno */
+}
+
+/* Estilo do link para o SPACEBOT */
+.footer-message .spacebot-link {
+    color: #2656f1; /* Cor roxa para o link */
+    text-decoration: none; /* Remove o sublinhado */
+    font-weight: 500; /* Deixa o link um pouco mais destacado */
+}
+
+.footer-message .spacebot-link:hover {
+    text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
+}
+
+
+
+
+
+/* ==================== */
+/* Carrossel Top 10 */
+/* ==================== */
+
+/* Estilo do título principal */
+.carousel-title {
+    width: 405px; /* Largura do título */
+    height: 60px; /* Altura do título */
+    position: relative; /* Alterado para relativo */
+    left: 72px; /* Distância da esquerda */
+    font-family: 'Orbitron', sans-serif; /* Fonte Orbitron */
+    font-weight: 600; /* Peso da fonte */
+    font-size: 48px; /* Tamanho da fonte */
+    line-height: 60.19px; /* Altura da linha */
+    letter-spacing: 0%; /* Espaçamento entre letras */
+    color: #FFFFFF; /* Cor do texto (branco) */
+    margin: 0; /* Remove margens padrão */
+    padding: 0; /* Remove paddings padrão */
+    margin-top: 120px; /* Espaçamento do topo para não colar no header */
+    margin-bottom: 70px;
+}
+
+
+
+
+/* Estilo do carrossel */
+.carousel-container.carrossel-top10 {
+    margin-top: 5px;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-radius: 10px;
+    z-index: 100;
+}
+
+/* Centraliza o título dentro do carrossel */
+.carousel-container.carrossel-top10 .top10 {
+    text-align: center;
+    margin: 0;
+    margin-bottom: 20px;
+    margin-right: 40px;
+}
+
+.carousel-container.carrossel-top10 h1 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 30px;
+}
+
+/* Carrossel */
+.carousel.carrossel-top10 {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    height: 100%;
+    margin-left: 150px;
+}
+
+/* Ocultar a barra de rolagem */
+.carousel.carrossel-top10::-webkit-scrollbar {
+    display: none;
+}
+
+/* Estilo dos itens do carrossel */
+.carousel-item.carrossel-top10 {
+    display: flex; /* Layout flexível para alinhar número e imagem */
+    align-items: flex-start; /* Alinha os itens ao topo */
+    gap: 0; /* Remove o espaço entre o número e a imagem */
+    flex: 0 0 auto;
+    width: auto; /* Largura automática para acomodar número e imagem */
+    height: 432px; /* Altura ajustada */
+    position: relative;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-right: 45px;
+}
+
+/* Estilo base para os números */
+.carousel-item.carrossel-top10 .numero-fundo {
+    object-fit: cover; /* Garante que a imagem cubra o espaço */
+    border-radius: 8px; /* Bordas arredondadas */
+    opacity: 0.5; /* Ajuste a opacidade conforme necessário */
+    height: 336px; /* Altura fixa para todos os números */
+}
+
+/* Número 1 */
+.carousel-item.carrossel-top10 .numero-fundo.numero-1 {
+    width: 168px; /* Largura do número 1 */
+}
+
+/* Número 2 */
+.carousel-item.carrossel-top10 .numero-fundo.numero-2 {
+    width: 219px; /* Largura do número 2 */
+}
+
+/* Número 3 */
+.carousel-item.carrossel-top10 .numero-fundo.numero-3 {
+    width: 228px; /* Largura do número 3 */
+}
+
+/* Número 4 */
+.carousel-item.carrossel-top10 .numero-fundo.numero-4 {
+    width: 232px; /* Largura do número 4 */
+}
+
+/* Número 5 */
+.carousel-item.carrossel-top10 .numero-fundo.numero-5 {
+    width: 221px; /* Largura do número 5 */
+}
+
+/* Número 6 */
+.carousel-item.carrossel-top10 .numero-fundo.numero-6 {
+    width: 148px; /* Largura do número 6 */
+}
+
+/* Número 7 */
+.carousel-item.carrossel-top10 .numero-fundo.numero-7 {
+    width: 150px; /* Largura do número 7 */
+}
+
+/* Número 8 */
+.carousel-item.carrossel-top10 .numero-fundo.numero-8 {
+    width: 152px; /* Largura do número 8 */
+}
+
+/* Número 9 */
+.carousel-item.carrossel-top10 .numero-fundo.numero-9 {
+    width: 154px; /* Largura do número 9 */
+}
+
+/* Número 10 */
+.carousel-item.carrossel-top10 .numero-fundo.numero-10 {
+    width: 156px; /* Largura do número 10 */
+}
+
+/* Contêiner da imagem do filme */
+.carousel-item.carrossel-top10 .imagem-container {
+    position: relative; /* Necessário para posicionar o botão de play e o título */
+}
+
+/* Estilo base para as imagens */
+.carousel-item.carrossel-top10 .imagem-container img.carrossel-top10 {
+    width: 235px; /* Largura da imagem */
+    height: 336px; /* Altura da imagem (igual à altura dos números) */
+    object-fit: cover; /* Garante que a imagem cubra o espaço */
+    border-radius: 8px; /* Bordas arredondadas */
+    transition: opacity 0.3s ease;
+}
+
+/* Classes específicas para mover cada imagem para a esquerda */
+.carousel-item.carrossel-top10 .imagem-container.imagem-1 {
+    margin-left: -17px; /* Move a imagem 1 para a esquerda */
+}
+
+.carousel-item.carrossel-top10 .imagem-container.imagem-2 {
+    margin-left: -112px; /* Move a imagem 2 para a esquerda */
+}
+
+.carousel-item.carrossel-top10 .imagem-container.imagem-3 {
+    margin-left: -90px; /* Move a imagem 3 para a esquerda */
+}
+
+.carousel-item.carrossel-top10 .imagem-container.imagem-4 {
+    margin-left: -94px; /* Move a imagem 4 para a esquerda */
+}
+
+.carousel-item.carrossel-top10 .imagem-container.imagem-5 {
+    margin-left: -117px; /* Move a imagem 5 para a esquerda */
+}
+
+.carousel-item.carrossel-top10 .imagem-container.imagem-6 {
+    margin-left: -60px; /* Move a imagem 6 para a esquerda */
+}
+
+.carousel-item.carrossel-top10 .imagem-container.imagem-7 {
+    margin-left: -50px; /* Move a imagem 7 para a esquerda */
+}
+
+.carousel-item.carrossel-top10 .imagem-container.imagem-8 {
+    margin-left: -40px; /* Move a imagem 8 para a esquerda */
+}
+
+.carousel-item.carrossel-top10 .imagem-container.imagem-9 {
+    margin-left: -30px; /* Move a imagem 9 para a esquerda */
+}
+
+.carousel-item.carrossel-top10 .imagem-container.imagem-10 {
+    margin-left: -20px; /* Move a imagem 10 para a esquerda */
+}
+
+/* Nome do filme (dentro da imagem, na parte inferior) */
+.carousel-item.carrossel-top10 .movie-title {
+    position: absolute; /* Posiciona o título dentro da imagem */
+    bottom: 10px; /* Distância do fundo */
+    left: 50%; /* Centraliza horizontalmente */
+    transform: translateX(-50%); /* Ajusta o posicionamento */
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 90%; /* Largura máxima do texto */
+    z-index: 2; /* Fica acima da imagem */
+}
+
+/* Estilo do botão de play */
+.carousel-item.carrossel-top10 .play-button {
+    position: absolute;
+    top: 50%; /* Centraliza verticalmente */
+    left: 50%; /* Centraliza horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta o posicionamento */
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 4.375rem;
+    height: 4.375rem;
+    font-size: 2rem;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 3; /* Fica acima da imagem */
+    cursor: pointer;
+}
+
+/* Exibe o botão de play ao passar o mouse sobre a imagem */
+.carousel-item.carrossel-top10 .imagem-container:hover .play-button {
+    display: flex;
+}
+
+/* Overlay escura que aparece ao passar o mouse sobre a imagem */
+.carousel-item.carrossel-top10 .imagem-container:hover img.carrossel-top10 {
+    opacity: 0.7;
+}
+
+/* Botões de carrossel */
+.carousel-arrow {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    font-size: 20px;
+    z-index: 100;
+    display: none;
+}
+
+/* Posicionamento do botão de rotação à direita */
+.carousel-arrow.right-arrow {
+    width: 1%;
+    right: 20px;
+}
+
+/* Posicionamento do botão de rotação à esquerda */
+.carousel-arrow.left-arrow {
+    width: 1%;
+    left: 40px;
+}
+
+/* Mostra as setas ao passar o mouse sobre o carrossel */
+.carousel-container.carrossel-top10:hover .right-arrow,
+.carousel-container.carrossel-top10:hover .left-arrow {
+    display: block;
+}
+
+/* Overlay das setas (esquerda e direita) */
+.carousel-overlay {
+    position: absolute;
+    top: 4px;
+    bottom: 0;
+    width: 200px;
+    height: 74%;
+    z-index: 10;
+    pointer-events: none;
+}

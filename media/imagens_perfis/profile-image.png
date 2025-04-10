@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Page not found at /gerenciarperfil/batman</title>
+  <meta name="robots" content="NONE,NOARCHIVE">
+  <style type="text/css">
+    html * { padding:0; margin:0; }
+    body * { padding:10px 20px; }
+    body * * { padding:0; }
+    body { font:small sans-serif; background:#eee; color:#000; }
+    body>div { border-bottom:1px solid #ddd; }
+    h1 { font-weight:normal; margin-bottom:.4em; }
+    h1 span { font-size:60%; color:#666; font-weight:normal; }
+    table { border:none; border-collapse: collapse; width:100%; }
+    td, th { vertical-align:top; padding:2px 3px; }
+    th { width:12em; text-align:right; color:#666; padding-right:.5em; }
+    #info { background:#f6f6f6; }
+    #info ol { margin: 0.5em 4em; }
+    #info ol li { font-family: monospace; }
+    #summary { background: #ffc; }
+    #explanation { background:#eee; border-bottom: 0px none; }
+  </style>
+</head>
+<body>
+  <div id="summary">
+    <h1>Page not found <span>(404)</span></h1>
+    <table class="meta">
+      <tr>
+        <th>Request Method:</th>
+        <td>GET</td>
+      </tr>
+      <tr>
+        <th>Request URL:</th>
+        <td>http://127.0.0.1:8000/gerenciarperfil/batman</td>
+      </tr>
+      
+    </table>
+  </div>
+  <div id="info">
+    
+      <p>
+      Using the URLconf defined in <code>cinespace.urls</code>,
+      Django tried these URL patterns, in this order:
+      </p>
+      <ol>
+        
+          <li>
+            
+                admin/
+                
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                
+                [name='index']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                paginacadastro/
+                [name='paginacadastro']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                verificar-email/
+                [name='verificar_email']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                etapa2_cadastro/
+                [name='etapa2_cadastro']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                etapa3_cadastro/
+                [name='etapa3_cadastro']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                paginalogin/
+                [name='paginalogin']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                cinetrailers/
+                [name='cinetrailers']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                sobreacinetrailers/
+                [name='sobreacinetrailers']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                sobremim/
+                [name='sobremim']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                series/
+                [name='series']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                lancamentos/
+                [name='lancamentos']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                entrar_contato/
+                [name='entrar_contato']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                filmes/
+                [name='filmes']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                doramas/
+                [name='doramas']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                esportes/
+                [name='esportes']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                animes/
+                [name='animes']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                logout/
+                [name='logout']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                escolherusuario/
+                [name='escolherusuario']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                registrar-dispositivo/
+                [name='registrar_dispositivo']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                remover-dispositivo/&lt;int:dispositivo_id&gt;/
+                [name='remover_dispositivo']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                gerenciar_perfis/
+                [name='gerenciar_perfis']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                gerenciarperfil/
+                [name='gerenciarperfil']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                selecionar_perfil/&lt;int:perfil_id&gt;/
+                [name='selecionar_perfil']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                salvar-progresso/
+                [name='salvar_progresso']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                criar_perfil/
+                [name='criar_perfil']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                cinetrailers/
+                [name='cinetrailers']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                password_reset/
+                [name='password_reset']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                password_reset/done/
+                [name='password_reset_done']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                reset/&lt;uidb64&gt;/&lt;token&gt;/
+                [name='password_reset_confirm']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                reset/done/
+                [name='password_reset_complete']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                ajuda/
+                [name='ajuda']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                assinaturas/
+                [name='assinaturas']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                configuracoes/
+                [name='configuracoes']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                conta/
+                [name='conta']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                gerenciar-dispositivos/
+                [name='gerenciar_dispositivos']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                editar-nome-usuario/
+                [name='editar_nome_usuario']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                editar-senha/
+                [name='editar_senha']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                filmes/vingadores-ultimato/
+                [name='vingadores-ultimato']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                series/thelastofus/
+                [name='thelastofus']
+            
+          </li>
+        
+          <li>
+            
+                
+                
+            
+                ^media/(?P&lt;path&gt;.*)$
+                
+            
+          </li>
+        
+          <li>
+            
+                pesquisa/
+                
+            
+          </li>
+        
+          <li>
+            
+                reproducao/
+                
+            
+          </li>
+        
+      </ol>
+      <p>
+        
+        The current path, <code>gerenciarperfil/batman</code>, didn't match any of these.
+      </p>
+    
+  </div>
+
+  <div id="explanation">
+    <p>
+      You're seeing this error because you have <code>DEBUG = True</code> in
+      your Django settings file. Change that to <code>False</code>, and Django
+      will display a standard 404 page.
+    </p>
+  </div>
+</body>
+</html>

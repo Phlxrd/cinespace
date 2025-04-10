@@ -1,0 +1,858 @@
+/* Importando a fonte Poppins do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Orbitron', sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Banner de fundo ocupando a tela inteira */
+.bannerfundo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+}
+
+.bannerfundo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Estilos para o header */
+header {
+    background-color: transparent;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
+
+header h1 {
+    font-size: 48px;
+    margin: 0;
+    font-weight: 600;
+    color: #fff;
+}
+
+.limite-perfis{
+    font-family: 'Poppins';
+    font-weight: bold;
+    font-size: 18px;
+    color: white;
+}
+
+/* Container do perfil */
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 100px auto 0;  /* Mantém a margem superior */
+    padding: 20px;
+    max-width: 800px; /* Aumentei para dar mais espaço */
+    text-align: center;
+    width: 90%;       /* Garante que o container ocupe a largura, mas com margens */
+}
+
+
+.profile-container h1 {
+    font-size: 36px;
+    margin-bottom: 40px;
+    color: #ffffff;
+}
+
+/* Espaços de perfil */
+.profiles {
+    display: flex;
+    /* justify-content: center; Removido o justify-content */
+    flex-wrap: wrap;  /* Adicionado flex-wrap */
+    gap: 30px;
+    margin-bottom: 40px;
+    width: 100%; /* Garante que o container ocupe todo o espaço disponível */
+    justify-content: center; /* Centraliza os perfis */
+
+}
+
+.profile-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+     width: 170px; /* Mantém a largura original */
+    transition: transform 0.3s, background-color 0.3s;
+    cursor: pointer;
+    position: relative;
+    margin-bottom: 20px; /* Adiciona margem inferior para espaçamento */
+}
+
+
+
+.profile-image-container {
+    width: 170px;
+    height: 170px;
+    background-color: #333;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-placeholder:hover {
+    transform: scale(1.05);
+}
+
+.user-name {
+    margin-top: 10px;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.add-profile-icon {
+    background-color: #333;
+    font-size: 48px;
+    color: #888;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: transform 0.3s, background-color 0.3s;
+    cursor: pointer;
+    height: 170px;
+    width: 170px;
+}
+
+.add-profile-icon:hover {
+    transform: scale(1.08);
+}
+
+.create-profile-button {
+    padding: 12px 30px;
+    background-color: #0d09e5;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.create-profile-button:hover {
+    background-color: #ff6b6b;
+    transform: scale(1.05);
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
+}
+
+.manage-profile-button {
+    font-weight: bold;
+    padding: 15px 60px;
+    background-color: #110ea1d7;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.manage-profile-button:hover {
+    background-color: #2521f5;
+    transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(0px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(10);
+    }
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1050;
+    top: 0;
+    right: 0;
+    width: 550px;
+    height: 100%;
+    background: linear-gradient(0deg, #000000, #000000),
+        radial-gradient(circle, rgba(120, 137, 223, 0.255) 0%, rgba(119, 138, 232, 0) 100%);
+    background-blend-mode: overlay;
+    background-attachment: fixed;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.modal.show {
+    transform: translateX(0);
+    opacity: 1;
+    width: 100%;
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1040;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.modal-overlay.show {
+    display: block;
+    opacity: 1;
+}
+
+.modal-content {
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: #fff;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    
+}
+
+.close:hover {
+    opacity: 0.8;
+}
+
+
+
+#profile-details-modal h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.image-carousel {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    overflow-x: auto;
+    padding-bottom: 15px;
+}
+
+.image-category {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 25px;
+    justify-content: center;
+    width: 100%;
+}
+
+.profile-option {
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    transition: border-color 0.3s, transform 0.3s;
+    object-fit: cover;
+    gap: 30px;
+}
+
+.profile-option:hover {
+    border-color: #0a93e2;
+    transform: scale(1.02);
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+.loading-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.loading-spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #1400c6;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* --- Nova regra para desabilitar a transição --- */
+#profile-modal.no-transition {
+    transition: none !important; /* Desabilita TODAS as transições */
+}
+
+
+
+#profile-details-modal {
+    display: none;
+    position: fixed;
+    z-index: 1050;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0deg, #000000, #000000),
+        radial-gradient(circle, rgba(120, 137, 223, 0.255) 0%, rgba(119, 138, 232, 0) 100%);
+    background-blend-mode: overlay;
+    background-attachment: fixed;
+    transform: translateX(0);
+    opacity: 1;
+}
+
+
+/* Container principal */
+.form-container {
+    position: absolute;
+    top: 50%; /* Ajuste para centralizar */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 32px;
+    padding: 40px; /* Aumentar o padding para mais espaço */
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    color: #fff;
+    backdrop-filter: blur(14px);
+    border: 1px solid #5e79f3c2;
+    background: rgba(9, 13, 32, 0.404);
+}
+
+/* Título */
+.form-container h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* Container da imagem de preview */
+.image-preview {
+    margin-bottom: 20px; /* Aumentar espaçamento */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Wrapper da imagem e ícone de lápis */
+.image-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+/* Imagem de preview */
+#selected-image-preview {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: none;
+    opacity: 0.5;
+}
+
+/* Ícone de lápis */
+.edit-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+}
+
+/* Texto "Alterar" */
+.alterar-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 100%;
+    color: #fff;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: -8px;
+}
+
+/* Formulário */
+#create-profile-form {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Aumentar espaçamento entre os campos */
+}
+
+/* Campos do formulário */
+#create-profile-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#create-profile-form .form-group input[type="text"]{
+    height: 25px; /* Altura dos inputs */
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    font-family: 'ABeeZee', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #fff;
+    background: #D4D0E594;
+}
+
+#create-profile-form .form-group input[type="text"]::placeholder,
+#create-profile-form .form-group input[type="number"]::placeholder {
+    color: #fff;
+    opacity: 1;
+}
+
+#create-profile-form .form-group input[type="text"]:focus,
+#create-profile-form .form-group input[type="number"]:focus {
+    border-color: #ffffff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.753);
+    background: #8c8b9194;
+}
+
+/* Estilos para a seção de perfil infantil - APENAS AJUSTES DE TEXTO */
+.infantil-group {
+    margin-top: 6px; /* Reduzi ligeiramente o espaçamento superior */
+}
+
+.infantil-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Mantido center para alinhamento vertical com o toggle */
+}
+
+.infantil-text-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: -2px; /* Subi os textos apenas 2px */
+}
+
+.infantil-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 100%;
+    text-decoration: underline;
+    color: #FFFFFF;
+    margin-bottom: 1px; /* Espaçamento mínimo entre título e subtítulo */
+    text-align: left;
+    padding-left: 2px; /* Pequeno ajuste de alinhamento */
+}
+
+.infantil-subtext {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 100%;
+    color: #554CE8;
+    text-align: left;
+    padding-left: 2px; /* Alinhamento com o título */
+}
+
+/* Estilo específico para o toggle infantil */
+.toggle-switch-infantil {
+    position: relative;
+    display: inline-block;
+    width: 53px;
+    height: 16px;
+}
+
+.toggle-switch-infantil input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider-infantil {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .3s;
+    border-radius: 8px;
+}
+
+.slider-infantil:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .3s;
+    border-radius: 50%;
+}
+
+input:checked + .slider-infantil {
+    background-color: #554CE8;
+}
+
+input:checked + .slider-infantil:before {
+    transform: translateX(37px);
+}
+/* Container do checkbox e texto */
+.termos label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Checkbox customizado */
+.termos input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    background: transparent;
+    transition: all 0.3s ease;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+}
+
+/* Efeito quando marcado */
+.termos input[type="checkbox"]:checked {
+    background: #554CE8;
+    animation: pulse 0.3s ease;
+}
+
+/* Efeito de pulsar suave ao marcar */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Melhor visualização do foco */
+.termos input[type="checkbox"]:focus-visible {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+}
+
+
+/* Botões de Ação */
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+/* Botão Cancelar */
+.btn-cancel {
+    width: 206px;
+    height: 49px;
+    border-radius: 38px;
+    border: 1px solid #0066FF;
+    background: transparent;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-cancel:hover {
+    background-color: rgba(0, 102, 255, 0.1);
+}
+
+/* Botão Salvar */
+.btn-create {
+    width: 244px;
+    height: 51px;
+    border-radius: 38px;
+    background: #2A2671;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-create:hover {
+    background: #3A3571;
+}
+
+
+/* Estilo do botão de fechar */
+.close-left {
+    position: absolute;
+    top: 40px;
+    left: 50px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilo do ícone de fechar */
+.close-icon {
+    width: 24px; /* Ajuste o tamanho conforme necessário */
+    height: 34px; /* Ajuste o tamanho conforme necessário */
+    transition: opacity 0.3s ease;
+}
+
+/* Efeito de hover no ícone de fechar */
+.close-left:hover .close-icon {
+    opacity: 0.8;
+}
+
+#profile-details-modal .close-right {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #0d09e5;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#profile-details-modal .close-right:hover {
+    background-color: #2521f5;
+    transform: scale(1.05);
+}
+
+#create-profile-form a {
+    color: #554CE8;
+    text-decoration: none;
+}
+
+#create-profile-form a:hover {
+    text-decoration: underline;
+}
+/* Inputs de data */
+.date-inputs {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.date-inputs input[type="number"] {
+    background: #D4D0E594;
+    flex: 1;
+    height: 40px; /* Altura maior para os inputs de data */
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    text-align: left;
+    box-sizing: border-box;
+    color: #fff;
+    appearance: none;
+    -moz-appearance: textfield;
+}
+
+/* Remove as setinhas no Chrome, Safari, Edge e Opera */
+.date-inputs input[type="number"]::-webkit-outer-spin-button,
+.date-inputs input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.date-inputs input[type="number"]::placeholder {
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+.date-inputs span {
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+}
+
+
+/* Tablets e celulares grandes (até 768px) */
+@media (max-width: 768px) {
+    .form-container {
+        flex-direction: column; /* Empilha os elementos verticalmente */
+        align-items: center;    /* Centraliza os elementos */
+        width: 90%;            /* Aumenta a largura */
+        padding: 20px;          /* Reduz o padding */
+        gap: 20px;             /* Reduz o espaçamento */
+        margin: 30px auto; /* Reduz margem superior */
+    }
+
+    .image-preview {
+        margin-left: 0; /* Remove a margem lateral */
+    }
+
+    #selected-image-preview {
+        width: 150px;  /* Reduz o tamanho da imagem */
+        height: 150px; /* Reduz o tamanho da imagem */
+    }
+    #profile-name-preview {
+      font-size: 16px; /*Reduz*/
+}
+
+    #create-profile-form {
+        width: 100%; /* O formulário ocupa toda a largura */
+    }
+
+    .form-actions {
+        flex-direction: column; /* Botões em coluna */
+        width: 100%;             /* Ocupam toda a largura */
+    }
+
+    .btn-create,
+    .btn-cancel {
+        width: 100%; /* Botões ocupam toda a largura */
+    }
+
+    /* Modal */
+    .modal.show,
+    .modal {
+        width: 100%; /* Ocupa toda a largura */
+    }
+
+    .modal-content {
+        padding-left: 10px;  /*Reduz*/
+        padding-right: 10px; /*Reduz*/
+    }
+
+    /* Botões de fechar */
+    #profile-details-modal .close-left,
+    #profile-details-modal .close-right {
+        font-size: 14px;
+        padding: 8px 16px;
+}
+
+}
+
+/* Celulares (até 480px) */
+@media (max-width: 480px) {
+    .form-container {
+        padding: 15px;  /* Reduz ainda mais o padding */
+        border-radius: 15px;  /*Borda*/
+    }
+
+    #selected-image-preview {
+        width: 120px; /* Reduz mais */
+        height: 120px;/* Reduz mais */
+    }
+    #profile-name-preview {
+      font-size: 14px;
+}
+
+      #create-profile-form .form-group label {
+    font-size: 14px; /* Reduz o tamanho da fonte do label */
+}
+
+#create-profile-form .form-group input[type="text"],
+#create-profile-form .form-group input[type="date"] {
+    font-size: 12px; /* Reduz o tamanho da fonte dos inputs */
+    padding: 10px;   /* Reduz o padding dos inputs */
+}
+
+.toggle-group label{
+     font-size: 14px; /*Reduz*/
+}
+
+    /* Modal */
+    #profile-details-modal h2 {
+        font-size: 28px; /* Reduz */
+    }
+    .modal-content {
+         padding: 0 5px; /*Reduz*/
+}
+
+/* Termos */
+.termos label {
+    font-size: 14px; /* Reduz */
+}
+ .termos input[type="checkbox"] {
+      width: 16px;  /*Reduz*/
+      height: 16px; /*Reduz*/
+}
+
+}
+
+/* Celulares muito pequenos (até 320px) */
+@media (max-width: 320px) {
+
+    .form-container {
+        padding: 10px; /* Reduz ao máximo */
+    }
+}

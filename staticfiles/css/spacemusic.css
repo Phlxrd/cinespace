@@ -1,0 +1,1702 @@
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
+    color: #e5e5e5;
+    background: #0A101C;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* Distribui os itens */
+    z-index: 1000;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease;
+}
+
+header.scrolled {
+    background-color: #000000a1;
+    backdrop-filter: blur(8px);
+}
+
+/* Logo à esquerda */
+.site-logo {
+    flex: 1;
+    /* Ocupa espaço à esquerda */
+    display: flex;
+    justify-content: flex-start;
+    /* Alinha à esquerda */
+}
+
+.site-logo .logo-text {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 35.5px;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    line-height: 68.25px;
+    letter-spacing: 0%;
+}
+
+/* Barra de pesquisa no centro */
+.search-container {
+    display: flex;
+    align-items: center;
+    width: 580px;
+    /* Largura fixa para a barra de pesquisa */
+    gap: 12px;
+    background: #1C294E;
+    backdrop-filter: blur(8px);
+    height: 32px;
+    border-radius: 67px;
+    padding: 12px 16px;
+    margin: 0 auto;
+    /* Centraliza no espaço disponível */
+}
+
+#search-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
+#search-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+#search-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+#search-button img {
+    width: 24px;
+    height: 24px;
+}
+
+.menu-usuario {
+    flex: 1;
+    /* Ocupa espaço à direita */
+    display: flex;
+    justify-content: flex-end;
+    /* Alinha o container à direita */
+    align-items: center;
+    gap: 15px;
+    margin-right: 20px;
+    /* Espaçamento à direita */
+}
+
+/* Ícone de perfil */
+.perfil-image {
+    width: 50px;
+    height: 46px;
+    border-radius: 50%;
+    order: 1;
+    /* Coloca o ícone de perfil à esquerda */
+}
+
+/* Informações do usuário */
+.usuario-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    order: 2;
+    /* Coloca as informações no meio */
+}
+
+/* Seta à direita das informações */
+.usuario-seta {
+    width: 18px;
+    height: 8px;
+    cursor: pointer;
+    order: 3;
+    /* Coloca a seta à direita */
+}
+
+.usuario-nome {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    color: #FFFFFF;
+}
+
+.usuario-plano {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 120%;
+    letter-spacing: 0%;
+    color: #949494;
+}
+
+/* Container principal que envolve as sidebars e o conteúdo central */
+.main-container {
+    display: flex;
+    height: calc(100vh - 112px);
+    /* Altura total menos o player */
+    margin-top: 115px;
+    /* Espaço para o header */
+    justify-content: center;
+    /* Centraliza o conteúdo */
+}
+
+
+/* Sidebar aberta */
+.sidebar {
+    width: 243px;
+    height: 99vh;
+    background: #212121C9;
+    border-top-right-radius: 34px;
+    overflow-y: auto;
+    z-index: 999;
+    scrollbar-width: none;
+    transition: width 0.4s ease;
+    /* Adiciona transição suave */
+}
+
+/* Remove a barra de rolagem padrão no Chrome, Safari e outros navegadores WebKit */
+.sidebar::-webkit-scrollbar {
+    width: 0;
+    /* Remove a barra de rolagem */
+}
+
+
+/* Sidebar fechada */
+.sidebar.closed {
+    width: 60px;
+}
+
+/* Ícone de fechar */
+.close-sidebar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.close-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Ícone de abrir */
+.open-sidebar {
+    display: none;
+    /* Inicialmente oculto */
+    justify-content: center;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.open-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Quando a sidebar está fechada, mostra o ícone de abrir */
+.sidebar.closed .open-sidebar {
+    display: flex;
+}
+
+/* Quando a sidebar está fechada, oculta os textos e ajusta os ícones */
+.sidebar.closed .menu-text {
+    display: none;
+}
+
+.sidebar.closed .menu-item {
+    justify-content: center;
+}
+
+.sidebar.closed .menu-icon {
+    margin-right: 0;
+    /* Remove a margem direita */
+}
+
+
+/* Itens do Menu */
+.menu-items {
+    padding: 20px;
+}
+
+/* Estilo para os links no menu lateral */
+.menu-category a {
+    color: inherit;
+    /* Herda a cor do texto do elemento pai */
+    text-decoration: none;
+    /* Remove o sublinhado */
+}
+
+.menu-category {
+    margin-bottom: 35px;
+}
+
+.category-title {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: #949494;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.menu-item:hover {
+    background: linear-gradient(270deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.menu-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+}
+
+.menu-text {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #949494;
+}
+
+
+
+.main-content {
+    height: 89vh;
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    /* Mantém a rolagem */
+    max-width: calc(100% - 580px);
+    margin: 0 auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    /* Para Firefox */
+    -ms-overflow-style: none;
+    /* Para Internet Explorer e Edge */
+}
+
+.main-content::-webkit-scrollbar {
+    display: none;
+    /* Para Chrome, Safari e Opera */
+}
+
+
+.hidden {
+    display: none;
+    /* Oculta os elementos */
+}
+
+.search-results-title {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    color: #FFFFFF;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Cabeçalho da Seção */
+.section-header {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+    /* Para posicionar o "Ver tudo" corretamente */
+
+}
+
+.section-title {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    color: #FFFFFF;
+}
+
+.see-all {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: right;
+    color: #3E46AB;
+    text-decoration: none;
+    cursor: pointer;
+    position: absolute;
+    /* Posiciona o "Ver tudo" acima do último item */
+    right: 0;
+    /* Alinha à direita */
+    top: 0;
+    /* Alinha ao topo */
+}
+
+/* Grid de Álbuns (Agora em uma única linha) */
+.album-grid {
+    display: flex;
+    /* Altera para flexbox */
+    gap: 53px;
+    /* Espaçamento entre os álbuns */
+    margin-bottom: 50px;
+}
+
+/* Item do Álbum */
+.album-item {
+    flex: 0 0 auto;
+    /* Impede que os itens cresçam ou encolham */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.album-cover {
+    width: 153px;
+    height: 153px;
+    border-radius: 25px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.album-details {
+    text-align: center;
+}
+
+.album-title {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    color: #FFFFFF;
+    margin-bottom: 4px;
+}
+
+.album-info {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 120%;
+    letter-spacing: 0%;
+    color: #949494;
+}
+
+
+
+/* Grid de Artistas */
+.artista-grid {
+    display: flex;
+    gap: 53px;
+    /* Espaçamento entre os artistas */
+    margin-bottom: 50px;
+}
+
+/* Item do Artista */
+.artista-item {
+    flex: 0 0 auto;
+    /* Impede que os itens cresçam ou encolham */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 189px;
+    height: 241px;
+    background-color: #33373B5E;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Imagem do Artista */
+.artista-imagem {
+    width: 180.22px;
+    height: 177px;
+    border-radius: 15px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+/* Detalhes do Artista */
+.artista-details {
+    text-align: center;
+}
+
+/* Título do Artista */
+.artista-title {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    margin-bottom: 5px;
+}
+
+/* Texto "Artista" */
+.artista-info {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 120%;
+    letter-spacing: 0%;
+    color: #FFFFFF;
+}
+
+
+/* Lista de Músicas Populares */
+.popular-songs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.popular-item {
+    background: #33373B5E;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.popular-item:hover {
+    background: rgba(51, 55, 59, 0.747);
+}
+
+.popular-cover {
+    width: 54px;
+    height: 54px;
+    border-radius: 8px;
+    flex-shrink: 0;
+    margin-right: 10px;
+}
+
+.heart-icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+    margin-right: 30px;
+}
+
+.song-info-popular {
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
+    /* Movendo mais para a direita */
+    margin-left: 20px;
+}
+
+.song-title-popular {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    color: #FFFFFF;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.song-subtitle-popular {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 10px;
+    color: #949494;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.song-details-popular {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    margin-left: 20px;
+}
+
+.song-album-popular {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    color: #FFFFFF;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    flex: 1;
+}
+
+.song-duration-popular {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+}
+
+.song-duration-popular span {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    color: #FFFFFF;
+}
+
+.options-icon-popular {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-left: 150px;
+    /* Movendo o ícone dos três pontinhos mais para a direita */
+}
+
+.resultado-container {
+    width: 45%;
+    height: 330px;
+    background-color: #33373B5E;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* Alinhar conteúdo à esquerda */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.resultado-imagem {
+    width: 100%;
+    height: 200px;
+    border-radius: 15px;
+    object-fit: cover;
+    /* Mantém a proporção da imagem e cobre o contêiner */
+    object-position: center 30%;
+    /* Desce a imagem 20% a partir do topo */
+    margin-bottom: 10px;
+}
+
+.resultado-info {
+    text-align: left;
+    /* Texto alinhado à esquerda */
+    margin-bottom: 10px;
+    padding-left: 10px;
+    /* Espaçamento à esquerda */
+}
+
+.resultado-titulo {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    margin-top: 10px;
+}
+
+.resultado-subtitulo {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 120%;
+    letter-spacing: 0%;
+    color: #FFFFFF;
+}
+
+.play-pause-container-resultado {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    /* Movido 10px para a esquerda */
+    width: 45px;
+    /* Aumentado em 2px */
+    height: 45px;
+    /* Aumentado em 2px */
+    background-color: #3E46AB;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0px 0px 18px 0px #FFFFFF4D;
+    margin-bottom: 10px;
+}
+
+.play-icon-resultado,
+.pause-icon-resultado {
+    width: 20px;
+    height: 20px;
+}
+
+.pause-icon-resultado {
+    display: none;
+}
+
+
+/* Banner central */
+.banner {
+    position: relative;
+    /* Para posicionar as setas e o overlay */
+    background-image: url('https://s3-alpha-sig.figma.com/img/b841/3a9f/dec356e8e1d15266d9e53619b410b4bf?Expires=1742169600&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=qxayh~Db3TeI~5w-rOabwMLIsDQozAoEHaNzVdn91GdvGQP0Flwgt2d-84ynyeSDHfjyH1kWqc57fjcIHTIk66sjcRmqO9v3F5-kZZuM25loDbf5NHCtVikOb-SWh--zQRBBEPWkUpOOjrlxhRKaQoP2XVaygYRQWMTRXpSY7pYNBK997YBDNUBFNQPEpsv0UZuotfV10SARH3nD~fz9fGkyj9wyw4eOxOGKgG7wJ-Ca7ijoE9tX5CpolUiGYQPVEJrteJO~vCFf~lT0OAnPR0MABOJCkxP~VA3vbWDv1SU9UZCOk4Wt8~7t547sWpAqiLy-2fuwkNumdqr5gk7CPw__');
+    /* Imagem de fundo */
+    background-size: cover;
+    /* Cobrir todo o banner */
+    background-position: center;
+    /* Centralizar a imagem */
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 258px;
+    /* Altura aumentada */
+    width: calc(100% - 45px);
+    /* Largura total menos a margem direita */
+    margin-right: 20px;
+    /* Margem à direita para não encostar na sidebar */
+    overflow: hidden;
+    /* Esconde o overflow */
+    background-color: rgba(70, 68, 68, 0.377);
+}
+
+/* Overlay para escurecer a imagem de fundo */
+.banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    /* Overlay preto com 50% de opacidade */
+    z-index: 1;
+}
+
+.banner-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    /* Garante que o conteúdo fique acima do overlay */
+}
+
+.banner-left {
+    margin-left: 92px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 82%;
+}
+
+.artist-name-2 {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 50px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    color: #FFFFFF;
+}
+
+.verified,
+.monthly-listeners {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.verified span,
+.monthly-listeners span {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 120%;
+    letter-spacing: 0%;
+    color: #FFFFFF;
+}
+
+.monthly-listeners .listeners-text {
+    color: #7F7F7F;
+}
+
+.banner-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    /* Move os botões mais para baixo */
+}
+
+.play-button,
+.follow-button {
+    padding: 14px 24px;
+    border-radius: 44px;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* Espaço entre ícone e texto */
+}
+
+.play-button {
+    background: #3E46AB;
+    color: #FFFFFF;
+    border: none;
+}
+
+.follow-button {
+    background: transparent;
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+}
+
+/* Ícone de verificado no botão "Seguindo" */
+.follow-button .verified-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.banner-right {
+    position: absolute;
+    right: 49px;
+    top: 70%;
+    transform: translateY(-50%);
+}
+
+.banner-right img {
+    width: 404px;
+    height: 404px;
+    border-radius: 8px;
+}
+
+/* Controles do banner (setas) */
+.banner-controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    /* Centraliza verticalmente */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 2;
+    /* Garante que as setas fiquem acima do overlay */
+}
+
+.arrow-left,
+.arrow-right {
+    cursor: pointer;
+    width: 16px;
+    height: 33px;
+}
+
+/* Sidebar direita */
+.right-sidebar {
+    margin-top: 15px;
+    width: 288px;
+    /* Largura fixa da sidebar direita */
+    height: 100%;
+    /* Altura total do container */
+    background: #212121C9;
+    border-top-left-radius: 34px;
+    overflow: hidden;
+    /* Esconde o overflow geral */
+    z-index: 998;
+    /* Fica abaixo da primeira sidebar */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Título e Link "Ver mais" */
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.sidebar-title {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    color: #FFFFFF;
+}
+
+.see-more {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 120%;
+    letter-spacing: 0%;
+    text-align: right;
+    text-decoration: underline;
+    color: #1DB954;
+    cursor: pointer;
+}
+
+/* Imagem de Destaque */
+.featured-artist {
+    position: relative;
+    width: calc(100% + 40px);
+    /* Cobrir toda a largura, incluindo o padding */
+    margin-left: -20px;
+    /* Compensar o padding da sidebar */
+    height: 297px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: 0;
+    /* Remover borda arredondada */
+}
+
+.artist-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.artist-name {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    padding: 10px 20px;
+    background: #121212A3;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 42px;
+    color: #FFFFFF;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+/* Carrossel de Bolinhas */
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.dot {
+    width: 8px;
+    height: 12px;
+    background: #FFFFFF;
+    /* Bolinha não ativa */
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.dot.active {
+    background: #FFFFFF;
+    /* Bolinha ativa */
+}
+
+
+/* Categoria "Lista de Reprodução" / Histórico */
+.recently-played {
+    flex: 1;
+    /* Ocupa o espaço restante */
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    /* Permite rolagem apenas aqui */
+    margin-bottom: 5px; /* Mantém a margem original, ajuste se precisar */
+    padding-right: 5px; /* Espaço para a barra de rolagem não sobrepor conteúdo */
+
+    /* Estilos de barra de rolagem fina */
+    scrollbar-width: thin; /* Para Firefox */
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent; /* Cor da barra e trilha para Firefox */
+}
+
+/* Estilos Webkit para a barra de rolagem */
+.recently-played::-webkit-scrollbar {
+    width: 4px;
+}
+
+.recently-played::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+}
+
+/* Container da Lista de Músicas */
+#recently-played-list {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Item Individual da Música */
+.song-item-recent {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 268px;
+    height: 54.81px;
+    border-radius: 10px;
+    background: #655D782E; /* Cor padrão para itens não selecionados */
+    margin-bottom: 8px;
+    position: relative; /* Para o pseudo-elemento da borda */
+}
+
+/* Efeito hover - mostra borda azul apenas em itens não selecionados */
+.song-item-recent:hover:not(.selected) {
+    background: rgba(101, 93, 120, 0.4); /* Cor levemente mais escura no hover */
+}
+
+.song-item-recent:hover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px;
+    padding: 1px;
+    background: linear-gradient(90deg, rgba(0, 4, 255, 0.63) 0%, rgba(125, 128, 255, 0.63) 100%);
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+/* Item que está tocando atualmente */
+.song-item-recent.playing {
+    background: rgba(101, 93, 120, 0.4); /* Cor intermediária quando está tocando */
+}
+
+/* Item selecionado (clicado) */
+.song-item-recent.selected {
+    background: #655D7899; /* Cor mais escura para item selecionado */
+}
+
+.song-item-recent.selected::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px;
+    padding: 1px;
+    background: linear-gradient(90deg, rgba(0, 4, 255, 0.63) 0%, rgba(125, 128, 255, 0.63) 100%);
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+/* Restante do CSS */
+.song-thumbnail-recent {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    object-fit: cover;
+    margin: 0 12px;
+    flex-shrink: 0;
+}
+
+.song-details-recent {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.song-title-recent {
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: 'Manrope', sans-serif;
+    line-height: 1.3;
+    margin-bottom: 2px;
+}
+
+.song-artist-recent {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: 'Manrope', sans-serif;
+    line-height: 1.3;
+}
+
+.song-time-recent {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0 12px;
+    white-space: nowrap;
+    font-family: 'Manrope', sans-serif;
+    flex-shrink: 0;
+}
+/* -- Estilos para o cabeçalho da seção (se ainda for relevante) -- */
+/* Os estilos abaixo são para o título "Lista de Reprodução" se ele
+   ainda existir acima da div .recently-played ou .song-list */
+
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px; /* Ajustado para dar mais espaço antes da lista */
+    padding-right: 5px; /* Alinha com padding do .recently-played */
+}
+
+.category2-title {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 21px; /* Talvez um pouco menor? 18px? */
+    line-height: 1.4;
+    letter-spacing: 0%;
+    color: #FFFFFF;
+}
+
+.player-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
+/* Parte da Esquerda: Capa, Nome, Artista e Coração */
+.song-info {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.song-cover {
+    width: 57;
+    height: 56;
+    border-radius: 14px;
+    margin-right: 16px;
+    box-shadow: 0px 15px 17px -10px #0000009C;
+
+}
+
+.song-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.song-title {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 150%;
+    color: #FFFFFF;
+}
+
+.song-artist {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 120%;
+    color: #D2D2D2;
+}
+
+.song-actions {
+    margin-left: 20px;
+}
+
+.heart-icon {
+    height: 22px;
+    cursor: pointer;
+}
+
+
+/* Container do Player */
+.music-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 112px;
+    background: #2c2c2c48;
+    box-shadow: 0px -25px 100px 0px #101010a6;
+    backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 0 20px;
+    /* Adiciona padding para evitar que o conteúdo encoste nas bordas */
+    box-sizing: border-box;
+    /* Garante que o padding não aumente a largura total */
+}
+
+.player-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 100%;
+    /* Ocupa toda a largura disponível */
+}
+
+.song-info {
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 200px;
+    transform: translateX(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.song-info.has-song {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.song-cover {
+    width: 64px;
+    height: 64px;
+    border-radius: 8px;
+    margin-right: 16px;
+    flex-shrink: 0;
+    /* Impede que a capa encolha */
+}
+
+.song-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.song-title {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 150%;
+    color: #FFFFFF;
+    white-space: nowrap;
+    /* Impede que o texto quebre em várias linhas */
+    overflow: hidden;
+    /* Esconde o texto que ultrapassar */
+    text-overflow: ellipsis;
+    /* Adiciona "..." se o texto for muito longo */
+}
+
+.song-artist {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 120%;
+    color: #D2D2D2;
+    white-space: nowrap;
+    /* Impede que o texto quebre em várias linhas */
+    overflow: hidden;
+    /* Esconde o texto que ultrapassar */
+    text-overflow: ellipsis;
+    /* Adiciona "..." se o texto for muito longo */
+}
+
+/* Parte do Meio: Barra de Progresso e Controles */
+.player-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 2;
+    min-width: 400px;
+    /* Largura mínima para os controles */
+}
+
+.progress-bar {
+    position: relative;
+    width: 100%;
+    height: 4px;
+    background-color: #FFFFFF0A;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.progress {
+    height: 100%;
+    background-color: #3E46AB;
+    border-radius: 2px;
+    width: 0%;
+    position: relative;
+    transition: width 0.1s ease;
+}
+
+.progress-thumb {
+    width: 12px;
+    height: 12px;
+    background-color: #3E46AB;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    left: 0%;
+    transition: left 0.1s ease;
+    pointer-events: none;
+    /* Impede que a bolinha interfira com os cliques */
+    z-index: 1;
+    /* Garante que a bolinha fique na frente */
+}
+
+/* Estilos para os controles */
+.control-buttons {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    /* Espaçamento entre os ícones */
+    justify-content: center;
+    margin-bottom: 10px;
+    /* Espaço entre os controles e a barra de progresso */
+}
+
+/* Adiciona cursor pointer nos botões */
+.proxima,
+.aleatorio,
+.looping,
+.anterior,
+.play-pause-container,
+.volume-icon,
+.heart-icon {
+    cursor: pointer;
+}
+
+.proxima,
+.aleatorio,
+.looping,
+.anterior {
+    width: 16px;
+    height: 16px;
+}
+
+.play-pause-container {
+    width: 30.00004005432129;
+    height: 31.66666603088379;
+    border-radius: 99.17px;
+    padding: 8.33px;
+    gap: 3.33px;
+    background: #3E46AB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s ease;
+    box-shadow: 0px 0px 18px 0px #FFFFFF4D;
+}
+
+.play-icon,
+.pause-icon {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+}
+
+.pause-icon.playing {
+    transform: scale(1.2);
+}
+
+/* Estilos para o tempo */
+.time-display {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    color: #949494;
+    margin-top: 5px;
+    /* Espaço entre a barra e o tempo */
+}
+
+/* Parte da Direita: Volume e Favoritos */
+.right-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+    justify-content: flex-end;
+    min-width: 200px;
+    /* Largura mínima para os ícones da direita */
+}
+
+.favorite-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    /* Impede que o ícone encolha */
+}
+
+.volume-control {
+    margin-right: 80px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.volume-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.volume-slider-container {
+    width: 140px;
+    height: 4px;
+    position: relative;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.volume-slider-background {
+    width: 100%;
+    height: 100%;
+    background-color: #656565;
+    border-radius: 2px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.volume-slider-progress {
+    height: 100%;
+    background-color: #fff;
+    border-radius: 2px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    transition: background-color 0.2s ease;
+}
+
+/* Hover: barra roxa */
+.volume-slider-container:hover .volume-slider-progress {
+    background-color: #7E57C2;
+}
+
+/* Arrastando: barra roxa */
+.is-dragging .volume-slider-progress {
+    background-color: #7E57C2 !important;
+}
+
+.volume-slider-thumb {
+    width: 12px;
+    height: 12px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    pointer-events: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Seção de Resultados da Pesquisa */
+.search-results-pesquisa {
+    display: none;
+    /* Oculta inicialmente */
+}
+
+.search-results-pesquisa.hidden {
+    display: none;
+}
+
+.search-results-pesquisa:not(.hidden) {
+    display: block;
+    /* Exibe quando a pesquisa estiver ativa */
+}
+
+/* Título da Pesquisa */
+.search-results-title-pesquisa {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    color: #FFFFFF;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Cabeçalho da Seção */
+.section-header-pesquisa {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.section-title-pesquisa {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    color: #FFFFFF;
+}
+
+/* Grid de Álbuns */
+.album-grid-pesquisa {
+    display: flex;
+    gap: 53px;
+    margin-bottom: 50px;
+}
+
+.album-item-pesquisa {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.album-cover-pesquisa {
+    width: 153px;
+    height: 153px;
+    border-radius: 25px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.album-details-pesquisa {
+    text-align: center;
+}
+
+.album-title-pesquisa {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    color: #FFFFFF;
+    margin-bottom: 4px;
+}
+
+.album-info-pesquisa {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 120%;
+    letter-spacing: 0%;
+    color: #949494;
+}
+
+/* Grid de Artistas */
+.artista-grid-pesquisa {
+    display: flex;
+    gap: 53px;
+    margin-bottom: 50px;
+}
+
+.artista-item-pesquisa {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 189px;
+    height: 241px;
+    background-color: #33373B5E;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.artista-imagem-pesquisa {
+    width: 180.22px;
+    height: 177px;
+    border-radius: 15px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.artista-details-pesquisa {
+    text-align: center;
+}
+
+.artista-title-pesquisa {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    margin-bottom: 5px;
+}
+
+.artista-info-pesquisa {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 120%;
+    letter-spacing: 0%;
+    color: #FFFFFF;
+}
+
+/* Lista de Músicas Populares */
+.popular-songs-pesquisa {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.popular-item-pesquisa {
+    background: #33373B5E;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.popular-item-pesquisa:hover {
+    background: rgba(51, 55, 59, 0.747);
+}
+
+.popular-cover-pesquisa {
+    width: 54px;
+    height: 54px;
+    border-radius: 8px;
+    flex-shrink: 0;
+    margin-right: 10px;
+}
+
+.song-info-popular-pesquisa {
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
+    margin-left: 20px;
+}
+
+.song-title-popular-pesquisa {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    color: #FFFFFF;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.song-subtitle-popular-pesquisa {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 10px;
+    color: #949494;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.song-details-popular-pesquisa {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    margin-left: 20px;
+}
+
+.song-album-popular-pesquisa {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    color: #FFFFFF;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    flex: 1;
+}
+
+.song-duration-popular-pesquisa {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.song-duration-popular-pesquisa span {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    color: #FFFFFF;
+}
+
+.options-icon-popular-pesquisa {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-left: 150px;
+}
+
+.no-results-message {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 20px;
+}

@@ -1,0 +1,1307 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+    /* Remove rolagem horizontal */
+    font-family: 'inter', sans-serif;
+    /* Nova fonte */
+    color: #e5e5e5;
+    background: linear-gradient(0deg, #000000, #000000),
+    radial-gradient(circle, rgba(120, 137, 223, 0.255) 0%, rgba(119, 138, 232, 0) 100%);
+background-blend-mode: overlay; /* Importante para combinar os gradientes */
+background-attachment: fixed;
+}
+
+.bannerfundo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Garante que fique atrás de todo o conteúdo */
+    pointer-events: none;
+    opacity: 0.40;
+}
+
+.bannerfundo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Header */
+header {
+    background: linear-gradient(0deg, #000000, #000000),
+        radial-gradient(50% 50% at 50% 50%, rgba(17, 53, 233, 0.46) 0%, rgba(119, 138, 232, 0) 100%);
+        /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 30px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.site-title {
+    font-family: 'Orbitron', sans-serif;
+    margin-left: 35px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.site-title a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.header-buttons {
+    font-family: 'inter', sans-serif;
+    display: flex;
+    gap: 15px;
+    margin-right: 18px;
+}
+
+.botao-entrar {
+    padding: 8px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background-color: transparent;
+    /* Fundo inicial transparente */
+    border: 2px solid #fff;
+    /* Borda branca */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+.botao-criar-conta {
+    color: #fff;
+    padding: 8px 20px;
+    text-decoration: none;
+    border-radius: 30px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+    background: linear-gradient(273.22deg, #030457 4.74%, rgba(4, 3, 85, 0.58) 103.12%);
+    position: relative;
+    z-index: 2;
+    /* Garante que o botão esteja acima da opacidade */
+}
+
+
+/* Ambos os botões ficam vermelhos ao passar o mouse */
+.botao-entrar:hover {
+    background-color: #05066d5b;
+    /* Fundo vermelho */
+    color: #fff;
+    /* Texto branco */
+}
+
+
+.botao-criar-conta:hover {
+    background-color: #3235f5;
+}
+
+/* Estilo do header quando transparente */
+.header-transparent {
+    background-color: rgba(22, 1, 1, 0.103);
+    /* Fundo semi-transparente */
+    transition: background-color 0.3s ease;
+    /* Transição suave */
+}
+
+/* Banner de Filmes */
+.banner {
+    position: relative;
+    width: 100%;
+    height: 90vh; /* Altura fixa */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    text-align: center;
+    z-index: 1; /* Garante que o banner fique abaixo do planeta */
+}
+
+/* Pseudo-elemento para aplicar opacidade na imagem de fundo */
+.banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.20); /* Opacidade de 0.20 */
+    z-index: 1; /* Garante que fique acima da imagem de fundo, mas abaixo do conteúdo */
+}
+
+.planeta-container {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Ajuste conforme necessário */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.planeta {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    opacity: calc(0.70);
+}
+
+.banner-overlay {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #fff;
+}
+
+.banner-overlay h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 45.5px;
+    font-weight: 600;
+    line-height: 68.25px;
+    margin: 0;
+}
+
+.banner-overlay .banner-subtitle {
+    font-family: 'ABeeZee', sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 80px;
+    margin: 10px 0;
+}
+
+.banner-overlay .banner-tagline {
+    font-family: 'Abel', sans-serif;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 49px;
+    margin: 10px 0 20px 0;
+}
+
+.botao-banner {
+    color: #fff;
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    text-decoration: none;
+    border-radius: 30px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(273.22deg, #04167c 4.74%, rgba(94, 83, 255, 0.58) 103.12%);
+}
+
+.botao-banner:hover {
+    background-color: #f53232;
+}
+
+/* Efeito na parte inferior do banner do planeta */
+.banner-bottom-effect {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 175px; /* Altura do efeito */
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.116)),;  /* Gradiente para desaparecer */   
+    z-index: 2; /* Garante que fique acima do planeta, mas abaixo do conteúdo */
+}
+
+
+
+/* Resto do conteúdo */
+.planos {
+    position: relative;
+    z-index: 2;
+    padding: 80px 20px;
+    text-align: center;
+    color: #fff;
+    background: radial-gradient(62.23% 62.23% at 60.43% 73.72%, rgba(255, 254, 254, 0.15) 0%, rgba(255, 255, 255, 0) 100%);
+    background-blend-mode: luminosity, multiply, overlay;
+    background-color: rgba(61, 31, 171, 0.08);
+    backdrop-filter: blur(80px);
+    border: 1.5px solid;
+    border-image-source: linear-gradient(180deg, rgba(255, 255, 255, 0.103) 0%, rgba(255, 255, 255, 0.25) 100%);
+    border-image-slice: 1;
+    max-width: 88%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 24px;
+    height: auto;
+    min-height: 700px;
+}
+
+.section-title {
+    margin-top: -40px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.section-subtitle {
+    font-family: 'ABeeZee', sans-serif;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.planos-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Espaço reduzido entre os cards */
+    flex-wrap: wrap;
+}
+
+/* Container do seletor de plano */
+.plano-selector {
+    background: #FFFFFF26; /* Fundo com transparência */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 40px; /* Espaço abaixo do seletor */
+    width: 220px; /* Largura reduzida */
+    height: 48px; /* Altura reduzida */
+    border-radius: 100px; /* Bordas arredondadas */
+    margin-left: auto; /* Centraliza horizontalmente */
+    margin-right: auto; /* Centraliza horizontalmente */
+    padding: 0 10px; /* Espaçamento interno */
+}
+
+/* Estilo base dos botões */
+.plano-selector button {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 14.8px;
+    line-height: 16px;
+    letter-spacing: 1.6px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    background: transparent;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+/* Botão selecionado */
+.plano-selector button.selected {
+    background: #FFFFFF;
+    color: #000000;
+}
+
+/* Efeito hover para os botões */
+.plano-selector button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Efeito hover para o botão selecionado */
+.plano-selector button.selected:hover {
+    background: #FFFFFF;
+    color: #000000;
+}
+
+
+/* Estilo do card do plano */
+.plano-card {
+    width: 380px; /* Largura padrão para telas grandes */
+    height: auto;
+    text-align: center;
+    color: #fff;
+    border-radius: 15px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1s ease-in-out;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+/* Cards laterais (Lunar e Multiverso) */
+.plano-card.lunar {
+    background: var(--Glass-Morphism-Glass-White, #FFFFFF1A);
+    border: 1px solid #0b32a0;
+}
+
+.plano-card.supernova,
+.plano-card.multiverso {
+    background: #1E20249E;
+    border: 1px solid var(--Glass-Morphism-Glass-Stroke, #8692A633);
+    backdrop-filter: blur(76px);
+}
+
+.plano-card.multiverso {
+    background: #1818189E;
+}
+
+/* Imagem no Topo do Card */
+.plano-card img {
+    width: 100%; /* Ocupa a largura total do card */
+    height: 200px; /* Altura fixa para a imagem */
+    object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer */
+    border-radius: 15px 15px 0 0; /* Arredonda apenas os cantos superiores */
+}
+
+/* Cabeçalho do Plano (Nome, Preço e "Mais usado") */
+.plano-header {
+    margin-bottom: 40px; /* Espaço abaixo do cabeçalho */
+}
+/* Informações do Card */
+.plano-info {
+    padding: 0 20px; /* Espaçamento interno */
+    text-align: left; /* Alinhar o conteúdo à esquerda */
+}
+
+
+
+/* Título do Plano */
+.plano-card .plano-info h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: -1.1%;
+    margin-bottom: 10px; /* Espaço abaixo do título */
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Alinha o título e o "Mais usado" */
+}
+
+/* Texto "Mais usado" */
+.mais-usado{
+    border: 1px solid #7468FC;
+    width: 81px;
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 12px;
+    line-height: 8px;
+    text-align: center;
+   color: #7468FC;
+   margin-left: 240px;
+   margin-top: -40px;
+}
+
+
+/* Preço do Plano */
+.plano-card .plano-info .price {
+    font-family: 'ABeeZee', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #fff;
+    margin: 0; /* Remove margem padrão */
+}
+.plano-card .price small {
+    font-size: 12px; /* Tamanho do texto "/mês" */
+    margin-left: 5px; /* Espaço entre o preço e "/mês" */
+}
+
+.plano-card .price span {
+    font-size: 16px; /* Tamanho do preço */
+    font-weight: bold; /* Destacar o preço */
+}
+/* Lista de Benefícios */
+.plano-card ul {
+    list-style: none;
+    padding: 0;
+    text-align: left; /* Alinhar os benefícios à esquerda */
+    margin: 20px 0;
+}
+
+.plano-card ul li {
+    font-family: 'ABeeZee', sans-serif;
+    font-size: 16px; /* Aumentar o tamanho dos benefícios */
+    margin-bottom: 20px; /* Aumentar o espaçamento entre os benefícios */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ECECEC; /* Cor dos benefícios */
+}
+
+/* Ícone de Verificado */
+.plano-card ul li img {
+    width: 16px;
+    height: 13px;
+}
+
+
+/* Botão do Plano */
+.botao-plano {
+    padding: 12px;
+    background: #8888884D;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 90%; /* Aumentar a largura do botão */
+    height: 23px; /* Altura reduzida do botão */
+    margin-top: 20px; /* Espaço acima do botão */
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    text-align: center; /* Remover centralização do texto */
+    text-decoration: none; /* Remove a linha branca (sublinhado) */
+    margin-bottom: 10px;
+}
+
+
+.plano-card.supernova .botao-plano{
+margin-top: 80px;
+}
+
+.plano-card.lunar .botao-plano{
+    margin-top: 100px;
+}
+
+.plano-card.supernova .botao-plano,
+.plano-card.multiverso .botao-plano {
+    background: #3E46AB;
+}
+
+.botao-plano:hover {
+    background-color: #323ff5;
+}
+
+/* Efeitos de Animação */
+.plano-card.show {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+}
+
+
+
+.categorias-carrossel {
+    text-align: center;
+    color: #fff;
+    margin-top: 10%;
+    z-index: 100;
+    overflow: visible; /* Garante que nada seja cortado */
+
+}
+
+.carrossel-titulo {
+    font-family: Orbitron;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 32.4px;
+    letter-spacing: 0px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.navegacao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    z-index: 1000; /* Garante que os botões fiquem acima de outros elementos */
+}
+
+.seta-esquerda,
+.seta-direita {
+    font-size: 50px;
+    color: rgba(255, 255, 255, 0.8);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+    margin-bottom: 10px;
+    z-index: 2000;
+}
+
+.seta-esquerda:hover,
+.seta-direita:hover {
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.categorias-fixa {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.categoria-item {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 38px;
+    font-weight: 100;
+    line-height: 120px;
+    text-align: center;
+    text-underline-position: from-font;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    white-space: nowrap;
+    opacity: 0.5;
+    gap: 20px;
+}
+
+.categoria-item.selecionada {
+    font-size: 50px;
+    font-weight: 400;
+    opacity: 1;
+}
+
+.categoria-item.lateral {
+    font-size: 35px;
+    opacity: 0.3;
+}
+
+.categorias-conteudo {
+    margin-top: 1%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.carrossel-imagens {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0px;
+}
+
+.carrossel-imagens img {
+    width: 180px; /* Largura menor para altura maior */
+    height: 300px; /* Altura maior */
+    object-fit: cover;
+    border-radius: 14px;
+    border: 2px solid #331DFB57;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+/* Imagem central */
+.carrossel-imagens img.central {
+    width: 324px;
+    height: 442px;
+    top: 89px;
+    left: 403px;
+    z-index: 3;
+}
+
+/* Imagens ao lado da central */
+.carrossel-imagens img.lado {
+    width: 235px;
+    height: 372px;
+    top: 121px;
+    z-index: 2;
+}
+
+.carrossel-imagens img.lado.esquerda {
+    left: 211px;
+}
+
+.carrossel-imagens img.lado.direita {
+    left: 595px; /* Ajuste conforme necessário */
+}
+
+/* Imagens penúltimas */
+.carrossel-imagens img.penultima {
+    width: 212.4px;
+    height: 311.53px;
+    top: 152.72px;
+    z-index: 1;
+}
+
+.carrossel-imagens img.penultima.esquerda {
+    left: 80.14px;
+}
+
+.carrossel-imagens img.penultima.direita {
+    left: 726px; /* Ajuste conforme necessário */
+}
+
+/* Imagens mais externas */
+.carrossel-imagens img.externa {
+    width: 180.32px;
+    height: 240.42px;
+    top: 184.77px;
+    z-index: 0;
+}
+
+.carrossel-imagens img.externa.esquerda {
+    left: 0;
+}
+
+.carrossel-imagens img.externa.direita {
+    left: 840px; /* Ajuste conforme necessário */
+}
+
+.categorias-conteudo-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    font-family: 'Inter', sans-serif;
+}
+
+.footer-header {
+    font-size: 28px;
+    font-weight: 100;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.footer-subtitle {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+}
+/* Responsividade para telas menores que 1250px */
+@media (max-width: 1250px) {
+    .carrossel-titulo {
+        font-size: 30px;
+    }
+
+    .categoria-item {
+        font-size: 32px;
+        line-height: 100px;
+    }
+
+    .categoria-item.selecionada {
+        font-size: 40px;
+    }
+
+    .categoria-item.lateral {
+        font-size: 30px;
+    }
+
+    .carrossel-imagens img {
+        width: 150px;
+        height: 250px;
+    }
+
+    .carrossel-imagens img.central {
+        width: 280px;
+        height: 380px;
+    }
+
+    .carrossel-imagens img.lado {
+        width: 200px;
+        height: 320px;
+    }
+
+    .carrossel-imagens img.penultima {
+        width: 180px;
+        height: 260px;
+    }
+
+    .carrossel-imagens img.externa {
+        width: 150px;
+        height: 220px;
+    }
+}
+
+/* Responsividade para telas menores que 768px */
+@media (max-width: 768px) {
+    .carrossel-titulo {
+        font-size: 24px;
+    }
+
+    .categoria-item {
+        font-size: 24px;
+        line-height: 80px;
+    }
+
+    .categoria-item.selecionada {
+        font-size: 28px;
+    }
+
+    .categoria-item.lateral {
+        font-size: 22px;
+    }
+
+    .carrossel-imagens img {
+        width: 120px;
+        height: 200px;
+    }
+
+    .carrossel-imagens img.central {
+        width: 200px;
+        height: 300px;
+    }
+
+    .carrossel-imagens img.lado {
+        width: 160px;
+        height: 260px;
+    }
+
+    .carrossel-imagens img.penultima {
+        width: 140px;
+        height: 220px;
+    }
+
+    .carrossel-imagens img.externa {
+        width: 120px;
+        height: 180px;
+    }
+}
+
+/* Responsividade para telas menores que 480px */
+@media (max-width: 480px) {
+    .carrossel-titulo {
+        font-size: 20px;
+    }
+
+    .categoria-item {
+        font-size: 18px;
+        line-height: 60px;
+    }
+
+    .categoria-item.selecionada {
+        font-size: 22px;
+    }
+
+    .categoria-item.lateral {
+        font-size: 16px;
+    }
+
+    .carrossel-imagens img {
+        width: 100px;
+        height: 150px;
+    }
+
+    .carrossel-imagens img.central {
+        width: 150px;
+        height: 220px;
+    }
+
+    .carrossel-imagens img.lado {
+        width: 120px;
+        height: 180px;
+    }
+
+    .carrossel-imagens img.penultima {
+        width: 110px;
+        height: 160px;
+    }
+
+    .carrossel-imagens img.externa {
+        width: 100px;
+        height: 140px;
+    }
+}
+
+
+/* Animação para surgir da direita */
+@keyframes surgirDaDireita {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Animação para surgir da esquerda */
+@keyframes surgirDaEsquerda {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Classes para aplicar as animações */
+.surgir-direita {
+    animation: surgirDaDireita 0.5s ease-in-out forwards;
+}
+
+.surgir-esquerda {
+    animation: surgirDaEsquerda 0.5s ease-in-out forwards;
+}
+
+
+/* Seção "Como o CineSpace funciona?" */
+.como-funciona {
+    padding: 80px 20px;
+    text-align: center;
+    color: #fff;
+    max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 24px;
+    height: auto;
+    min-height: 700px;
+}
+
+/* Título Principal */
+.titulo-principal {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 100%;
+    letter-spacing: -1.1%;
+    text-align: center;
+    color: #FAFAFA;
+    margin-bottom: 20px;
+}
+
+/* Subtítulo Principal */
+.subtitulo-principal {
+    font-family: 'ABeeZee', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0px;
+    text-align: center;
+    text-transform: capitalize;
+    color: #8692A6;
+    margin-bottom: 60px;
+}
+
+/* Container das Colunas */
+.colunas-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Coluna */
+.coluna {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 30%; /* Largura de cada coluna */
+}
+
+/* Item */
+.item {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Borda entre os blocos */
+}
+
+/* Imagem de Fundo */
+.imagem-fundo {
+    width: 100%;
+    height: 300px; /* Altura fixa para o quadrado */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+/* Texto Sobreposto */
+.texto-sobreposto {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5); /* Pseudo-elemento para destacar os textos */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Título do Item */
+.titulo-item {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.5;
+    letter-spacing: 0px;
+    text-align: center;
+    color: #FAFAFA;
+    margin-bottom: 10px;
+}
+
+/* Legenda do Item */
+.legenda-item {
+    font-family: 'ABeeZee', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+    color: #e5e5e5;
+}
+
+/* Animação para os itens */
+.item {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 0.8s ease-out;
+}
+
+.item.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Atrasos para a animação em grupos de 3 */
+.coluna:nth-child(1) .item.visible {
+    transition-delay: 0.1s;
+}
+
+.coluna:nth-child(2) .item.visible {
+    transition-delay: 0.3s;
+}
+
+.coluna:nth-child(3) .item.visible {
+    transition-delay: 0.5s;
+}
+
+/* Efeito de brilho para combinar com o tema espacial */
+.item:hover .imagem-fundo::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .coluna {
+        width: 100%;
+    }
+    
+    .item {
+        transform: translateX(-30px);
+    }
+}
+
+
+.sports-container {
+    display: flex;
+    flex-direction: column;
+    gap: 120px; /* Aumentei o espaço entre as imagens */
+    margin: 0;
+    padding: 0;
+    width: 100%; /* Ocupa 100% da largura da viewport */
+}
+
+.sports-image {
+    width: 100%; /* Ocupa 100% da largura do container */
+    display: flex;
+    justify-content: center; /* Centraliza a imagem horizontalmente */
+    align-items: center; /* Centraliza a imagem verticalmente */
+    opacity: 0; /* Inicialmente invisível para o efeito de aparecimento */
+    transform: translateY(50px); /* Desloca a imagem para baixo inicialmente */
+    transition: opacity 1s ease, transform 1s ease; /* Efeito suave */
+}
+
+.sports-image img {
+    width: 100%; /* Ocupa 100% da largura do container */
+    height: auto; /* Altura fixa para todas as imagens (ajuste conforme necessário) */
+    object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer */
+    border-radius: 20px; /* Bordas arredondadas para todas as imagens */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5); /* Sombreamento ao redor da imagem */
+}
+
+/* Efeito de aparecimento ao rolar a página */
+.sports-image.show {
+    opacity: 1; /* Torna a imagem visível */
+    transform: translateY(0); /* Remove o deslocamento */
+}
+.faq {
+    padding: 100px;
+    margin: -100px auto;
+    max-width: 1000px;
+    color: #ECECEC;
+    border-radius: 10px;
+    min-height: 600px;
+}
+
+.faq-title {
+    font-family: 'ABeeZee', sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 64px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ECECEC;
+}
+
+.faq-subtitle {
+    font-family: 'ABeeZee', sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 32px;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #ECECEC;
+}
+
+.faq-item {
+    border-bottom: 1px solid #46454570;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+}
+
+.faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 15px 0;
+}
+
+.faq-number {
+    font-family: 'ABeeZee', sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: #ECECEC;
+    margin-right: 15px;
+    transition: color 0.3s ease;
+}
+
+.faq-question h3 {
+    font-family: 'ABeeZee', sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 32px;
+    color: #ECECEC;
+    margin: 0;
+    flex: 1;
+}
+
+.faq-icon {
+    width: 16px;
+    height: 11px;
+    transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    display: none;
+    padding: 15px 0;
+    font-family: 'ABeeZee', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    color: rgba(236, 236, 236, 0.8);
+}
+
+.faq-item.active .faq-answer {
+    display: block;
+}
+
+.faq-item.active .faq-number {
+    color: #523EABCC;
+}
+
+
+footer {
+    color: white;
+    text-align: center;
+    padding: 30px 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+footer h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-family: 'Orbitron', sans-serif;
+}
+
+footer h4 {
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+}
+
+footer p {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: center;
+    gap: 150px;
+    flex-wrap: wrap;
+}
+
+.footer-bottom {
+    margin-top: 20px;
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+}
+
+
+
+
+/* Bloqueia o clique com botão direito em imagens */
+img {
+    pointer-events: none;
+    /* Impede interações no mouse */
+}
+
+/* Garante que os links e botões ainda sejam clicáveis */
+a,
+button {
+    -webkit-user-select: auto;
+    /* Permite seleção */
+    -moz-user-select: auto;
+    -ms-user-select: auto;
+    user-select: auto;
+}
+
+
+/* Estilo do botão do foguetinho */
+#rocket-button {
+    position: fixed; /* Alterado para fixed */
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #05066d26;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10000;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+}
+
+#rocket-button.visible {
+    opacity: 1;
+}
+
+.rocket-icon {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s ease;
+}
+
+#rocket-button:hover .rocket-icon {
+    transform: translateY(-5px);
+}
+
+/* Animação do foguinho */
+.fire {
+    position: absolute;
+    bottom: -10px;
+    width: 20px;
+    height: 20px;
+    background-color: #ff6f00;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#rocket-button:hover .fire {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+/* Animação de subida */
+@keyframes rocketLaunch {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-100vh);
+    }
+}
+
+#rocket-button.launch {
+    animation: rocketLaunch 1s ease forwards;
+}
+
+
+
+.messages-container {
+    margin: 10px auto;
+    width: 90%;
+    max-width: 400px;
+}
+img {
+    pointer-events: auto; /* Permite interações no mouse */
+}
+.message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.message.error {
+    background-color: #ff4d4f;
+    color: #fff;
+}
+
+.message.success {
+    background-color: #4caf50;
+    color: #fff;
+
+}
+
+
+
+/* Ajuste para telas menores que 1024px */
+@media (max-width: 1250px) {
+    .plano-card {
+        width: 300px; /* Reduz a largura para telas menores */
+        height: 650px;
+    }
+
+    /* Ajuste do botão "Mais usado" para telas menores */
+    .plano-card .mais-usado {
+        margin-left: 173px; /* Move o botão para a direita */
+        
+    }
+}
+
+/* Ajuste para telas menores que 768px (tablets e celulares) */
+@media (max-width: 768px) {
+    .plano-card {
+        width: 100%; /* Ocupa toda a largura em telas pequenas */
+    }
+
+    /* Ajuste do botão "Mais usado" para telas muito pequenas */
+    .plano-card .mais-usado {
+        margin-left: auto; /* Centraliza o botão */
+        margin-right: 20px; /* Adiciona um espaçamento à direita */
+        margin-top: -40px;
+    }
+}

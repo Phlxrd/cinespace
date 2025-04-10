@@ -1,0 +1,887 @@
+/* Importando a fonte Poppins do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
+    color: #e5e5e5;
+    height: 100vh;
+}
+
+
+/* Banner de fundo ocupando a tela inteira */
+.bannerfundo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+}
+
+.bannerfundo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Estilos para o header */
+header {
+    background-color: transparent;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
+
+header h1 {
+    font-size: 48px;
+    margin: 0;
+    font-weight: 600;
+    color: #fff;
+}
+
+/* Container do perfil */
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 220px auto 0;
+    padding: 20px;
+    max-width: 800px;
+    text-align: center;
+    width: 90%;
+}
+
+.profile-container h1 {
+    font-size: 36px;
+    margin-bottom: 40px;
+    color: #ffffff;
+}
+
+/* Espaços de perfil */
+.profiles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 40px;
+    width: 100%;
+    justify-content: center;
+}
+
+.profile-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 170px;
+    transition: transform 0.3s, background-color 0.3s;
+    cursor: pointer;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+/* Container da imagem do perfil */
+.profile-image-container {
+    width: 170px;
+    height: 170px;
+    background-color: #333;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-placeholder:hover {
+    transform: scale(1.05);
+}
+
+/* Ícone de edição */
+.edit-icon {
+    position: absolute;
+    top: 45%;
+    left: 49%;
+    transform: translate(-50%, -50%) ;
+    padding: 5px;
+    cursor: pointer;
+    width: 58px;
+    height: 58px;
+}
+
+.edit-icon::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+
+.user-name {
+    margin-top: 10px;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.add-profile-icon {
+    background-color: #333;
+    font-size: 48px;
+    color: #888;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: transform 0.3s, background-color 0.3s;
+    cursor: pointer;
+    height: 170px;
+    width: 170px;
+}
+
+.add-profile-icon:hover {
+    transform: scale(1.08);
+}
+
+.create-profile-button {
+    padding: 12px 30px;
+    background-color: #e50914;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.create-profile-button:hover {
+    background-color: #ff6b6b;
+    transform: scale(1.05);
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
+}
+
+.manage-profile-button {
+    font-weight: bold;
+    padding: 15px 60px;
+    background-color: #110ea1d7;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.manage-profile-button:hover {
+    background-color: #2521f5;
+    transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(0px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(10);
+    }
+}
+
+/* --- Estilos do Modal --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1050;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: linear-gradient(0deg, #000000, #000000),
+        radial-gradient(circle, rgba(120, 137, 223, 0.255) 0%, rgba(119, 138, 232, 0) 100%);
+    background-blend-mode: overlay;
+    background-attachment: fixed;
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content-imagens {
+    background: linear-gradient(0deg, #000000, #000000),
+        radial-gradient(circle, rgba(120, 137, 223, 0.255) 0%, rgba(119, 138, 232, 0) 100%);
+    background-blend-mode: overlay;
+    background-attachment: fixed;
+    padding: 40px;
+    border-radius: 10px;
+    position: relative;
+    width: 92%;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-x: hidden;
+}
+
+.modal-content {
+    background: linear-gradient(0deg, #000000, #000000),
+        radial-gradient(circle, rgba(120, 137, 223, 0.255) 0%, rgba(119, 138, 232, 0) 100%);
+    background-blend-mode: overlay;
+    background-attachment: fixed;
+    border-radius: 10px;
+    width: 900px;
+    max-width: 95%;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+}
+/* Estilo do botão de fechar */
+.close-left {
+    position: absolute;
+    top: 40px;
+    left: 50px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilo do ícone de fechar */
+.close-icon {
+    width: 24px; /* Ajuste o tamanho conforme necessário */
+    height: 34px; /* Ajuste o tamanho conforme necessário */
+    transition: opacity 0.3s ease;
+}
+
+/* Efeito de hover no ícone de fechar */
+.close-left:hover .close-icon {
+    opacity: 0.8;
+}
+
+.modal-content h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Container principal */
+.form-container {
+    position: absolute; /* Put it back to absolute */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Use transform for centering */
+    border-radius: 32px;
+    padding: 50px 40px; /* Adjusted padding */
+    max-width: 410px; /* Slightly larger, adjust as needed */
+    width: 90%; /* Use percentage for responsiveness */
+    text-align: center;
+    color: #fff;
+    backdrop-filter: blur(14px);
+    border: 1px solid #5e79f3c2;
+    background: rgba(9, 13, 32, 0.404);
+}
+
+
+/* Título */
+.form-container h2 {
+    margin-top: 0;
+    margin-bottom: 25px; /* Adjusted margin */
+    font-size: 36px;
+    text-align: center;
+}
+
+/* Container da imagem de preview */
+.image-preview {
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;  /* Adjusted gap */
+}
+
+/* Wrapper da imagem e ícone de lápis */
+.image-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+/* Imagem de preview */
+#selected-image-preview {
+    width: 160px; /* Adjusted size */
+    height: 160px; /* Adjusted size */
+    border-radius: 50%;
+    object-fit: cover;
+    border: none;
+    opacity: 0.5;
+}
+
+/* --- Ícone de Editar (Dentro da Imagem) --- */
+.form-container .edit-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 55px; /* Adjusted size */
+    height: 55px; /* Adjusted size */
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.form-container .edit-icon:hover {
+    opacity: 1;
+}
+
+/* --- Texto "Alterar" (Abaixo da Imagem) --- */
+.alterar-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 17px; /* Adjusted font size */
+    line-height: 100%;
+    color: #fff;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+/* --- Formulário --- */
+#edit-profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px; /* Adjusted gap */
+}
+
+/* --- Grupos de Campos (Labels e Inputs) --- */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: left;
+    width: 100%; /* Garante que todos os form-groups tenham a mesma largura */
+}
+
+/* Estilo para ambos os inputs (nome e data) */
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group input[type="text"][readonly] {
+    width: 100%; /* Ocupa 100% da largura do form-group */
+    height: auto;
+    padding: 14px;
+    border: 1px solid #cccccc;
+    border-radius: 12px;
+    font-family: 'ABeeZee', sans-serif;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #fff;
+    background: #d4d0e544;
+    box-sizing: border-box; /* Inclui padding e border na largura total */
+}
+
+/* Estilo específico para o input de data formatado (readonly) */
+.form-group input[type="text"][readonly] {
+    background: #d4d0e544;
+    color: #fff;
+    cursor: not-allowed;
+}
+
+/* Esconde o input de date nativo (já que estamos usando um input text para exibição) */
+.form-group input[type="date"] {
+    display: none;
+}
+/* --- Remover Perfil --- */
+.remove-profile-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -10px; /* Ajustado para ficar mais próximo dos campos acima */
+}
+
+.remove-profile-text {
+    display: flex;
+    flex-direction: column;
+    margin-top: -4px; /* Move os textos um pouco para cima */
+}
+
+.remove-profile-text p {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 100%;
+    text-decoration: underline;
+    color: #FFFFFF;
+    margin-bottom: 1px; /* Espaçamento menor entre título e subtítulo */
+    text-align: left;
+    padding-left: 2px;
+}
+
+.remove-profile-text span {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 100%;
+    color: #554CE8;
+    text-align: left;
+    padding-left: 2px;
+}
+
+.btn-remove {
+    width: 118px;
+    height: 30px;
+    border-radius: 38px;
+    background: #2A2671;
+    border: 1px solid #2A2671;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 15px; /* Garante espaçamento do texto */
+}
+
+.btn-remove:hover {
+    background: rgba(42, 38, 113, 0.1);
+}
+
+/* --- Botões de Ação --- */
+.form-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px; /* Adjusted margin */
+}
+
+.form-actions > div {
+    display: flex;
+    gap: 12px; /* Adjusted gap */
+}
+
+/* Botão Cancelar */
+.btn-cancel {
+    width: 190px;
+    height: 49px;
+    border-radius: 38px;
+    border: 1px solid #0066FF;
+    background: transparent;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-cancel:hover {
+    background-color: rgba(0, 102, 255, 0.1);
+}
+
+/* Botão Salvar */
+.btn-create {
+    width: 210px;
+    height: 51px;
+    border-radius: 38px;
+    background: #2A2671;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-create:hover {
+    background: #3A3571;
+}
+
+/* Tablets e celulares grandes */
+@media (max-width: 768px) {
+
+      .form-container {
+        /*flex-direction: column;  Already applied */
+        align-items: center;
+        width: 90%;
+        padding: 40px 30px;
+        gap: 20px;
+        margin: 30px auto;
+    }
+   .modal-content {
+        width: 90%;
+        left: auto;
+    }
+
+     .modal-content .close-left{
+        left: 5px; /*Diminui*/
+}
+   .form-container {
+        padding: 20px;
+        gap: 20px;
+        margin: 30px auto;
+    }
+
+    .image-preview {
+        margin-left: 0;
+    }
+
+     #selected-image-preview {
+        width: 150px;  /* Reduz o tamanho da imagem */
+        height: 150px; /* Reduz o tamanho da imagem */
+    }
+
+      .edit-icon {
+        width: 50px; /* Reduced size */
+        height: 50px; /* Reduced size */
+}
+
+       /* Modal de imagens */
+     .modal-content-imagens{
+       width: 95%; /* Ocupa mais espaço*/
+       padding: 10px;
+}
+
+    /* Formulario */
+
+      .btn-create,
+    .btn-cancel,
+    .btn-delete{
+       width: 100%; /* Ocupa todo espaço*/
+}
+
+    #edit-profile-form .form-group label {
+       font-size: 16px; /*Reduz*/
+}
+}
+
+/* Celulares (até 480px) */
+@media (max-width: 480px) {
+    .form-container {
+        padding: 30px 20px; /* Adjusted padding */
+        border-radius: 15px;
+    }
+
+      #selected-image-preview {
+        width: 120px;
+        height: 120px;
+    }
+
+     .edit-icon {
+        width: 40px; /* Further reduced size */
+        height: 40px; /* Further reduced size */
+}
+
+   /* Modal de Imagens */
+    .modal-content-imagens {
+         padding: 10px; /* Reduz o padding */
+}
+    #edit-profile-form .form-group label {
+        font-size: 14px;
+    }
+
+    #edit-profile-form .form-group input[type="text"],
+    #edit-profile-form .form-group input[type="date"] {
+        font-size: 14px; /* Reduced font size */
+        padding: 12px;   /* Reduced padding */
+    }
+}
+
+/*Muito pequeno*/
+@media (max-width: 320px){
+  .form-container{
+        padding: 20px 15px; /* Even smaller padding */
+    }
+    .edit-icon {
+        width: 35px; /* Further reduced for very small screens */
+        height: 35px; /* Further reduced for very small screens */
+    }
+}
+
+/* Modal de Exclusão - Posição Ajustada */
+#delete-profile-modal {
+    display: none;
+    position: fixed;
+    z-index: 10002;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: flex-start; /* Alinhar no topo do container */
+    padding-top: 15vh; /* Deslocamento de 15% da altura da viewport */
+    overflow-y: auto;
+    animation: fadeIn 0.3s ease;
+}
+
+#delete-profile-modal.show {
+    display: flex;
+}
+
+#delete-profile-modal .modal-content {
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    color: #fff;
+    width: 90%;
+    max-width: 400px;
+    backdrop-filter: blur(14px);
+    border: 1px solid #5e79f3c2;
+    background: rgba(9, 13, 32, 0.404);
+    margin: 141px auto 50px; /* Margem inferior adicional */
+    position: relative;
+}
+
+/* Restante do CSS permanece igual */
+#delete-profile-modal .modal-content h2 {
+    margin: 0 0 15px;
+    font-size: 20px;
+    color: #fff;
+}
+
+#delete-profile-modal .modal-content p {
+    margin: 0 0 15px;
+    font-size: 14px;
+}
+
+#delete-profile-modal .modal-content .warning-message {
+    color: #ff9e9e;
+    font-size: 13px;
+    margin: 15px 0;
+    padding: 10px;
+    background: rgba(255, 77, 77, 0.1);
+    border-radius: 5px;
+}
+
+#delete-profile-modal .modal-content .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+#delete-profile-modal .modal-content button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 100px;
+}
+
+#delete-profile-modal .modal-content #confirm-delete {
+    background-color: #4c66af;
+    color: #fff;
+}
+
+#delete-profile-modal .modal-content #confirm-delete:hover {
+    background-color: #31457e;
+    transform: scale(1.05);
+}
+
+#delete-profile-modal .modal-content #cancel-delete {
+    background-color: transparent;
+    color: #ffffff;
+    border: 1px solid #ccc;
+}
+
+#delete-profile-modal .modal-content #cancel-delete:hover {
+    background-color: #f0f0f04f;
+    transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.image-carousel {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    overflow-x: auto;
+    padding-bottom: 15px;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+
+}
+
+.image-category {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 25px;
+    justify-content: center;
+    width: 100%;
+}
+
+.profile-option {
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    transition: border-color 0.3s, transform 0.3s;
+    object-fit: cover;
+    margin: 0 10px;
+}
+
+.profile-option:hover {
+    border-color: #0a93e2;
+    transform: scale(1.02);
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+/* --- Media Queries --- */
+
+/* Tablets (768px e menor) */
+@media (max-width: 768px) {
+    .profile-container {
+        margin-top: 180px;
+    }
+
+  
+    .profile-placeholder {
+        width: calc(50% - 40px);
+         margin-bottom: 20px;
+}
+
+    .profile-image-container,
+    .add-profile-icon {
+        width: 120px;
+        height: 120px;
+    }
+
+    .user-name {
+        font-size: 14px;
+    }
+
+    .manage-profile-button {
+        padding: 12px 40px;
+        font-size: 14px;
+    }
+
+    /* Modal e Formulário */
+
+
+    .image-preview {
+        margin-left: 0;
+    }
+
+     .modal-content-imagens{
+       width: 95%;
+       padding: 10px;
+}
+
+     .image-carousel {
+          gap: 10px;
+}
+     .profile-option {
+    width: 120px;
+    height: 120px;
+    margin: 0 5px;
+}
+    /* Formulario */
+    .form-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+      .btn-create,
+    .btn-cancel,
+    .btn-delete{
+       width: 100%;
+}
+
+}
+
+/* Celulares (480px e menor) */
+@media (max-width: 480px) {
+    .profile-container {
+        margin-top: 150px;
+    }
+
+    .profiles {
+        justify-content: center;
+    }
+
+    .profile-placeholder {
+        width: calc(50% - 20px);
+    }
+
+    .profile-image-container,
+    .add-profile-icon {
+        width: 100px;
+        height: 100px;
+    }
+
+    .user-name {
+        font-size: 12px;
+    }
+
+    header h1 {
+        font-size: 36px;
+    }
+
+    /* Modal e Formulário */
+    .modal-content {
+        padding: 15px;
+}
+
+.modal-content .close-left{
+    top: 7px;
+    left: 5px;
+}
+}
+
+ 
+
+    /* Modal de Imagens */
+    .modal-content-imagens {
+         padding: 10px;
+}
+    .image-carousel {
+         gap: 5px;
+}
+
+ 
+
+
+
+/* Celulares muito pequenos (320px) */
+@media (max-width: 320px) {
+    .profile-container {
+        margin-top: 120px;
+    }
+
+    .profile-placeholder {
+        width: 100%;
+    }
+    .modal-content .close-left{
+       left: 1px;
+}
+}

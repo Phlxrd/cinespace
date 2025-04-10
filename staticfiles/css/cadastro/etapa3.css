@@ -1,0 +1,453 @@
+/* Estilos gerais (sem media query) - Mantenha a maior parte aqui, e SÓ ajuste nas media queries o que *precisa* mudar */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
+    color: #e5e5e5;
+}
+
+/* Banner de fundo ocupando a tela inteira */
+.bannerfundo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+}
+
+.bannerfundo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+header {
+    position: absolute;
+    top: 25px;
+    right: 10px;
+    z-index: 50;
+}
+/* Estilo do cabeçalho (header) */
+header {
+    position: absolute;
+    top: 35px;
+    margin-right: 20px; /* Essa margem pode ser problemática, veja abaixo */
+    right: 10px;
+    z-index: 50;
+}
+
+.botao-voltar {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px;
+    border: 2px solid #fff;
+    border-radius: 25px;
+    background-color: transparent;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.botao-voltar:hover {
+    background-color: #0915bd4f;
+    color: #fff;
+}
+
+/* Formulário de pagamento */
+.formulario-pagamento {
+    position: relative;  /* Importante para o posicionamento relativo/absoluto */
+    z-index: 10;
+    backdrop-filter: blur(14px);
+    border: 1px solid #5e79f3c2;
+    background: rgba(9, 13, 32, 0.404);
+    border-radius: 32px;
+    padding: 40px;
+    max-width: 680px;
+    width: 90%;  /* Boa prática para responsividade */
+    color: #fff;
+    text-align: center;
+    /* backdrop-filter: blur(10px);  Duplicado, remova um */
+    margin: 70px auto; /* Centraliza horizontalmente */
+    box-sizing: border-box; /* Inclui padding e borda na largura/altura */
+}
+
+.formulario-pagamento h2 {
+    margin-top: 5px;
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.formulario-pagamento p {
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+/* ... (todo o CSS anterior, que você já tem) ... */
+
+/* Modificações no .cartao-simulacao e seus filhos */
+.cartao-simulacao {
+    width: 374px;
+    /* height: 180px;  REMOVIDO - Usaremos flexbox para controlar a altura */
+    border-radius: 15px;
+    margin: 20px auto 30px;
+    position: relative;
+    padding: 20px;
+    color: #fff;
+    display: flex;
+    flex-direction: column; /* Mantém a direção da coluna */
+    justify-content: space-between; /* Distribui o espaço VERTICALMENTE */
+    background: #333;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: background 0.3s ease;
+    font-family: 'Courier New', Courier, monospace;
+    box-sizing: border-box;
+}
+
+.cartao-frente {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribui o espaço verticalmente */
+    height: 100%; /* Ocupa todo o espaço vertical disponível */
+    position: relative;
+}
+
+.chip-cartao {
+    width: 50px;
+    height: 35px;
+    /* position: absolute;  REMOVIDO - Vamos usar flexbox */
+    /* top: 15px; REMOVIDO */
+    /* left: 15px; REMOVIDO */
+    object-fit: contain;
+    align-self: flex-start; /* Alinha o chip no início (esquerda) */
+    margin-bottom: 10px; /* Adiciona espaço ABAIXO do chip */
+}
+
+.bandeira-cartao {
+    width: 50px;
+    height: 30px;
+    /* position: absolute; REMOVIDO */
+    /* top: 15px; REMOVIDO*/
+    /* right: 15px; REMOVIDO */
+    background-size: contain;
+    background-repeat: no-repeat;
+    align-self: flex-end; /* Alinha a bandeira no final (direita) */
+    margin-bottom: 10px; /* Adiciona espaço ABAIXO da bandeira */
+}
+.numero-cartao {
+    font-size: 22px;
+    letter-spacing: 2px;
+    text-align: center;
+    margin-top: 0; /* Remove a margem superior */
+    margin-bottom: 15px; /*Espaço ABAIXO do numero */
+}
+
+.cartao-info-row {
+    display: flex; /* Torna esta div um contêiner flexível */
+    justify-content: space-between; /* Distribui o espaço ENTRE os elementos */
+    align-items: flex-end; /* Alinha os itens na parte inferior */
+    width: 100%; /* Garante que ocupe toda a largura */
+}
+
+
+.nome-cartao {
+    font-size: 14px;
+    text-transform: uppercase;
+    text-align: left;
+   /* position: absolute; REMOVIDO
+    bottom: 45px;
+    left: 15px; */
+}
+
+.validade-cartao {
+    font-size: 14px;
+    text-align: right;
+   /* margin: 5px 0 0; REMOVIDO - Usaremos flexbox */
+
+}
+
+.cvv-cartao {
+    font-size: 14px;
+    text-align: left;
+   /* position: absolute;
+    bottom: 20px;
+    left: 20px;*/
+}
+
+
+/* Grupo de seleção de tipo de pagamento */
+.radio-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    flex-wrap: wrap; /* ESSENCIAL para quebrar em telas menores */
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    padding: 10px 20px;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-sizing: border-box; /* Inclui padding e borda */
+    margin: 5px 0; /* Adiciona margem para espaçamento vertical */
+}
+
+.radio-group input[type="radio"] {
+    display: none;
+}
+
+.radio-group input[type="radio"]:checked + label {
+    border-color: #0d09e5;
+    background-color: rgba(31, 9, 229, 0.1);
+    box-shadow: 0 0 8px rgba(1, 15, 207, 0.6);
+    color: #fff;
+}
+
+.radio-group label:hover {
+    background-color: rgba(3, 0, 209, 0.1);
+    border-color: #1404e9;
+}
+
+/* Campos do formulário */
+.pagamento-form input {
+    padding: 15px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    background-color: rgba(34, 34, 34, 0);
+    color: #fff;
+    font-size: 16px;
+    width: 100%; /* Ocupa toda a largura do container pai */
+    margin-bottom: 15px;
+    outline: none;
+    box-sizing: border-box; /* Inclui padding e borda na largura */
+}
+
+.pagamento-form input::placeholder {
+    color: #999;
+}
+
+.pagamento-form input:focus {
+    border-color: #0a07d1;
+    box-shadow: 0 0 5px rgba(2, 60, 218, 0.5);
+}
+
+/* Organização dos campos lado a lado */
+.input-group {
+    display: flex;
+    justify-content: space-between; /* Espaço entre os campos */
+    gap: 10px; /* Espaçamento consistente */
+     width: 100%; /* Importante! Ocupa todo o espaço */
+}
+
+.input-group input {
+    flex: 1; /* Os inputs crescem igualmente */
+    /* width: auto;  Remova isso! Deixe o flexbox controlar */
+    /* Remova margin-left do CVV, o gap já cuida disso */
+}
+
+/* .input-group input#cvv {  Remova esse bloco, conflita com o flexbox } */
+
+/* Botão de envio */
+.botao-entrar {
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    background: #0019edd8;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: 20px;
+    box-sizing: border-box; /* Inclui padding na largura */
+}
+
+.botao-entrar:hover {
+    background: #0529c9;
+}
+
+/* Cores dos bancos - OK, sem alterações aqui */
+.cartao-simulacao.nubank {
+    background: linear-gradient(135deg, #8a05be, #4c0494);
+}
+
+.cartao-simulacao.inter {
+    background: linear-gradient(135deg, #ff7f00, #ff5500);
+}
+
+.cartao-simulacao.itau {
+    background: linear-gradient(135deg, #ff6600, #ff4500);
+}
+
+.cartao-simulacao.bradesco {
+    background: linear-gradient(135deg, #e60026, #99001f);
+}
+
+.cartao-simulacao.santander {
+    background: linear-gradient(135deg, #c80b1e, #a30617);
+}
+
+.cartao-simulacao.caixa {
+    background: linear-gradient(135deg, #0033a0, #002080);
+}
+
+.cartao-simulacao.banco_do_brasil {
+    background: linear-gradient(135deg, #f5d130, #e3c300);
+}
+
+.cartao-simulacao.american_express {
+    background: linear-gradient(135deg, #4a90e2, #003087);
+}
+
+.cartao-simulacao.visa {
+    background: linear-gradient(135deg, #1a1f71, #001870);
+}
+
+.cartao-simulacao.mastercard {
+    background: linear-gradient(135deg, #ff5f00, #ff0000);
+}
+
+
+/* --- RESPONSIVIDADE (Media Queries) --- */
+
+/* Tablets e celulares grandes (até 768px) */
+@media (max-width: 768px) {
+    /* Header */
+    header {
+        top: 10px; /* Aproxima do topo */
+        /* margin-right: 0;  Remova essa margem, centralize de outra forma */
+    }
+
+    .botao-voltar {
+        margin-top: 10px;
+        font-size: 14px; /* Reduz */
+        padding: 8px 12px; /* Reduz */
+    }
+
+    /* Formulário */
+    .formulario-pagamento {
+        padding: 20px; /* Reduz */
+        border-radius: 20px; /* Menos arredondado */
+        margin-top: 80px; /* Reduz margem superior */
+    }
+
+    .formulario-pagamento h2 {
+        font-size: 24px; /* Reduz */
+    }
+
+    .formulario-pagamento p {
+        font-size: 14px; /* Reduz */
+    }
+
+    .cartao-simulacao {
+        /* height: auto;  Já deve estar definido, mas confirme */
+        padding: 15px;
+    }
+
+    .numero-cartao {
+        font-size: 18px;
+        /* margin-top: 50px; REMOVIDO */
+    }
+    .nome-cartao, .validade-cartao, .cvv-cartao {
+        font-size: 12px;
+    }
+    /* Radio Group - Já está com flex-wrap, então só ajustes menores */
+    .radio-group label {
+        padding: 8px 15px; /* Reduz */
+        font-size: 14px; /* Reduz */
+    }
+
+    /* Inputs */
+    .pagamento-form input {
+        font-size: 14px; /* Reduz */
+        padding: 12px; /* Reduz */
+    }
+}
+
+/* Celulares menores (até 480px) */
+@media (max-width: 480px) {
+
+    header {
+        position: static; /* Header no fluxo normal do documento */
+        text-align: center; /* Centraliza o botão */
+        margin-bottom: 20px; /* Espaço abaixo */
+    }
+    .botao-voltar{
+      display: inline-block;  /* Para centralizar corretamente */
+      width: auto; /* Largura automática */
+}
+
+    /* Formulário */
+    .formulario-pagamento {
+        margin-top: 20px; /* Reduz mais */
+    }
+
+     .formulario-pagamento h2 {
+        font-size: 20px; /* Reduz */
+}
+
+    /* Cartão */
+    .cartao-simulacao {
+        width: 95%; /* Ocupa quase toda a largura */
+    }
+   
+
+    /* Radio Group */
+    .radio-group {
+        gap: 10px; /* Reduz o espaçamento */
+    }
+
+    .radio-group label {
+        padding: 8px 12px;/* Ajusta padding */
+        font-size: 12px;  /* Reduz fonte */
+        margin: 5px 0;    /* Margem vertical */
+    }
+
+    /* Input Group - Já está responsivo com flexbox */
+}
+
+
+/* Estilo do indicador de carregamento */
+.loading-overlay {
+    display: none; /* Oculta por padrão */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Z-index maior que todos os outros elementos */
+}
+
+.loading-spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3); /* Cor da borda */
+    border-top: 4px solid #1400c6; /* Cor da borda superior */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite; /* Animação de rotação */
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

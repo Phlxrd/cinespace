@@ -1,0 +1,1567 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    padding-top: 0px;
+    /* Espaço extra no topo para evitar sobreposição com o header fixo */
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Tema escuro */
+body.dark-theme {
+    background-color: #000000;
+    color: #e5e5e5;
+}
+
+body.dark-theme header {
+    background-color: #000;
+    border-bottom: 1px solid #000000;
+}
+
+body.dark-theme .nav-menu a {
+    color: #e5e5e5;
+}
+
+body.dark-theme .nav-menu a:hover {
+    background-color: #333;
+}
+
+/* Tema claro */
+body.light-theme {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+body.light-theme header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #000000;
+}
+
+body.light-theme .nav-menu a {
+    color: #000000;
+}
+
+body.light-theme .nav-menu a:hover {
+    background-color: #e0e0e0;
+}
+
+
+/* Estilo do título centralizado */
+.site-title {
+    margin: 0 auto; /* Centraliza o título horizontalmente */
+    text-align: center; /* Alinha o texto ao centro */
+    padding: 0; /* Remove qualquer padding adicional */
+    flex: 1; /* Permite que o título ocupe o espaço disponível */
+}
+
+
+/* Ajusta o link do título */
+.site-title a {
+    color: #fff; /* Cor do texto do título */
+    text-decoration: none;
+    font-size: 40px; /* Ajuste o tamanho da fonte conforme necessário */
+    display: inline-block; /* Limita a área clicável ao conteúdo */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilos para os spans dentro do título */
+.cine, .trailers {
+    color: inherit;
+    /* Mantém a cor herdada do título */
+}
+
+/* Estilo do link do título */
+header h1 a {
+    text-decoration: none;
+    color: inherit; /* Herda a cor do texto, a ser sobrescrita pelos spans */
+    position: relative; /* Necessário para o posicionamento da linha */
+}
+
+/* Estilos específicos para "CINE" */
+.cine {
+    color: #ffffff; /* Cor para o tema escuro */
+}
+
+/* Estilo para "Trailers" */
+.trailers {
+    color: #e50914; /* Vermelho */
+}
+/* Estilo para o ícone de menu no canto esquerdo */
+.menu-icon {
+    position: relative;
+    cursor: pointer;
+}
+
+.menu-icon img {
+    width: 50px;
+    height: 50px;
+}
+
+/* Estilo do menu suspenso */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 50px; /* Ajuste conforme necessário */
+    left: 0;
+    width: 200px; /* Defina a largura que você deseja para o menu */
+    background-color: white;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    padding: 0; /* Remove padding se houver algum padrão */
+}
+
+/* Estilo dos itens do menu suspenso */
+.dropdown-menu li {
+    padding: 16px 20px; /* Espaçamento interno dos itens */
+    margin: 0; /* Remove qualquer margem padrão */
+    margin-bottom: 10px; /* Ajuste o valor conforme necessário */
+}
+/* Remover o espaçamento extra abaixo do último item */
+.dropdown-menu li:last-child {
+    margin-bottom: 10;
+}
+.dropdown-menu li:not(:last-child) {
+    border-bottom: 1px solid #ccc; /* Linha divisória entre os itens, opcional */
+}
+.dropdown-menu li a {
+    color: #000000; /* Cor do texto dos links */
+    text-decoration: none; /* Remove o sublinhado dos links */
+    display: block; /* Faz o link preencher o item do menu */
+    padding: 8px 0; /* Adiciona padding interno para aumentar o clique */
+}
+.dropdown-menu a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    font-size: 18px; /* Aumenta o tamanho da fonte */
+}
+
+
+/* Exibe o menu suspenso ao passar o mouse */
+.menu-icon:hover .dropdown-menu {
+    display: block;
+}
+
+/* Estilo do botão de troca de tema no canto direito */
+.header-controls {
+    display: flex;
+    align-items: center;
+}
+
+/* Estilos para o tema claro */
+body.light-theme .dropdown-menu {
+    background-color: #fff;
+    /* Fundo branco para o tema claro */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Sombra mais clara para o tema claro */
+}
+
+body.light-theme .dropdown-menu a {
+    color: #000;
+    /* Texto preto para o tema claro */
+}
+
+.dropdown-menu a:hover {
+    background-color: #575757;
+}
+
+/* Estilo do contêiner de vídeo */
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    /* Proporção 16:9 */
+    margin-bottom: 20px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* Vídeo */
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    /* Remove bordas do iframe */
+    object-fit: cover;
+    /* Ajusta o vídeo para cobrir todo o contêiner */
+}
+/* Seção de informações do filme */
+.movie-info {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+/* Imagem do filme */
+.movie-info img {
+    width: 260px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+/* Detalhes do filme */
+.movie-details {
+    max-width: 900px;
+}
+
+
+/* Estilos gerais do footer */
+footer {
+    margin-top: 0px;
+    background-color: #000000; /* Fundo preto no modo escuro */
+    color: #ffffff; /* Texto branco no modo escuro */
+    text-align: center;
+    padding: 20px 0;
+}
+
+.footer-content {
+    margin-top: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-links {
+    margin-bottom: 15px;
+}
+
+.footer-links h4 {
+    margin-bottom: 10px;
+}
+
+.footer-links ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-links li {
+    margin: 0 10px;
+}
+
+.footer-links a {
+    color: #ffffff; /* Cor dos links no modo escuro */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #e50914; /* Vermelho ao passar o mouse */
+}
+
+.footer-newsletter {
+    margin-bottom: 25px;
+}
+
+.footer-newsletter h4 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.footer-newsletter input {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
+.footer-newsletter button {
+    padding: 10px;
+    background-color: #e50914;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.footer-bottom {
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+/* Ajustes para tema claro */
+body.light-theme footer {
+    background-color: #ffffff; /* Fundo branco no modo claro */
+    color: #000000; /* Texto preto no modo claro */
+}
+
+body.light-theme .footer-links a {
+    color: #000000; /* Cor dos links no modo claro */
+}
+
+body.light-theme .footer-links a:hover {
+    color: #e50914; /* Mantém o vermelho ao passar o mouse */
+}
+
+
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+.main-content {
+    flex: 1;
+    margin-bottom: 40px;
+    /* Espaço extra para o footer */
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* Garante que o body ocupe pelo menos 100% da altura da viewport */
+}
+
+.main-content {
+    flex: 1;
+}
+
+/* Garantir que o título "CINE" e "Trailers" não sejam sobrescritos */
+header h1 a span {
+    color: inherit;
+    /* Mantém a cor padrão definida no CSS */
+}
+
+/* Tema Claro */
+body.light-theme .cine {
+    color: #ffffff;
+    /* Branco para o tema claro */
+}
+
+body.light-theme .trailers {
+    color: #e50914;
+    /* Vermelho para o tema claro */
+}
+
+/* Estilo do título no tema escuro */
+header h1 a .cine {
+    color: #ffffff;
+    /* Branco para o tema escuro */
+}
+
+header h1 a .trailers {
+    color: #e50914;
+    /* Vermelho para o tema escuro */
+}
+
+/* Estilo do título no tema claro */
+body.light-theme header h1 a .cine {
+    color: #000000;
+    /* Preto para o tema claro */
+}
+
+body.light-theme header h1 a .trailers {
+    color: #e50914;
+    /* Vermelho para o tema claro (se desejar manter) */
+}
+/* Estilo do ícone de pesquisa */
+#search-icon-container {
+    position: fixed;
+    top: 21px; /* Ajuste conforme necessário para o alinhamento vertical */
+    right: 35px; /* Ajusta a posição horizontal do ícone de pesquisa */
+    z-index: 1000; /* Garante que o ícone esteja acima de outros elementos */
+}
+
+#search-icon img {
+    width: 45px; /* Ajuste o tamanho do ícone de pesquisa conforme necessário */
+    height: auto;
+    cursor: pointer; /* Adiciona um cursor de ponteiro ao passar o mouse */
+}
+
+#search-container {
+    position: fixed;
+    top: 0;
+    left: 60px; /* Deixa espaço para o botão de fechar */
+    right: 20px; /* Deixa espaço para o botão de pesquisa à direita */
+    height: 60.5px; /* Altura da barra */
+    display: flex;
+    align-items: center;
+    background-color: black; /* Fundo preto no modo escuro */
+    z-index: 1000;
+    padding: 0 20px; /* Reduz o padding lateral para encaixar melhor */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s, visibility 0.3s;
+    opacity: 0;
+    visibility: hidden;
+    box-sizing: border-box;
+}
+
+body.light-theme #search-container {
+    background-color: white; /* Cor de fundo no modo claro */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+#search-container input[type="text"] {
+    margin-top: 30px;
+    flex: 1;
+    padding-right: 760px; /* Mantém o espaçamento à direita */
+    padding-left: 27px; /* Ajusta o padding apenas para o lado esquerdo */
+    padding-top: 15px;
+    padding-bottom: 17px;
+    border-radius: 4px;
+    border: 1px solid white; /* Borda branca no modo escuro */
+    background-color: black; /* Fundo preto no modo escuro */
+    color: white; /* Texto branco no modo escuro */
+    outline: none;
+    margin-right: 20px;
+}
+
+body.light-theme #search-container input[type="text"] {
+    border: 1px solid black; /* Borda preta no modo claro */
+    background-color: white; /* Fundo branco no modo claro */
+    color: black; /* Texto preto no modo claro */
+}
+
+
+#search-container button[type="submit"] {
+    background-color: #ff0000;
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#search-container button[type="submit"]:hover {
+    background-color: #cc0000; /* Cor de fundo ao passar o mouse sobre o botão */
+}
+
+/* Estilo para o botão de fechar */
+.close-button {
+    margin-top: 7px;
+    position: fixed; /* Fixa o botão fora da barra de pesquisa */
+    top: 0; /* Alinha ao topo do header */
+    left: 0; /* Alinha ao lado esquerdo do header */
+    width: 70px; /* Ajusta a largura do botão */
+    height: 70.50px; /* Ajusta a altura do botão */
+    background-color: black; /* Fundo preto para o botão */
+    color: white; /* Cor do texto */
+    border: none; /* Remove borda */
+    font-size: 60px; /* Tamanho do ícone */
+    cursor: pointer; /* Muda o cursor ao passar por cima */
+    z-index: 1001; /* Garante que o botão esteja acima da barra */
+    display: flex;
+    align-items: center; /* Centraliza o ícone verticalmente */
+    justify-content: center; /* Centraliza o ícone horizontalmente */
+}
+body.light-theme .close-button {
+    background-color: white;
+    color: black;
+}
+
+/* Classe para mostrar a barra de pesquisa */
+#search-container.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Classe para esconder a barra de pesquisa */
+#search-container.hidden {
+    display: none;
+}
+
+/* Estilos para o header quando a barra de pesquisa está visível */
+header.search-active {
+    border-bottom: 5px solid black; /* Adiciona uma borda preta na parte inferior do header */
+}
+
+/* Adiciona borda do header no modo claro */
+body.light-theme header.search-active {
+    border-bottom: 5px solid white; /* Adiciona uma borda branca na parte inferior do header no modo claro */
+}
+/* Estilo do carrossel */
+.carousel-container {
+    position: relative;
+    /* Permite o posicionamento absoluto dos botões dentro do contêiner */
+    width: 100%;
+    overflow: hidden;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Wrapper para carrossel e botões */
+.carousel-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+/* Carrossel */
+.carousel {
+    display: flex;
+    overflow-x: auto;
+    /* Permite rolar horizontalmente */
+    scroll-behavior: smooth;
+    gap: 20px;
+    /* Ajuste o espaçamento entre os itens do carrossel */
+}
+
+/* Ocultar a barra de rolagem */
+.carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel {
+    -ms-overflow-style: none;
+    /* IE e Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.carousel-item {
+    flex: 0 0 auto;
+    width: 450px;
+    /* Ajuste a largura conforme necessário */
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+    /* Remover a transformação no hover */
+}
+
+.play-button {
+    position: absolute; /* Posiciona o botão sobre a imagem */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centraliza o botão */
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
+    color: white; /* Cor do texto */
+    border: none; /* Remove bordas */
+    padding: 10px;
+    border-radius: 50%; /* Botão redondo */
+    font-size: 24px; /* Tamanho do ícone */
+    cursor: pointer; /* Mãozinha ao passar o mouse */
+    transition: transform 0.3s ease; /* Transição suave para a transformação */
+}
+
+.carousel-item:hover .play-button {
+    transform: translate(-50%, -60%) scale(1.2); /* Move o botão um pouco para cima e aumenta o tamanho */
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 280px;
+    /* Ajuste a altura para aumentar o tamanho das imagens */
+    object-fit: cover;
+    /* Faz a imagem preencher o contêiner sem distorção */
+    border-radius: 10px;
+}
+
+.carousel-item p {
+    margin: 10px 0 0;
+    font-size: 14px;
+}
+
+/* Botões de carrossel */
+.carousel-arrow {
+    position: absolute;
+    /* Posiciona o botão em relação ao contêiner do carrossel */
+    top: 50%;
+    transform: translateY(-50%);
+    /* Centraliza verticalmente */
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Cor de fundo visível */
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 50%;
+    font-size: 24px;
+    /* Ajuste o tamanho conforme necessário */
+    z-index: 10;
+    /* Garante que o botão esteja acima dos itens do carrossel */
+}
+
+/* Posicionamento do botão de rotação à direita */
+.carousel-arrow.right-arrow {
+    right: 40px;
+    /* Ajuste a distância do botão da borda direita */
+}
+
+/* Posicionamento do botão de rotação à esquerda */
+.carousel-arrow.left-arrow {
+    left: 10px;
+    /* Ajuste a distância do botão da borda esquerda */
+}
+
+/* Estilo do botão de elenco */
+#show-cast {
+    background-color: #000000;
+    /* Cor de fundo vermelha */
+    color: #fdfdfd;
+    /* Texto branco */
+    border: none;
+    /* Sem borda */
+    padding: 10px 20px;
+    /* Espaçamento interno */
+    cursor: pointer;
+    /* Cursor de clique */
+    border-radius: 5px;
+    /* Bordas arredondadas */
+    font-size: 16px;
+    /* Tamanho da fonte */
+    transition: background-color 0.3s ease;
+    /* Transição suave para a cor de fundo */
+    margin: 20px auto;
+    /* Centraliza horizontalmente com espaço acima e abaixo */
+    display: block;
+    /* Faz o botão ocupar toda a largura disponível */
+    width: 200px;
+    /* Largura fixa */
+    text-align: center;
+    /* Centraliza o texto */
+}
+
+/* Efeito hover no botão de elenco */
+#show-cast:hover {
+    background-color: #e40404;
+    /* Fundo vermelho escuro ao passar o mouse */
+}
+
+/* Estilo do carrossel de elenco */
+#cast-carousel {
+    display: none;
+    /* Oculta o carrossel inicialmente */
+}
+
+#cast-carousel h2 {
+    text-align: center;
+    /* Centraliza o título */
+    margin-bottom: 20px;
+    /* Espaçamento abaixo do título */
+}
+
+/* Estilo do carrossel */
+.cast-carousel-container {
+    position: relative;
+    /* Permite o posicionamento absoluto dos botões dentro do contêiner */
+    width: 100%;
+    overflow: hidden;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Wrapper para carrossel e botões */
+.cast-carousel-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+/* Carrossel */
+.cast-carousel {
+    display: flex;
+    overflow-x: auto;
+    /* Permite rolar horizontalmente */
+    scroll-behavior: smooth;
+    gap: 0px;
+    /* Ajuste o espaçamento entre os itens do carrossel */
+}
+
+/* Ocultar a barra de rolagem */
+.cast-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.cast-carousel {
+    -ms-overflow-style: none;
+    /* IE e Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.cast-carousel-item {
+    flex: 0 0 auto;
+    width: 200px;
+    /* Ajuste a largura conforme necessário */
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+    /* Remover a transformação no hover */
+}
+
+.cast-carousel-item img {
+    width: 175px;
+    /* Largura ajustada para o formato retangular em pé */
+    height: 200px;
+    /* Altura ajustada para o formato retangular em pé */
+    object-fit: cover;
+    /* Faz a imagem preencher o contêiner sem distorção */
+    border-radius: 10px;
+}
+
+.cast-carousel-item p {
+    margin: 10px 0 0;
+    font-size: 14px;
+}
+
+/* Botões de carrossel */
+.cast-carousel-arrow {
+    position: absolute;
+    /* Posiciona o botão em relação ao contêiner do carrossel */
+    top: 50%;
+    transform: translateY(-50%);
+    /* Centraliza verticalmente */
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Cor de fundo visível */
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 50%;
+    font-size: 24px;
+    /* Ajuste o tamanho conforme necessário */
+    z-index: 10;
+    /* Garante que o botão esteja acima dos itens do carrossel */
+}
+
+/* Posicionamento do botão de rotação à direita */
+.cast-carousel-arrow.right-arrow {
+    right: 40px;
+    /* Ajuste a distância do botão da borda direita */
+}
+
+/* Posicionamento do botão de rotação à esquerda */
+.cast-carousel-arrow.left-arrow {
+    left: 10px;
+    /* Ajuste a distância do botão da borda esquerda */
+}
+
+/* Estilo para o link do título */
+header h1 a {
+    text-decoration: none;
+    color: inherit; /* Herda a cor do texto, a ser sobrescrita pelos spans */
+    position: relative; /* Necessário para o posicionamento da linha */
+}
+
+/* Estilos específicos para "CINE" */
+.cine {
+    color: #ffffff; /* Cor para o tema escuro */
+}
+
+/* Estilo para "Trailers" */
+.trailers {
+    color: #e50914; /* Vermelho */
+}
+
+/* Estilo geral para o h1 se necessário */
+header h1 {
+    font-size: 36px;
+    margin: 0;
+    position: relative; /* Necessário para o posicionamento da linha */
+    display: inline-block; /* Faz com que o h1 ocupe apenas o espaço necessário para o texto */
+}
+/* Linha vermelha embaixo ao clicar */
+header h1 a:active::after {
+    content: '';
+    display: block;
+    width: 100%; /* Linha se estende por toda a largura do elemento pai */
+    height: 3px;
+    background-color: #e50914; /* Linha vermelha */
+    position: absolute;
+    bottom: -5px; /* Ajusta a posição da linha em relação ao texto */
+    left: 0; /* Ajusta a posição da linha à esquerda */
+    z-index: 1; /* Garante que a linha apareça acima do conteúdo */
+    content: none; /* Remove a linha quando o link não está ativo */
+}
+
+/* Estilo geral para o carrossel */
+.carousel-item a {
+    display: block;
+    /* Faz com que o link ocupe todo o espaço do item do carrossel */
+}
+
+/* Estilo para garantir que o texto dos links seja branco */
+.carousel-item a {
+    color: white;
+    /* Define a cor do texto dos links como branco */
+    text-decoration: none;
+    /* Remove o sublinhado do texto do link */
+}
+
+/* Se houver algum texto ou hover que você queira ajustar */
+.carousel-item a:hover,
+.carousel-item a:focus {
+    color: white;
+    /* Garante que a cor permaneça branca quando o link está em foco ou hover */
+}
+
+.btn-assistir {
+    display: inline-block;
+    padding: 10px 25px;
+    background-color: #e20000;
+    color: rgb(255, 250, 250);
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 10px;
+    margin-left: 35px;
+}
+
+.btn-assistir:hover {
+    background-color: #CC0000;
+    transform: scale(1.05);
+}
+/* Container do botão de troca de tema */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centraliza o botão */
+    gap: 10px; /* Espaçamento entre o texto e o botão */
+    margin: 20px 0; /* Espaçamento superior e inferior */
+    font-family: 'Roboto', sans-serif; /* Aplica a fonte Roboto */
+}
+
+/* Tema claro */
+body.light-theme #theme-toggle {
+    color: black; /* Cor do texto no tema claro */
+}
+
+
+/* Estilos para dispositivos móveis */
+@media (max-width: 768px) {
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+    }
+
+    /* O botão de tema aparece no header de forma destacada */
+    #theme-toggle {
+        font-size: 16px; /* Aumenta o tamanho em dispositivos móveis */
+        margin-left: 5px; /* Ajusta o deslocamento para a esquerda */
+        margin-right: 5px; /* Adiciona um espaço à direita */
+        order: 2; /* Garante que o botão fique à direita do título e do menu */
+    }
+
+    /* Ajusta o título e o menu para ficarem no lugar correto */
+    header h1 {
+        font-size: 30px;
+    }
+
+    .nav-menu {
+        display: none; /* O menu pode ser escondido e exibido por um ícone no mobile, se necessário */
+    }
+}
+/* Regras gerais para todos os temas */
+.elenco-participantes {
+    color: rgb(255, 255, 255); /* Define a cor do texto como preta */
+}
+
+/* Regras específicas para o tema escuro */
+.dark-theme .elenco-participantes {
+    color: rgb(255, 255, 255); /* Garante que a cor do texto permaneça preta no tema escuro */
+}
+
+/* Regras específicas para o tema claro */
+.light-theme  .elenco-participantes {
+    color: rgb(0, 0, 0); /* Garante que a cor do texto permaneça preta no tema claro */
+}
+/* Estilo para o contêiner do dropdown */
+.dropdown-trailers {
+    position: relative; /* Necessário para o posicionamento absoluto do dropdown-content */
+    display: inline-flex;
+    justify-content: flex-end;
+    margin: 20px;
+    width: auto; /* Ajuste a largura se necessário */
+}
+
+/* Estilo para o botão principal do dropdown */
+#toggle-trailers {
+    background-color: #d32f2f; /* Fundo vermelho */
+    color: white; /* Texto branco */
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: px;
+    margin-right: 0; /* Ajuste a margem para o lado direito conforme necessário */
+    min-width: 175px; /* Garantir a largura mínima para o dropdown */
+    transition: background-color 0.3s, transform 0.3s; /* Transição suave para background e transformação */
+}
+
+
+/* Estilo para o conteúdo do dropdown */
+.dropdown-content-trailers {
+    display: none; /* Inicialmente oculto */
+    position: absolute;
+    right: 0;
+    top: 100%; /* Coloca o dropdown abaixo do botão */
+    background-color: #d32f2f; /* Fundo vermelho */
+    min-width: 175px; /* Garantir a largura mínima para o dropdown */
+    max-width: 0%; /* Não ultrapassa a largura do botão */
+    z-index: 1;
+    border-radius: 4px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Adiciona sombra para destaque */
+    box-sizing: border-box; /* Inclui padding e border na largura total */
+}
+
+/* Estilo para os botões dentro do dropdown */
+.dropdown-content-trailers button {
+    background-color: #d32f2f; /* Fundo vermelho */
+    color: white; /* Texto branco */
+    border: none;
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+    border-bottom: 1px solid #b71c1c; /* Linha divisória entre botões */
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Remove a borda inferior do último botão */
+.dropdown-content-trailers button:last-child {
+    border-bottom: none;
+}
+
+/* Estilo para o botão ao passar o mouse */
+.dropdown-content-trailers button:hover {
+    background-color: #b71c1c; /* Tom de vermelho mais escuro para hover */
+}
+
+/* Classe para exibir o dropdown */
+.dropdown-trailers .dropdown-content-trailers.show {
+    display: block;
+}
+
+/* Estilo do ícone de categorias padrão */
+#category-icon {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    fill: white; /* Branco por padrão (tema escuro) */
+}
+
+/* Estilo do ícone de categorias no tema claro */
+body.light-theme #category-icon {
+    fill: black; /* Preto no tema claro */
+}
+/* Estilo do ícone no tema claro */
+body.light-theme #search-icon {
+    fill: black; /* Preto no tema claro */
+}
+
+/* Estilos para dispositivos móveis */
+/* Estilos para dispositivos móveis (até 768px) */
+@media (max-width: 768px) {
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        flex-wrap: wrap;
+    }
+
+    header h1 {
+        font-size: 28px;
+        margin-left: 100px;
+    }
+
+    #theme-toggle {
+        font-size: 15px;
+        margin-left: 10px;
+        margin-right: 5px;
+        order: 2;
+    }
+
+    .nav-menu {
+        display: none; /* Menu oculto em dispositivos móveis */
+    }
+
+    .menu-icon {
+        display: block;
+        font-size: 24px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+}
+
+/* Estilos para tablets e telas intermediárias (768px a 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+    }
+
+    header h1 {
+        font-size: 32px;
+        margin-left: 15px;
+    }
+
+    #theme-toggle {
+        font-size: 16px;
+        margin-left: 15px;
+        margin-right: 10px;
+    }
+
+    .nav-menu {
+        display: flex;
+        justify-content: center;
+    }
+
+    .nav-menu li {
+        margin: 0 10px;
+    }
+}
+
+/* Estilos para desktops (acima de 1024px) */
+@media (min-width: 1025px) {
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+    }
+
+    header h1 {
+        font-size: 36px;
+        margin-left: 20px;
+    }
+
+    #theme-toggle {
+        font-size: 18px;
+        margin-left: 20px;
+        margin-right: 15px;
+    }
+
+    .nav-menu {
+        display: flex;
+        justify-content: center;
+    }
+
+    .nav-menu li {
+        margin: 0 15px;
+    }
+}
+
+/*Menu lateral */
+#side-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 400px; /* Ajuste conforme necessário */
+    height: 101%; /* Garante que o menu ocupe toda a altura da tela */
+    background-color: #000; /* Fundo preto */
+    color: #fff; /* Texto branco */
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 1000; /* Certifique-se de que o menu está acima do conteúdo */
+    overflow-y: auto; /* Permite rolar verticalmente */
+    overflow-x: hidden; /* Garante que não haja rolagem horizontal */
+    font-family: Arial, sans-serif;; /* Substitua 'SuaFonte' pela fonte usada no header */
+}
+#side-menu::-webkit-scrollbar {
+    width: 0; /* Oculta a barra de rolagem no Webkit (Chrome, Safari) */
+}
+
+#side-menu.active {
+    transform: translateX(0);
+}
+/* Botão de fechar */
+.close-menu-btn {
+    background: none;
+    border: none;
+    color: #fff; /* Cor do ícone de fechar */
+    font-size: 24px; /* Ajuste o tamanho conforme necessário */
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.menu-toggle {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background: #fffcfc;
+    color: #fff;
+    border: none;
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centraliza o texto horizontalmente */
+    padding: 15px;
+    color: white;
+    font-size: 24px; /* Ajuste o tamanho da fonte conforme necessário */
+    text-align: center; /* Centraliza o texto no cabeçalho */
+    background-color: #000000; /* Cor de fundo igual ao do menu lateral */
+}
+
+.menu-header .cine {
+    color: white; /* Cor branca para "CINE" */
+    margin-right: 10px; /* Espaço entre "CINE" e "Trailers" */
+}
+
+.menu-header .trailers {
+    color: red; /* Cor vermelha para "Trailers" */
+}
+
+/* Estilo dos itens do menu lateral */
+.menu-items {
+    list-style-type: none; /* Remove os marcadores da lista */
+    padding: 0; /* Remove o padding padrão */
+    margin: 0; /* Remove o margin padrão */
+    font-weight: bold; /* Deixa as letras em negrito */
+    text-transform: uppercase; /* Coloca as letras em maiúsculas */
+}
+
+/* Menu items */
+.menu-items li {
+    margin: 15px 0; /* Aumenta o espaçamento entre os itens do menu */
+}
+
+.menu-items a {
+    color: #fff; /* Texto dos links brancos */
+    text-decoration: none; /* Remove sublinhado dos links */
+    font-size: 18px; /* Aumenta o tamanho da fonte */
+    display: block;
+    padding: 10px 0 10px 20px; /* Adiciona padding à esquerda para mover o texto para a direita */
+    transition: color 0.3s ease, transform 0.3s ease; /* Transição suave para a cor e o tamanho */
+}
+
+.menu-items a:hover {
+    color: #e50914; /* Cor vermelha ao passar o mouse */
+    transform: scale(1.03); /* Aumenta o tamanho do item ao passar o mouse */
+}
+
+
+/* Estiliza o botão para fechar o menu lateral */
+#close-menu {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 36px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+/* Estilo dos itens do menu lateral */
+#side-menu ul {
+    list-style: none; /* Remove a marcação de lista padrão */
+    padding: 0; /* Remove o padding padrão */
+    margin: 0; /* Remove a margem padrão */
+}
+#side-menu ul li {
+    padding: 7px; /* Adiciona padding para criar espaço ao redor do texto */
+}
+#side-menu li {
+    padding: 10px;
+}
+#side-menu a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+}
+#side-menu ul li a {
+    color: #fff; /* Cor do texto dos links */
+    text-decoration: none; /* Remove o sublinhado dos links */
+    display: block; /* Faz o link preencher o item do menu */
+}
+/* Estilo ao passar o mouse sobre os itens do menu lateral */
+#side-menu ul li a:hover {
+    color: #fd0707; /* Muda a cor do texto para vermelho */
+    background-color: transparent; /* Garante que o fundo não mude */
+}
+/* Estilo quando o tema claro está ativado */
+body.light-theme #side-menu {
+    background-color: #fff; /* Fundo branco */
+    color: #000; /* Texto preto */
+}
+
+body.light-theme #side-menu .close-menu-btn {
+    color: #000; /* Cor do ícone de fechar no tema claro */
+}
+
+body.light-theme #side-menu .menu-header {
+    background-color: #ffffff; /* Fundo claro do cabeçalho */
+}
+
+body.light-theme #side-menu .menu-header .cine {
+    color: #000; /* Cor preta para "CINE" */
+}
+
+body.light-theme #side-menu .menu-header .trailers {
+    color: #f00; /* Cor vermelha para "Trailers" */
+}
+
+body.light-theme #side-menu .menu-items a {
+    color: #000; /* Texto dos links pretos */
+}
+
+body.light-theme #side-menu .menu-items a:hover {
+    color: #e50914; /* Cor vermelha ao passar o mouse */
+}
+
+body.light-theme .social-icons {
+    color: #000; /* Cor preta dos ícones de redes sociais */
+}
+
+
+/* Estilo do fundo escurecido */
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Fundo do overlay um pouco mais escuro */
+    opacity: 0;
+    visibility: hidden; /* Inicialmente invisível */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 999; /* Overlay abaixo do menu lateral */
+}
+
+/* Mostrar o overlay quando estiver ativo */
+#overlay.active {
+    opacity: 1;
+}
+
+/* Estilização do botão de fechar o menu */
+.close-menu-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-color); /* Cor do ícone */
+}
+
+/* Adicione estilos adicionais para o tema escuro/claro */
+@media (prefers-color-scheme: dark) {
+    .language-selector label {
+        color: var(--text-color-dark);
+    }
+    .language-selector select {
+        border: 1px solid var(--border-color-dark);
+        background-color: var(--background-color-dark);
+        color: var(--text-color-dark);
+    }
+    .close-menu-btn {
+        color: var(--text-color-dark);
+    }
+}
+
+/* Definições de variáveis de cores para diferentes temas */
+:root {
+    --text-color: #333;
+    --border-color: #ccc;
+    --background-color: #fff;
+    --highlight-color: #007bff; /* Cor destacada */
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-color-dark: #e0e0e0;
+        --border-color-dark: #444;
+        --background-color-dark: #222;
+        --highlight-color-dark: #3399ff;
+    }
+}
+/* Contêiner dos ícones sociais */
+.social-icons {
+    margin-top: 50px; /* Espaçamento entre o menu e os ícones */
+    text-align: center; /* Centralizar os ícones no menu lateral */
+    margin-bottom: 30px;
+}
+
+/* Contêiner dos ícones sociais */
+.social-icons {
+    display: flex; /* Alinha os itens filhos (ícones) horizontalmente */
+    justify-content: center; /* Centraliza os ícones horizontalmente */
+    align-items: center; /* Alinha os ícones verticalmente */
+}
+
+
+/* Estilo dos ícones sociais */
+.social-icons a {
+    display: inline-block;
+    margin: 0 10px; /* Espaçamento entre os ícones */
+    font-size: 40px; /* Tamanho dos ícones */
+    color: #ffffff; /* Cor inicial dos ícones (branco para o tema escuro) */
+    background-color: #000000; /* Fundo preto ao redor dos ícones */
+    padding: 2px; /* Ajuste o padding para diminuir o fundo ao redor dos ícones */
+    border-radius: 0%; /* Mantém o fundo circular ao redor dos ícones */
+    transition: color 0.3s ease, background-color 0.3s ease; /* Transição suave */
+    width: 40px; /* Largura do fundo igual ao tamanho do ícone */
+    height: 40px; /* Altura do fundo igual ao tamanho do ícone */
+}
+
+/* Estilo dos ícones ao passar o mouse */
+.social-icons a:hover {
+    color: #c20808; /* Cor dos ícones ao passar o mouse */
+}
+
+/* Ajuste das cores para o tema claro */
+body[data-theme="light"] .social-icons a {
+    color: #000000; /* Cor dos ícones para o tema claro (preto) */
+    background-color: #ffffff; /* Fundo branco ao redor dos ícones */
+}
+
+/* Ajuste das cores para o tema escuro */
+body[data-theme="dark"] .social-icons a {
+    color: #ffffff; /* Cor dos ícones para o tema escuro (branco) */
+    background-color: #000000; /* Fundo preto ao redor dos ícones */
+}
+
+/* Estilo específico para a imagem com a classe original-size */
+.original-size {
+    width: auto; /* Mantém a largura original */
+    height: auto; /* Mantém a altura original */
+    max-width: 100%; /* Garante que a imagem não ultrapasse o tamanho do contêiner */
+    max-height: 100%; /* Garante que a imagem não ultrapasse a altura do contêiner */
+    display: block; /* Remove o espaço abaixo da imagem */
+    margin: 0 auto; /* Centraliza a imagem horizontalmente */
+}
+.original-size {
+    transform: scale(0.8); /* Reduz o tamanho da imagem para 80% do tamanho original */
+    transform-origin: center; /* Centraliza o ponto de transformação */
+    width: auto; /* Mantém a largura original após a transformação */
+    height: auto; /* Mantém a altura original após a transformação */
+    max-width: 100%; /* Garante que a imagem não ultrapasse o tamanho do contêiner */
+    display: block; /* Remove o espaço abaixo da imagem */
+    margin: 0 auto; /* Centraliza a imagem horizontalmente */
+}
+/* Estilo do ícone de pesquisa */
+#search-icon-container {
+    position: fixed;
+    top: 21px; /* Ajuste conforme necessário para o alinhamento vertical */
+    right: 35px; /* Ajusta a posição horizontal do ícone de pesquisa */
+    z-index: 1000; /* Garante que o ícone esteja acima de outros elementos */
+}
+
+#search-icon img {
+    width: 45px; /* Ajuste o tamanho do ícone de pesquisa conforme necessário */
+    height: auto;
+    cursor: pointer; /* Adiciona um cursor de ponteiro ao passar o mouse */
+}
+
+/* Estilos para o container da barra de pesquisa */
+#search-container {
+    position: fixed;
+    top: 0;
+    left: 60px; /* Deixa espaço para o botão de fechar no lado esquerdo */
+    right: 0; /* Ajusta a barra para ocupar o espaço restante até a borda direita da tela */
+    height: 70.50px; /* Ajusta a altura da barra de pesquisa conforme necessário */
+    display: flex;
+    align-items: center;
+    background-color: black; /* Cor de fundo padrão para o modo escuro */
+    z-index: 1000;
+    padding: 0 40px; /* Ajusta o espaçamento interno da barra */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s, visibility 0.3s; /* Remove transição de cor */
+    opacity: 0;
+    visibility: hidden;
+    box-sizing: border-box; /* Inclui padding e bordas no cálculo da largura e altura */
+}
+/* Adiciona estilos para o modo claro */
+body.light-theme #search-container {
+    background-color: rgb(255, 255, 255); /* Cor de fundo para o modo claro */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Ajuste de sombra para o modo claro */
+}
+
+body.light-theme #search-input {
+    border: 1px solid black; /* Borda preta para o campo de entrada no modo claro */
+    background-color: white; /* Fundo branco para o campo de entrada no modo claro */
+    color: black; /* Texto preto para o campo de entrada no modo claro */
+}
+
+body.light-theme #search-button {
+    background-color: #ff0000; /* Cor de fundo do botão no modo claro */
+    color: white; /* Cor do texto do botão no modo claro */
+}
+
+body.light-theme #search-button:hover {
+    background-color: #cc0000; /* Cor de fundo ao passar o mouse sobre o botão no modo claro */
+}
+
+
+/* Classe para mostrar a barra de pesquisa */
+#search-container.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Classe para esconder a barra de pesquisa */
+#search-container.hidden {
+    display: none;
+}
+
+/* Estilos para o campo de entrada */
+#search-input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 4px;
+    border: 1px solid white;
+    background-color: black;
+    color: white;
+    outline: none;
+    margin-right: 10px;
+}
+
+
+/* Estilos para o ícone de lupa dentro da barra de pesquisa */
+#search-submit-icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+#search-button {
+    background-color: #ff0000; /* Cor de fundo do botão */
+    border: none;              /* Remove a borda padrão do botão */
+    color: white;              /* Cor do texto do botão */
+    padding: 12px 20px;        /* Espaçamento interno do botão */
+    font-size: 16px;           /* Tamanho da fonte do botão */
+    cursor: pointer;           /* Muda o cursor para uma mãozinha ao passar por cima */
+    border-radius: 4px;        /* Bordas arredondadas do botão */
+}
+
+#search-button:hover {
+    background-color: #cc0000; /* Cor de fundo ao passar o mouse sobre o botão */
+}
+/* Estilo para o botão de fechar */
+.close-button {
+    position: fixed; /* Fixa o botão fora da barra de pesquisa */
+    top: 0; /* Alinha ao topo do header */
+    left: 0; /* Alinha ao lado esquerdo do header */
+    width: 100px; /* Ajusta a largura do botão */
+    height: 70.50px; /* Ajusta a altura do botão */
+    background-color: black; /* Fundo preto para o botão */
+    color: white; /* Cor do texto */
+    border: none; /* Remove borda */
+    font-size: 60px; /* Tamanho do ícone */
+    cursor: pointer; /* Muda o cursor ao passar por cima */
+    z-index: 1001; /* Garante que o botão esteja acima da barra */
+    display: flex;
+    align-items: center; /* Centraliza o ícone verticalmente */
+    justify-content: center; /* Centraliza o ícone horizontalmente */
+}
+
+/* Estilo do ícone dentro do botão de fechar */
+.close-button::before {
+    content: ''; /* Utiliza o caractere de multiplicação para o ícone de fechar */
+}
+
+/* Estilos para o header quando a barra de pesquisa está visível */
+header.search-active {
+    border-bottom: 5px solid black; /* Adiciona uma borda preta na parte inferior do header */
+}
+/* Adiciona estilos para o botão de fechar no modo claro */
+body.light-theme .close-button {
+    background-color: white; /* Fundo branco para o botão no modo claro */
+    color: black; /* Cor do texto no modo claro */
+}
+
+/* Estilos para o header quando a barra de pesquisa está visível */
+header.search-active {
+    border-bottom: 5px solid black; /* Adiciona uma borda preta na parte inferior do header */
+}
+
+/* Adiciona borda do header no modo claro */
+body.light-theme header.search-active {
+    border-bottom: 5px solid white; /* Adiciona uma borda branca na parte inferior do header no modo claro */
+}
+/* Container do botão de troca de tema */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centraliza o botão */
+    gap: 10px; /* Espaçamento entre o texto e o botão */
+    margin: 20px 0; /* Espaçamento superior e inferior */
+    font-family: 'Roboto', sans-serif; /* Aplica a fonte Roboto */
+}
+
+/* Tema claro */
+body.light-theme #theme-toggle {
+    color: black; /* Cor do texto no tema claro */
+}
+
+/* Tema escuro */
+body.dark-theme #theme-toggle {
+    color: white; /* Cor do texto no tema escuro */
+}
+/* Estilo do botão toggle */
+.theme-toggle > input {
+    display: none;
+}
+
+.theme-toggle > label {
+    position: relative;
+    display: block;
+    height: 34px; /* Ajuste conforme necessário */
+    width: 70px;  /* Ajuste conforme necessário */
+    background: #fff; /* Fundo branco por padrão */
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.theme-toggle > label .slider {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #000; /* Bolinha preta por padrão */
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.05);
+    content: '';
+    transition: all 0.3s ease;
+}
+
+/* Estilos quando o botão está ativado (tema claro) */
+.theme-toggle > input:checked ~ label {
+    background-color: #000; /* Fundo preto para tema claro */
+    border-color: #000;
+}
+
+.theme-toggle > input:checked ~ label .slider {
+    left: calc(100% - 34px); /* Desloca a bolinha para a direita */
+    background: #fff; /* Bolinha branca para tema claro */
+}
+
+/* Estilo para quando o botão está desativado (tema escuro) */
+.theme-toggle > input:disabled ~ label {
+    background-color: #d5d5d5;
+    pointer-events: none;
+}
+
+.theme-toggle > input:disabled ~ label .slider {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+
+#theme-toggle.light-theme {
+    background-color: #ccc;
+    color: #000;
+}

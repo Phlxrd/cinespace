@@ -197,3 +197,17 @@ CSRF_COOKIE_SECURE = False  # Temporariamente desative para testes locais
 
 # Chave de criptografia (armazenada em variável de ambiente)
 ENCRYPTION_KEY = os.getenv('ENCRYPTION_KEY', Fernet.generate_key().decode())
+
+import dj_database_url
+import os
+
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+
+ALLOWED_HOSTS = ['*']
+
+DATABASES = {
+    'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
+}
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

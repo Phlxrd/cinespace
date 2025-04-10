@@ -22,3 +22,5 @@ services:
         value: oficialcinespace@gmail.com
       - key: ENCRYPTION_KEY
         value: sua-chave-do-Fernet
+
+        

@@ -32,3 +32,6 @@ urlpatterns = [
     path('buscar-recomendacoes/', buscar_recomendacoes, name='buscar_recomendacoes'),
     path('buscar-albuns-customizados/',buscar_albuns_customizados, name='buscar_albuns_customizados'), #nova url
 ]
+
+if settings.DEBUG or settings.ENVIRONMENT == "production":
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

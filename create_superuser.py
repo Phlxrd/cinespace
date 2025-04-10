@@ -4,9 +4,8 @@ User = get_user_model()
 username = "admin"
 email = "admin@admin.com"
 password = "admin123"
-
-if not User.objects.filter(username=username).exists():
-    User.objects.create_superuser(username=username, email=email, password=password)
-    print("Superusuário criado com sucesso!")
-else:
-    print("Superusuário já existe.")
+if os.environ.get('RUN_CREATE_SUPERUSER') == 'True':
+    try:
+        exec(open(os.path.join(BASE_DIR, 'create_superuser.py')).read())
+    except Exception as e:
+        print(f"Erro ao criar superusuário: {e}")

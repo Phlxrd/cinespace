@@ -6,7 +6,10 @@ services:
       pip install -r requirements.txt
       python manage.py collectstatic --noinput
       python manage.py migrate --noinput
-    startCommand: gunicorn cinespace.wsgi:application
+startCommand: |
+  python manage.py migrate --noinput
+  gunicorn cinespace.wsgi:application
+
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: cinespace.settings
@@ -22,5 +25,5 @@ services:
         value: oficialcinespace@gmail.com
       - key: ENCRYPTION_KEY
         value: sua-chave-do-Fernet
-
-        
+      - key: RUN_CREATE_SUPERUSER
+        value: True

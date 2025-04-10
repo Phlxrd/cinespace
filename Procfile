@@ -1,1 +1,1 @@
-web: gunicorn cinespace.wsgi --log-file -
+web: gunicorn cinespace.wsgi

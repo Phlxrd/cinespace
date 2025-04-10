@@ -1,88 +1,179 @@
-from django.urls import path
-from . import views  # Views locais do app atual
-from django.contrib.auth import views as auth_views
-from django.conf import settings
-from django.conf.urls.static import static
-from .views import verificar_email
-from .views import CustomPasswordResetView, CustomPasswordResetDoneView, CustomPasswordResetConfirmView, CustomPasswordResetCompleteView
-from django.urls import path, include, reverse_lazy  # Importe reverse_lazy
-from reproducao.views import salvar_progresso
-from pesquisa.views import *
-from spacemusic.views import *
-from spacebot.views import *
+import os
+import mimetypes
+from pathlib import Path
+from cryptography.fernet import Fernet
+import dj_database_url
+import pymysql
 
+# MySQL para uso local
+pymysql.install_as_MySQLdb()
 
-urlpatterns = [
-    path('', views.index, name='index'),  # Página inicial
-    path('paginacadastro/', views.etapa1_cadastro, name='paginacadastro'),  # Cadastro (Etapa 1)
-    path('verificar-email/', verificar_email, name='verificar_email'),
-    path('etapa2_cadastro/', views.etapa2_cadastro, name='etapa2_cadastro'),  # Etapa 2: Escolher plano
-    path('etapa3_cadastro/', views.etapa3_cadastro, name='etapa3_cadastro'),  # Etapa 3: Forma de pagamento
-    path('paginalogin/', views.paginalogin, name='paginalogin'),  # Login
-    path('cinetrailers/', views.cinetrailers, name='cinetrailers'),  # Página CineTrailers
-    path('sobreacinetrailers/', views.sobrecinetrailers, name='sobreacinetrailers'),  # Sobre CineTrailers
-    path('sobremim/', views.sobre_mim, name='sobremim'),  # Sobre o criador
-    path('series/', views.series, name='series'),  # Séries
-    path('favoritos/', views.favoritos, name='favoritos'),  # Séries
-    path('lancamentos/', views.lancamentos, name='lancamentos'),  # Lançamentos
-    path('entrar_contato/', views.entrar_contato, name='entrar_contato'),  # Contato
-    path('filmes/', views.filmes, name='filmes'),  # Filmes
-    path('doramas/', views.doramas, name='doramas'),  # Doramas
-    path('esportes/', views.esportes, name='esportes'),  # esportes
-    path('animes/', views.animes, name='animes'),  # Animes
-    path('logout/', views.logout_view, name='logout'),  # Logout personalizado
-    path('escolherusuario/', views.escolherusuario, name='escolherusuario'),  # Escolher usuário
-    path('escolherplataforma/', views.escolherplataforma, name='escolherplataforma'),  # Escolher usuário
-    path('registrar-dispositivo/', views.registrar_dispositivo, name='registrar_dispositivo'),
-    path('remover-dispositivo/<int:dispositivo_id>/', views.remover_dispositivo, name='remover_dispositivo'),
-    # Corrigindo as rotas para gerenciar perfis
-    path('gerenciar_perfis/', views.gerenciar_perfis, name='gerenciar_perfis'),  # Rota para gerenciar perfis
-    path('gerenciarperfil/', views.gerenciar_perfis, name='gerenciarperfil'),  # Outra rota para gerenciar perfis
-    path('selecionar_perfil/<int:perfil_id>/', views.selecionar_perfil, name='selecionar_perfil'),
-    path('adicionar_favorito/<int:perfil_id>/<int:conteudo_id>/',views.adicionar_favorito, name='adicionar_favorito'),
+# Corrige erro de mime type para CSS
+mimetypes.add_type("text/css", ".css", True)
 
+# Diretório base
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-    # Usando as views do app 'reproducao'
-    path('salvar-progresso/', salvar_progresso, name='salvar_progresso'),  # View do app 'reproducao'
-    path('criar_perfil/', views.criar_perfil, name='criar_perfil'),
-    path('gerenciar_perfis/', views.gerenciar_perfis, name='gerenciar_perfis'),
-    path('api/perfil/<int:perfil_id>/',views.perfil_detail, name='perfil_detail'),
+# Ambiente atual
+ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 
+# Chave secreta
+SECRET_KEY = os.getenv('SECRET_KEY', '-Nn<{P|;3dz&U_)Jh##9%l=SsO[[}Bjo.Ir}|?}#`xBMs``=C>')
 
+# Debug
+DEBUG = ENVIRONMENT == 'development'
 
+# Hosts permitidos
+ALLOWED_HOSTS = ['*'] if DEBUG else ['cinespace-f4v3.onrender.com']
 
-
-    
-
-    # URLs carrosel
-    path('cinetrailers/', views.carrossel_doramas, name='cinetrailers'),
-
-    # URLs para redefinição de senha
-    path('password_reset/', CustomPasswordResetView.as_view(), name='password_reset'),
-    path('password_reset/done/', CustomPasswordResetDoneView.as_view(), name='password_reset_done'),
-    path('reset/<uidb64>/<token>/', CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-    path('reset/done/', CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
-    path('verificar-email-reset/',views.verificar_email_reset, name='verificar_email_reset'),
-
-
-    # URLs para as páginas de controle do usuário
-    path('ajuda/', views.ajuda, name='ajuda'),
-    path('assinaturas/', views.assinaturas, name='assinaturas'),
-    path('configuracoes/', views.configuracoes, name='configuracoes'),
-    path('conta/', views.conta, name='conta'),
-    path('gerenciar-dispositivos/', views.gerenciar_dispositivos, name='gerenciar_dispositivos'),
-    path("editar-nome-usuario/", views.editar_nome_usuario, name="editar_nome_usuario"),
-    path("editar-senha/", views.editar_senha, name="editar_senha"),
-    path('filmes/vingadores-ultimato/', views.vingadores_ultimato, name='vingadores-ultimato'),
-    path('series/thelastofus/',views.the_last_of_us, name='thelastofus'),
-    path('filmes/bad-boys-4/', views.bad_boys4, name='bad-boys-4'),
-    path('painel-musica-admin/', painel_musica_admin, name='painel_musica_admin'),
-
-
-
-
+# Aplicativos
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'contas',
+    'pesquisa',
+    'django_extensions',
+    'reproducao',
+    'spacemusic',
+    'spacebot',
 ]
 
-# Adiciona a configuração para servir arquivos de mídia durante o desenvolvimento
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Middlewares
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # WhiteNoise para arquivos estáticos
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'contas.middleware.PerfilMiddleware',
+]
+
+# URLs
+ROOT_URLCONF = 'cinespace.urls'
+LOGIN_URL = 'paginalogin'
+
+# Templates
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates'],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+# WSGI
+WSGI_APPLICATION = 'cinespace.wsgi.application'
+
+# Banco de Dados
+if ENVIRONMENT == 'production':
+    DATABASES = {
+        'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'cinespace',
+            'USER': 'root',
+            'PASSWORD': 'root',
+            'HOST': 'localhost',
+            'PORT': '3306',
+            'OPTIONS': {
+                'ssl': {'ca': None},
+            },
+        }
+    }
+
+# Caminho do GeoIP
+GEOIP_PATH = BASE_DIR / 'geoip'
+
+# Validação de senha
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {'min_length': 8},
+    },
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+]
+
+# Usuário customizado e autenticação
+AUTH_USER_MODEL = 'contas.Usuario'
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'contas.backends.PersonalizadoBackend',
+)
+
+# Internacionalização
+LANGUAGE_CODE = 'pt-br'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True
+
+# Arquivos estáticos
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+    BASE_DIR / 'pesquisa',
+    BASE_DIR / 'contas',
+    BASE_DIR / 'spacemusic',
+    BASE_DIR / 'reproducao',
+]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Arquivos de mídia
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# E-mail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'oficialcinespace@gmail.com')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', 'eqxb suep grwj byzj')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'oficialcinespace@gmail.com')
+
+# Sessões
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_AGE = 3600
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
+
+# Chave de criptografia
+ENCRYPTION_KEY = os.getenv('ENCRYPTION_KEY', Fernet.generate_key().decode())
+
+# Log
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+    },
+}
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

@@ -32,6 +32,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Dispositivo, Usuario
 import platform  
+from django.http import HttpResponse
+from django.contrib.auth import get_user_model
 
 
 # Configuração de logger
@@ -990,7 +992,15 @@ def carrossel_doramas(request):
         }
         return render(request, 'cinetrailers.html', context)
     
+def criar_admin_temporario(request):
+    if request.META.get('REMOTE_ADDR') != 'seu_ip_pessoal':  # proteção mínima
+        return HttpResponse('Não autorizado', status=403)
 
+    User = get_user_model()
+    if not User.objects.filter(username='admin').exists():
+        User.objects.create_superuser('admin', 'admin@admin.com', 'admin123')
+        return HttpResponse('Superusuário criado com sucesso')
+    return HttpResponse('Superusuário já existe')
 
 
 
